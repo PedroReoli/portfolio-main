@@ -1,13 +1,7 @@
-"use client"
-
-import { useEffect } from "react"
+import PortfolioTemplate from "./components/templates/PortfolioTemplate"
 
 const App = () => {
-  useEffect(() => {
-    window.location.href = "https://pedroreoli.vercel.app/"
-  }, [])
-
-  return null
+  return <PortfolioTemplate />
 }
 
 export default App

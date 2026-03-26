@@ -62,14 +62,18 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Cosmic theme colors
+        // Cosmic theme colors replaced with Zinc/Slate for Taste-Skill
         cosmic: {
-          bg: "#0F172A",
-          card: "#1E293B",
-          text: "#94A3B8",
-          accent: "#60A5FA",
-          border: "#334155",
+          bg: "#09090b", // zinc-950
+          card: "#18181b", // zinc-900
+          text: "#a1a1aa", // zinc-400
+          accent: "#ffffff",
+          border: "rgba(255,255,255,0.1)",
         },
+      },
+      fontFamily: {
+        sans: ["Outfit", "system-ui", "sans-serif"],
+        mono: ["Space Mono", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -77,10 +81,9 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "radial-vignette": "radial-gradient(circle, transparent 50%, rgba(10, 17, 32, 0.4) 100%)",
-        "network-gradient": "linear-gradient(to bottom, #0A1120, #0F172A, #0A1120)",
-        "network-glow":
-          "radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 80%)",
+        "radial-vignette": "radial-gradient(circle, transparent 50%, rgba(9, 9, 11, 0.8) 100%)",
+        "network-gradient": "linear-gradient(to bottom, #09090b, #18181b, #09090b)",
+        "network-glow": "radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 80%)",
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
