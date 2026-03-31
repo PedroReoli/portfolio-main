@@ -2,13 +2,15 @@ import { education, experiences, languages, profile, skills } from "../../data/p
 import FooterSection from "../organisms/FooterSection"
 import Header from "../organisms/Header"
 import HeroVideoScroll from "../organisms/HeroVideoScroll"
-import VideoScrubSection from "../organisms/VideoScrubSection"
 import SkillsSection from "../organisms/SkillsSection"
 import SummarySection from "../organisms/SummarySection"
+import ProjectsSection from "../organisms/ProjectsSection"
 import ExperienceSection from "../organisms/ExperienceSection"
+import StackedSection from "../organisms/StackedSection"
 
 const navigation = [
   { label: "Resumo", href: "#resumo" },
+  { label: "Projetos", href: "#projetos" },
   { label: "Expertise", href: "#competencias" },
   { label: "Experiência", href: "#experiencia" },
   { label: "Formação", href: "#formacao" },
@@ -17,35 +19,48 @@ const navigation = [
 
 const PortfolioTemplate = () => {
   return (
-    <main className="site-shell bg-[#09090b]">
-      <Header name={profile.name} role={profile.role} navigation={navigation} />
+    <main className="site-shell bg-[#0a0a0a] relative">
+      <Header navigation={navigation} />
 
-      <HeroVideoScroll
-        role={profile.role}
-        email={profile.email}
-        linkedin={profile.linkedin}
-        github={profile.github}
-        website={profile.website}
-      />
+      <StackedSection index={0} total={6}>
+        <HeroVideoScroll
+          role={profile.role}
+          email={profile.email}
+          linkedin={profile.linkedin}
+          github={profile.github}
+          website={profile.website}
+        />
+      </StackedSection>
 
-      <VideoScrubSection />
+      <StackedSection index={1} total={6}>
+        <SummarySection summary={profile.summary} />
+      </StackedSection>
 
-      <SummarySection summary={profile.summary} />
+      <StackedSection index={2} total={6}>
+        <ProjectsSection />
+      </StackedSection>
 
-      <SkillsSection skills={skills} />
-      <ExperienceSection experiences={experiences} />
+      <StackedSection index={3} total={6}>
+        <SkillsSection skills={skills} />
+      </StackedSection>
 
-      <FooterSection
-        degree={education.degree}
-        institution={education.institution}
-        period={education.period}
-        languages={languages}
-        email={profile.email}
-        phoneHref={profile.phoneHref}
-        phoneLabel={profile.phoneLabel}
-        linkedin={profile.linkedin}
-        github={profile.github}
-      />
+      <StackedSection index={4} total={6}>
+        <ExperienceSection experiences={experiences} />
+      </StackedSection>
+
+      <StackedSection index={5} total={6}>
+        <FooterSection
+          degree={education.degree}
+          institution={education.institution}
+          period={education.period}
+          languages={languages}
+          email={profile.email}
+          phoneHref={profile.phoneHref}
+          phoneLabel={profile.phoneLabel}
+          linkedin={profile.linkedin}
+          github={profile.github}
+        />
+      </StackedSection>
     </main>
   )
 }

@@ -3,7 +3,7 @@ export const profile = {
   role: "Full Stack Software Engineer | Frontend Specialist",
   email: "pedrosousa2160@gmail.com",
   phoneLabel: "+55 (24) 9932-64040",
-  phoneHref: "tel:+5524993264040",
+  phoneHref: "https://wa.me/5524993264040",
   location: "Volta Redonda, RJ",
   website: "https://pedroreoli.vercel.app/",
   linkedin: "https://www.linkedin.com/in/pedro-lucas-reis-a93945171/",

@@ -20,7 +20,7 @@ const SummarySection = ({ summary }: SummarySectionProps) => {
           className="relative w-full aspect-[3/4] rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/50 shadow-2xl shadow-black/50"
         >
           <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] z-10 rounded-2xl md:rounded-3xl pointer-events-none" />
-          <img src="/eu-pro.png" alt="Pedro Reis" className="w-full h-full object-cover object-top" />
+          <img src="/eu-profissional.png" alt="Pedro Reis" className="w-full h-full object-cover object-top" />
         </motion.div>
 
         <div className="flex flex-col justify-center space-y-6">

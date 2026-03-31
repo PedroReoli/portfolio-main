@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 :root {
   color: #fafafa;
-  background: #09090b;
+  background: #0a0a0a;
   font-family: "Outfit", "Segoe UI", system-ui, sans-serif;
   line-height: 1.5;
   font-synthesis: none;
@@ -18,8 +18,8 @@
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);
   --text-soft: rgba(161, 161, 170, 0.9);
-  --accent: #ffffff;
-  --accent-soft: rgba(255, 255, 255, 0.1);
+  --accent: #cef441;
+  --accent-soft: rgba(206, 244, 65, 0.1);
 }
 
 * {
@@ -855,5 +855,15 @@ textarea {
   .skill-badge,
   .site-cursor {
     transition: none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 }
