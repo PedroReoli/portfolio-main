@@ -6,7 +6,6 @@ import SkillsSection from "../organisms/SkillsSection"
 import SummarySection from "../organisms/SummarySection"
 import ProjectsSection from "../organisms/ProjectsSection"
 import ExperienceSection from "../organisms/ExperienceSection"
-import StackedSection from "../organisms/StackedSection"
 
 const navigation = [
   { label: "Resumo", href: "#resumo" },
@@ -22,45 +21,33 @@ const PortfolioTemplate = () => {
     <main className="site-shell bg-[#0a0a0a] relative">
       <Header navigation={navigation} />
 
-      <StackedSection index={0} total={6}>
-        <HeroVideoScroll
-          role={profile.role}
-          email={profile.email}
-          linkedin={profile.linkedin}
-          github={profile.github}
-          website={profile.website}
-        />
-      </StackedSection>
+      <HeroVideoScroll
+        role={profile.role}
+        email={profile.email}
+        linkedin={profile.linkedin}
+        github={profile.github}
+        website={profile.website}
+      />
 
-      <StackedSection index={1} total={6}>
-        <SummarySection summary={profile.summary} />
-      </StackedSection>
+      <SummarySection summary={profile.summary} />
 
-      <StackedSection index={2} total={6}>
-        <ProjectsSection />
-      </StackedSection>
+      <ProjectsSection />
 
-      <StackedSection index={3} total={6}>
-        <SkillsSection skills={skills} />
-      </StackedSection>
+      <SkillsSection skills={skills} />
 
-      <StackedSection index={4} total={6}>
-        <ExperienceSection experiences={experiences} />
-      </StackedSection>
+      <ExperienceSection experiences={experiences} />
 
-      <StackedSection index={5} total={6}>
-        <FooterSection
-          degree={education.degree}
-          institution={education.institution}
-          period={education.period}
-          languages={languages}
-          email={profile.email}
-          phoneHref={profile.phoneHref}
-          phoneLabel={profile.phoneLabel}
-          linkedin={profile.linkedin}
-          github={profile.github}
-        />
-      </StackedSection>
+      <FooterSection
+        degree={education.degree}
+        institution={education.institution}
+        period={education.period}
+        languages={languages}
+        email={profile.email}
+        phoneHref={profile.phoneHref}
+        phoneLabel={profile.phoneLabel}
+        linkedin={profile.linkedin}
+        github={profile.github}
+      />
     </main>
   )
 }

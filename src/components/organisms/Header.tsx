@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Home, User, Briefcase, Layers, Mail, Menu, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Home, User, Briefcase, Layers, Mail, Code2, Trophy } from "lucide-react"
 
 type HeaderProps = {
   navigation: readonly { label: string; href: string }[]
@@ -8,96 +8,70 @@ type HeaderProps = {
 const mapIcon = (label: string) => {
   switch(label.toLowerCase()) {
     case 'resumo': return User;
-    case 'projetos': return Briefcase;
+    case 'projetos': return Code2;
+    case 'experiência': return Trophy;
     case 'expertise': return Layers;
-    case 'experiência': return Briefcase;
-    case 'formação': return Layers;
+    case 'formação': return Briefcase;
     case 'contato': return Mail;
     default: return Home;
   }
 }
 
 const Header = ({ navigation }: HeaderProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [activeHash, setActiveHash] = useState("#home")
 
-  // Top navigation for Mobile
+  useEffect(() => {
+    // Simple scroll spy logic mapping each section's offset
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const sections = ["home", ...navigation.map(n => n.href.replace('#', ''))]
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i])
+        if (el && scrollY >= el.offsetTop - 300) {
+          setActiveHash(`#${sections[i]}`)
+          break
+        }
+      }
+    }
+    
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [navigation])
+
+  const navItems = [{ label: "Home", href: "#home" }, ...navigation]
+
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-end p-6 md:hidden">
-        <button 
-          className="text-white z-50 p-3 bg-[#0a0a0a]/80 backdrop-blur-md rounded-full border border-white/10 active:scale-90 transition-transform"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </header>
+    <div className="fixed bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 z-[100] px-4">
+      <nav className="flex items-center gap-1 sm:gap-2 bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 p-2 lg:p-2.5 rounded-full shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+        
+        {navItems.map((item) => {
+          const Icon = item.href === "#home" ? Home : mapIcon(item.label)
+          const isActive = activeHash === item.href
 
-      {/* Floating Pill Navigation for Desktop/Tablet */}
-      <div className="hidden md:block fixed bottom-8 left-1/2 -translate-x-1/2 z-[100]">
-        <nav className="flex items-center bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 p-1.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
-          <a
-            href="#home"
-            className="group relative flex items-center justify-center p-3 sm:px-5 sm:py-3 rounded-full text-zinc-500 hover:text-[#cef441] hover:bg-white/5 transition-all outline-none"
-          >
-            <Home size={20} className="sm:hidden" />
-            <span className="hidden sm:block text-xs font-bold uppercase tracking-widest">Home</span>
-          </a>
-          
-          <div className="w-[1px] h-6 bg-white/10 mx-1"></div>
-
-          {navigation.map((item) => {
-            const Icon = mapIcon(item.label)
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                aria-label={item.label}
-                className="group relative flex items-center justify-center p-3 sm:px-5 sm:py-3 rounded-full text-zinc-500 hover:text-[#cef441] hover:bg-white/5 transition-all outline-none"
-              >
-                <Icon size={20} className="sm:hidden" />
-                <span className="hidden sm:block text-xs font-bold uppercase tracking-widest">{item.label}</span>
-                
-                {/* Tooltip for Mobile actually it is hidden on desktop anyway */}
-                <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform origin-bottom bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 rounded-lg whitespace-nowrap shadow-xl pointer-events-none sm:hidden">
-                  {item.label}
-                </span>
-              </a>
-            )
-          })}
-        </nav>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-40 transition-all duration-500 ease-[0.22,1,0.36,1] flex flex-col items-center justify-center gap-8 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div 
-          className={`flex flex-col items-center gap-8 transition-transform duration-500 delay-100 ${
-            isOpen ? 'translate-y-0 scale-100' : 'translate-y-12 scale-95'
-          }`}
-        >
-          <a 
-            href="#home"
-            onClick={() => setIsOpen(false)}
-            className="text-2xl font-black uppercase tracking-widest text-[#cef441] transition-transform active:scale-95"
-          >
-            Home
-          </a>
-          {navigation.map((item) => (
-            <a 
-              key={item.href} 
+          return (
+            <a
+              key={item.href}
               href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="text-2xl font-black uppercase tracking-widest text-zinc-400 hover:text-white transition-colors active:scale-95"
+              aria-label={item.label}
+              className={`group relative flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full transition-all outline-none ${
+                isActive 
+                  ? "bg-[#cef441] text-black shadow-[0_0_20px_rgba(206,244,65,0.4)]" 
+                  : "bg-transparent text-zinc-500 hover:text-white"
+              }`}
             >
-              {item.label}
+              <Icon size={isActive ? 20 : 22} strokeWidth={isActive ? 2.5 : 1.5} />
+              
+              {/* Tooltip */}
+              <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform origin-bottom bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 rounded-md whitespace-nowrap shadow-xl pointer-events-none">
+                {item.label}
+              </span>
             </a>
-          ))}
-        </div>
-      </div>
-    </>
+          )
+        })}
+      </nav>
+    </div>
   )
 }
 
