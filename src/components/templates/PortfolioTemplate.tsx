@@ -66,6 +66,7 @@ const PortfolioTemplate = () => {
       />
 
       <FooterSection
+        lang={lang}
         degree={data.education.degree}
         institution={data.education.institution}
         period={data.education.period}
