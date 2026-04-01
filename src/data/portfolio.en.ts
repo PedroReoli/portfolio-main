@@ -18,7 +18,7 @@ export const profile = {
 export const highlights = [
   {
     label: "Main Focus",
-    value: "Frontend architecture",
+    value: "Frontend",
     description: "React, Next.js, performance and scalable systems.",
   },
   {

@@ -10,18 +10,30 @@ type HeroSectionProps = {
   website: string
 }
 
-export default function HeroVideoScroll({ email }: HeroSectionProps) {
-  const [time, setTime] = useState<string>("")
-
+const LocalTime = ({ format = "full" }: { format?: "full" | "timeOnly" | "short" }) => {
+  const [timeStr, setTimeStr] = useState<string>("")
+  
   useEffect(() => {
     const updateTime = () => {
       const now = new Date()
-      setTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }) + " BRT")
+      const t = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })
+      if (format === "full") {
+        setTimeStr(t + " BRT")
+      } else if (format === "short") {
+        setTimeStr(t.split(' ')[0])
+      } else {
+        setTimeStr(t)
+      }
     }
     updateTime()
     const int = setInterval(updateTime, 1000)
     return () => clearInterval(int)
-  }, [])
+  }, [format])
+
+  return <>{timeStr}</>
+}
+
+export default function HeroVideoScroll({ email }: HeroSectionProps) {
 
   return (
     <section className="relative w-full min-h-[100svh] bg-[#0a0a0a] flex items-center justify-center overflow-hidden" id="home">
@@ -40,30 +52,28 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
       {/* Bottom Corners */}
       <div className="absolute bottom-8 left-8 z-30 hidden sm:flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-[#cef441] animate-pulse"></span>
-        <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">VR, RJ / {time}</span>
+        <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">VR, RJ / <LocalTime /></span>
       </div>
       <div className="absolute bottom-8 right-8 z-30 hidden sm:block">
-        <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">LOCAL / {time.split(' ')[0]}</span>
+        <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest">LOCAL / <LocalTime format="short" /></span>
       </div>
 
       {/* Huge Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col items-center pointer-events-none select-none z-0">
         <motion.h1 
-          initial={{ color: "#ffffff", opacity: 1, scale: 1.05 }}
-          animate={{ color: "transparent", opacity: 0.2, scale: 0.95 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+          animate={{ opacity: [0, 0, 1, 1, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", times: [0, 0.45, 0.55, 0.95, 1] }}
           style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}
-          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-center w-[120%] whitespace-nowrap"
+          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase text-transparent leading-[0.85] text-center w-[120%] whitespace-nowrap"
         >
           FRONTEND
         </motion.h1>
         
         <motion.h1 
-          initial={{ color: "#ffffff", opacity: 1, scale: 1.05 }}
-          animate={{ color: "transparent", opacity: 0.2, scale: 0.95 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+          animate={{ opacity: [0, 0, 1, 1, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", times: [0, 0.45, 0.55, 0.95, 1] }}
           style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}
-          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-center w-[120%] whitespace-nowrap mt-4"
+          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase text-transparent leading-[0.85] text-center w-[120%] whitespace-nowrap mt-4"
         >
           BACKEND
         </motion.h1>
@@ -74,18 +84,16 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
         {/* Layer 1: Typography Block */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 w-full h-full pb-10 sm:pb-20">
           <motion.h2 
-            initial={{ opacity: 0, scale: 1.1, filter: "blur(5px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+            animate={{ opacity: [1, 1, 0, 0, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", times: [0, 0.45, 0.55, 0.95, 1] }}
             className="text-[17vw] sm:text-[13vw] font-black tracking-tighter uppercase text-zinc-300 leading-[0.85] whitespace-nowrap"
           >
             PEDRO
           </motion.h2>
 
           <motion.h2 
-            initial={{ opacity: 0, scale: 1.1, filter: "blur(5px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
+            animate={{ opacity: [1, 1, 0, 0, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", times: [0, 0.45, 0.55, 0.95, 1] }}
             className="text-[17vw] sm:text-[13vw] font-black tracking-tighter uppercase text-transparent leading-[0.85] whitespace-nowrap" 
             style={{ WebkitTextStroke: "2px #cef441" }}
           >
@@ -95,15 +103,16 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
 
         {/* Layer 2: Center Portrait Image overlapping text */}
         <motion.div 
-          initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(5px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.6 }}
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
           className="relative z-20 w-[360px] h-[480px] sm:w-[550px] sm:h-[700px] lg:w-[650px] lg:h-[850px] grayscale transition-all duration-700 mx-auto mt-24 sm:mt-32 lg:mt-32"
         >
           <img 
             src="/eu-profissional.png" 
             alt="Pedro Lucas Reis" 
-            className="w-full h-full object-cover object-top hover:grayscale-0 transition-all duration-700" 
+            decoding="async"
+            className="w-full h-full object-cover object-top hover:grayscale-0 transition-all duration-500" 
             style={{ WebkitMaskImage: "linear-gradient(to bottom, black 65%, transparent 100%)", maskImage: "linear-gradient(to bottom, black 65%, transparent 100%)" }} 
           />
         </motion.div>
@@ -111,9 +120,9 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
 
       {/* Left Telemetry Card */}
       <motion.div 
-        initial={{ opacity: 0, x: -50 }}
+        initial={{ opacity: 0, x: -25 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
         className="absolute bottom-24 left-4 sm:top-1/2 sm:-translate-y-1/2 sm:left-12 z-40 flex flex-col gap-4 w-[240px]"
       >
         <div className="flex flex-col gap-3 border border-white/10 rounded-2xl p-4 sm:p-5 bg-black/40 backdrop-blur-xl">
@@ -131,7 +140,7 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
             </div>
             <div className="flex items-center gap-2 text-white/60">
               <Clock size={14} />
-              <span className="text-xs font-mono">{time}</span>
+              <span className="text-xs font-mono"><LocalTime /></span>
             </div>
           </div>
         </div>
@@ -144,9 +153,9 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
 
       {/* Right Tech Specs Card */}
       <motion.div 
-        initial={{ opacity: 0, x: 50 }}
+        initial={{ opacity: 0, x: 25 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
         className="hidden xl:flex absolute top-1/2 -translate-y-1/2 right-12 z-40 flex-col gap-4 w-[260px]"
       >
         <div className="flex flex-col gap-5 border border-white/10 rounded-2xl p-5 bg-black/40 backdrop-blur-xl">
@@ -170,7 +179,7 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: stat.val }}
-                    transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
                     className="h-full bg-[#cef441]"
                   />
                 </div>

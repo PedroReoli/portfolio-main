@@ -18,12 +18,12 @@ export const profile = {
 export const highlights = [
   {
     label: "Foco principal",
-    value: "Frontend architecture",
+    value: "Frontend",
     description: "React, Next.js, performance e sistemas escaláveis.",
   },
   {
     label: "Impacto comprovado",
-    value: "40% mais rápido",
+    value: "40% Performance",
     description: "Redução de tempo de carregamento em aplicações ERP.",
   },
   {

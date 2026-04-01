@@ -9,7 +9,7 @@ const projects = [
     href: "https://domusdev.com.br/",
     domain: "domusdev.com.br",
     category: "Full Stack",
-    description: "Plataforma de software focada em arquitetura moderna e desenvolvimento robusto.",
+    description: "Site institucional criado para uma software house especializada na criação de sistemas web sob medida. O projeto visa destacar os serviços, soluções de alta performance e excelência técnica no desenvolvimento.",
   },
   {
     id: "autocom3",
@@ -17,7 +17,7 @@ const projects = [
     href: "https://autocom3.com.br/",
     domain: "autocom3.com.br",
     category: "Software ERP",
-    description: "Sistema tecnológico escalável oferecendo grandes soluções voltadas para eficiência.",
+    description: "Site institucional criado para empresa especializada em sistemas ERP para o varejo. A estrutura foi planejada para apresentar soluções, módulos e diferenciais da plataforma de forma clara e objetiva.",
   },
   {
     id: "sivis",
@@ -25,7 +25,7 @@ const projects = [
     href: "https://sivis.com.br/",
     domain: "sivis.com.br",
     category: "Cloud Platform",
-    description: "Plataforma de alta performance desenvolvida com ecossistema em nuvem.",
+    description: "Site institucional criado para empresa especializada em sistemas de gestão para clubes. A estrutura foi pensada para apresentar soluções, diferenciais e módulos do sistema de forma clara e objetiva.",
   },
   {
     id: "nexusbrazil",
@@ -33,7 +33,7 @@ const projects = [
     href: "https://nexusbrazil.com.br/",
     domain: "nexusbrazil.com.br",
     category: "Corporate",
-    description: "Soluções integradas e inovação digital com foco corporativo.",
+    description: "Site institucional desenvolvido para empresa de proteção veicular. O projeto destaca planos, benefícios, cobertura e formas de adesão, com foco em confiança, acessibilidade e navegação intuitiva.",
   }
 ]
 
