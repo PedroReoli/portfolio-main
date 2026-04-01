@@ -1,5 +1,6 @@
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { useRef } from "react"
 
 const projects = [
   {
@@ -37,91 +38,88 @@ const projects = [
 ]
 
 export default function ProjectsSection() {
+  const targetRef = useRef<HTMLDivElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  })
+
+  // Horizontal translate value based on scroll progress. 
+  // Adjust the "-60%" to ensure the last item is fully visible at the end of scroll.
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"])
+
   return (
-    <section className="relative z-10 px-6 py-24 lg:py-32 max-w-[90rem] mx-auto min-h-screen flex flex-col justify-center" id="projetos">
-      <div className="mb-20 md:mb-32 flex flex-col items-center">
-        <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 text-center">Featured Work</h2>
-        <h3 className="text-[12vw] sm:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white leading-[0.85] text-center">
-          LATEST<br/><span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.4)" }}>PROJECTS</span>
-        </h3>
-      </div>
+    <section ref={targetRef} className="relative z-10 w-full h-[350vh] bg-[#0a0a0a]" id="projetos">
+      
+      {/* Sticky Container */}
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-20">
+        
+        {/* Fixed Title inside the sticky container */}
+        <div className="mb-10 md:mb-16 flex flex-col items-start px-6 max-w-[90rem] mx-auto w-full">
+          <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 text-left">Featured Work</h2>
+          <h3 className="text-[12vw] sm:text-7xl lg:text-[8rem] font-black tracking-tighter uppercase text-white leading-none pb-4 text-left">
+            LATEST<br/><span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}>PROJECTS</span>
+          </h3>
+        </div>
 
-      <div className="flex flex-col gap-32 lg:gap-48">
-        {projects.map((proj, idx) => (
-          <motion.div
-            key={proj.name}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="group flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 relative"
-          >
-            {/* Left side content */}
-            <div className="flex flex-col items-start w-full lg:w-1/2 order-2 lg:order-1 relative z-10">
-              <div className="flex items-center gap-3 sm:gap-4 mb-6 md:mb-10">
-                <span className="text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-[0.2em] font-mono border border-white/10 px-4 py-2 rounded-full">
-                  {proj.category}
-                </span>
-                <span className="text-[9px] sm:text-[10px] text-[#cef441] uppercase tracking-[0.2em] font-mono">
-                  {proj.domain}
-                </span>
-              </div>
-              
-              <h4 className="text-[10vw] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tighter italic leading-[0.9] text-white group-hover:text-[#cef441] transition-colors mb-6 md:mb-8">
-                {proj.name}
-              </h4>
-              
-              <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed max-w-xl mb-8 md:mb-12">
-                {proj.description}
-              </p>
-              
-              <a
-                href={proj.href}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-white/5 hover:bg-[#cef441] hover:text-black text-white rounded-full transition-all border border-white/10 hover:border-transparent font-bold uppercase tracking-widest text-[10px] sm:text-xs"
-              >
-                Visit Website
-                <ArrowUpRight size={18} />
-              </a>
-            </div>
-
-            {/* Right side circular image */}
-            <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
-              {/* Huge Number behind */}
-              <span className="absolute left-[5%] lg:left-[-15%] top-1/2 -translate-y-1/2 text-[15rem] lg:text-[20rem] font-black italic tracking-tighter text-transparent z-0 opacity-10 pointer-events-none select-none" style={{ WebkitTextStroke: "2px rgba(255,255,255,1)" }}>
-                0{idx + 1}
-              </span>
-              
+        {/* The Track that moves horizontally */}
+        <motion.div style={{ x }} className="flex gap-6 sm:gap-10 px-6 sm:px-12 md:px-24 xl:px-[calc((100vw-90rem)/2+1.5rem)] w-max pr-[20vw]">
+          {projects.map((proj, idx) => (
+            <div
+              key={proj.name}
+              className="group flex flex-col relative shrink-0 w-[85vw] md:w-[45vw] lg:w-[32vw] max-w-[450px] bg-[#111] border border-white/5 hover:border-[#cef441]/40 rounded-[2rem] overflow-hidden transition-colors select-none"
+            >
+              {/* Top Half: Image Container */}
               <a 
                 href={proj.href} 
                 target="_blank" 
                 rel="noreferrer"
-                className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden border border-white/10 group-hover:border-[#cef441]/50 shadow-2xl group-hover:scale-105 transition-all duration-700 block"
+                className="relative w-full h-[220px] sm:h-[260px] bg-zinc-900 border-b border-white/10 block overflow-hidden cursor-pointer"
               >
-                 {/* Gradient overlay */}
-                 <div className="absolute inset-0 bg-[#cef441]/0 group-hover:bg-[#cef441]/20 transition-colors duration-500 z-10" />
-                 
-                 {/* Center play/view button on hover */}
-                 <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-50 group-hover:scale-100">
-                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#cef441] text-black flex flex-col items-center justify-center font-bold uppercase tracking-widest text-[10px] shadow-[0_0_30px_rgba(206,244,65,0.4)]">
-                     <ArrowUpRight size={24} className="mb-1" />
-                     View
-                   </div>
-                 </div>
+                <div className="absolute inset-0 bg-[#cef441]/0 group-hover:bg-[#cef441]/10 transition-colors duration-500 z-10 pointer-events-none" />
+                
+                {/* Decorative Number */}
+                <span className="absolute left-6 top-6 text-6xl font-black italic tracking-tighter text-transparent z-30 opacity-30 select-none pointer-events-none" style={{ WebkitTextStroke: "1px rgba(255,255,255,1)" }}>
+                  0{idx + 1}
+                </span>
 
-                 {/* Actual Image */}
-                 <img 
-                   src={`/${proj.id}.jpg`} 
-                   alt={proj.name}
-                   className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                   loading="lazy"
-                 />
+                <img 
+                  src={`/${proj.id}.jpg`} 
+                  alt={proj.name}
+                  className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  loading="lazy"
+                />
               </a>
+
+              {/* Bottom Half: Content Info */}
+              <div className="flex flex-col items-start w-full p-6 sm:p-8 relative z-20">
+                <div className="flex items-center justify-between w-full mb-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[9px] text-zinc-500 uppercase tracking-[0.2em] font-mono border border-white/10 px-3 py-1.5 rounded-full">
+                      {proj.category}
+                    </span>
+                    <span className="text-[9px] text-[#cef441] uppercase tracking-[0.2em] font-mono">
+                      {proj.domain}
+                    </span>
+                  </div>
+                  
+                  <a href={proj.href} target="_blank" rel="noreferrer" className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-[#cef441] text-white group-hover:text-black transition-colors hover:scale-110">
+                    <ArrowUpRight size={18} />
+                  </a>
+                </div>
+                
+                <h4 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-black uppercase tracking-tighter italic leading-none text-white group-hover:text-[#cef441] transition-colors mb-4">
+                  {proj.name}
+                </h4>
+                
+                <p className="text-sm text-zinc-400 font-light leading-relaxed">
+                  {proj.description}
+                </p>
+              </div>
             </div>
-          </motion.div>
-        ))}
+          ))}
+        </motion.div>
       </div>
+      
     </section>
   )
 }

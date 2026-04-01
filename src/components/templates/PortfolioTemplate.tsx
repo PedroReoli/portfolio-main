@@ -1,4 +1,6 @@
-import { education, experiences, languages, profile, skills } from "../../data/portfolio"
+import { useState } from "react"
+import * as dbPT from "../../data/portfolio"
+import * as dbEN from "../../data/portfolio.en"
 import FooterSection from "../organisms/FooterSection"
 import Header from "../organisms/Header"
 import HeroVideoScroll from "../organisms/HeroVideoScroll"
@@ -7,46 +9,72 @@ import SummarySection from "../organisms/SummarySection"
 import ProjectsSection from "../organisms/ProjectsSection"
 import ExperienceSection from "../organisms/ExperienceSection"
 
-const navigation = [
-  { label: "Resumo", href: "#resumo" },
+const navPT = [
+  { label: "Sobre Mim", href: "#resumo" },
   { label: "Projetos", href: "#projetos" },
   { label: "Expertise", href: "#competencias" },
   { label: "Experiência", href: "#experiencia" },
-  { label: "Formação", href: "#formacao" },
   { label: "Contato", href: "#contato" },
 ] as const
 
+const navEN = [
+  { label: "About Me", href: "#resumo" },
+  { label: "Projects", href: "#projetos" },
+  { label: "Expertise", href: "#competencias" },
+  { label: "Experience", href: "#experiencia" },
+  { label: "Contact", href: "#contato" },
+] as const
+
 const PortfolioTemplate = () => {
+  const [lang, setLang] = useState<"pt" | "en">("en")
+  
+  const data = lang === "pt" ? dbPT : dbEN
+  const navigation = lang === "pt" ? navPT : navEN
+
   return (
     <main className="site-shell bg-[#0a0a0a] relative">
-      <Header navigation={navigation} />
-
-      <HeroVideoScroll
-        role={profile.role}
-        email={profile.email}
-        linkedin={profile.linkedin}
-        github={profile.github}
-        website={profile.website}
+      <Header 
+        navigation={navigation} 
+        lang={lang} 
+        toggleLang={() => setLang(l => l === "pt" ? "en" : "pt")} 
       />
 
-      <SummarySection summary={profile.summary} />
+      <HeroVideoScroll
+        role={data.profile.role}
+        email={data.profile.email}
+        linkedin={data.profile.linkedin}
+        github={data.profile.github}
+        website={data.profile.website}
+      />
 
-      <ProjectsSection />
+      <SummarySection 
+        title={lang === "pt" ? "Sobre Mim" : "About Me"} 
+        subtitle={lang === "pt" ? "Identidade / Missão" : "Identity / Mission"}
+        statement={lang === "pt" 
+          ? "ENGENHARIA DE SOFTWARE COM FOCO EM ESCALA, ARQUITETURA MODERNA E CONSTRUÇÃO DE PRODUTOS SÓLIDOS." 
+          : "SOFTWARE ENGINEERING FOCUSED ON SCALE, MODERN ARCHITECTURE, AND BUILDING SOLID PRODUCTS."}
+        summary={data.profile.summary}
+        stats={data.highlights} 
+      />
 
-      <SkillsSection skills={skills} />
+      <ProjectsSection /> {/* Project section data binding handles internally or can be skipped for now if static */}
 
-      <ExperienceSection experiences={experiences} />
+      <SkillsSection skills={data.skills} />
+
+      <ExperienceSection 
+        experiences={data.experiences} 
+      />
 
       <FooterSection
-        degree={education.degree}
-        institution={education.institution}
-        period={education.period}
-        languages={languages}
-        email={profile.email}
-        phoneHref={profile.phoneHref}
-        phoneLabel={profile.phoneLabel}
-        linkedin={profile.linkedin}
-        github={profile.github}
+        degree={data.education.degree}
+        institution={data.education.institution}
+        period={data.education.period}
+        languages={data.languages}
+        email={data.profile.email}
+        phoneHref={data.profile.phoneHref}
+        phoneLabel={data.profile.phoneLabel}
+        linkedin={data.profile.linkedin}
+        github={data.profile.github}
       />
     </main>
   )

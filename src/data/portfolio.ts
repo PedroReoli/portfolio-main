@@ -86,7 +86,7 @@ export const experiences = [
     ],
   },
   {
-    company: "Programa EvaTech (UniFOA + SEBRAE)",
+    company: "EvaTech",
     role: "Mentor de Tecnologia",
     context: "Programa de educação tecnológica e inclusão digital voltado à capacitação de comunidades sub-representadas.",
     period: "Jun 2024 - Dez 2024",
@@ -99,7 +99,7 @@ export const experiences = [
     ],
   },
   {
-    company: "SIVIS Tecnologia",
+    company: "SIVIS ",
     role: "Engenheiro de Software",
     context: "Empresa especializada no desenvolvimento de sistemas ERP e plataformas de gestão para associações e organizações.",
     period: "Ago 2022 - Jun 2024",

@@ -65,11 +65,6 @@ const categoryIconMap: Record<string, CategoryIconType> = {
   "Distributed Systems": Layers, "State Management": Cpu, Tools: Wrench,
 }
 
-const getCapacity = (idx: number) => {
-  const caps = ["98%", "90%", "85%", "80%", "75%", "92%", "88%"];
-  return caps[idx % caps.length];
-}
-
 const SkillsSection = ({ skills }: SkillsSectionProps) => {
   return (
     <section className="relative z-10 px-6 max-w-[90rem] mx-auto py-24 lg:py-32" id="competencias">
@@ -80,7 +75,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
         </h3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {skills.map((group, groupIdx) => {
           const CategoryIcon = categoryIconMap[group.title] ?? GitBranch
 
@@ -91,53 +86,31 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: groupIdx * 0.1 }}
               key={group.title}
-              className="group relative bg-[#0a0a0a]/80 backdrop-blur-xl rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-[#cef441]/40 transition-colors shadow-2xl flex flex-col justify-between overflow-hidden"
+              className="group relative bg-[#0a0a0a] rounded-3xl p-6 border border-white/10 hover:border-[#cef441]/40 transition-colors shadow-2xl flex flex-col justify-start overflow-hidden gap-6"
             >
-              {/* SYS.0X and Icon */}
-              <div className="flex justify-between items-start mb-12 relative z-10">
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-white group-hover:bg-[#cef441]/10 group-hover:text-[#cef441] transition-colors border border-white/10 group-hover:border-[#cef441]/30">
-                  <CategoryIcon size={24} className="opacity-80 group-hover:opacity-100" />
+              {/* Top Row: Icon + Title + SYS */}
+              <div className="flex justify-between items-center relative z-10 w-full border-b border-white/5 pb-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-white group-hover:bg-[#cef441] group-hover:text-black transition-colors border border-white/10 group-hover:border-transparent shrink-0">
+                    <CategoryIcon size={20} className="opacity-80 group-hover:opacity-100" />
+                  </div>
+                  <h4 className="text-2xl sm:text-3xl font-black uppercase italic tracking-tighter text-white group-hover:text-[#cef441] transition-colors m-0 leading-none lg:mt-1">
+                    {group.title}
+                  </h4>
                 </div>
-                <span className="text-[10px] text-zinc-600 font-mono tracking-[0.2em] group-hover:text-[#cef441]/70 transition-colors">
+                <span className="text-[10px] text-zinc-600 font-mono tracking-[0.2em] group-hover:text-[#cef441]/70 transition-colors self-start lg:mt-2 hidden sm:block">
                   SYS.0{groupIdx + 1}
                 </span>
               </div>
               
-              {/* Title & Progress */}
-              <div className="flex flex-col relative z-10 mb-10">
-                <h4 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase italic tracking-tighter text-white mb-3 group-hover:text-[#cef441] transition-colors">
-                  {group.title}
-                </h4>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-mono">
-                    Capacity
-                  </span>
-                  <span className="text-[9px] text-white font-mono tracking-wider bg-white/10 px-2 py-0.5 rounded">
-                    {getCapacity(groupIdx)}
-                  </span>
-                </div>
-                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-zinc-600 group-hover:bg-[#cef441] transition-all duration-1000 ease-[0.16,1,0.3,1] w-1/4 group-hover:w-full" 
-                    style={{ '--hover-width': getCapacity(groupIdx) } as React.CSSProperties}
-                  />
-                  {/* To use actual width on hover is tricky via inline without states, so we just animate it generic or bind to the specific value. Let's rely on standard class transition, but override the max width below */}
-                  <style>{`
-                    .group:hover .group-hover\\:w-full {
-                      width: ${getCapacity(groupIdx)} !important;
-                    }
-                  `}</style>
-                </div>
-              </div>
-
               {/* Tags */}
-              <ul className="flex flex-wrap gap-2 relative z-10">
+              <ul className="flex flex-wrap gap-2 relative z-10 w-full mb-2">
                 {group.items.map((item) => {
                   const Icon = techIconMap[item] ?? Sparkles
                   return (
                     <li 
                       key={item}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/5 bg-[#0a0a0a] text-zinc-400 text-[10px] font-medium uppercase tracking-wider group-hover:border-white/10 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/5 bg-[#111] text-zinc-400 text-[10px] font-medium uppercase tracking-wider group-hover:border-white/10 transition-colors"
                     >
                       <span className="opacity-60 flex items-center w-3 h-3">
                         <Icon size={12} />

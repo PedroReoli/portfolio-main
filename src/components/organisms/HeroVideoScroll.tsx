@@ -48,44 +48,65 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
 
       {/* Huge Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col items-center pointer-events-none select-none z-0">
-        <h1 className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-[#0a0a0a] text-center w-[120%] whitespace-nowrap opacity-20" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}>
+        <motion.h1 
+          initial={{ color: "#ffffff", opacity: 1, scale: 1.05 }}
+          animate={{ color: "transparent", opacity: 0.2, scale: 0.95 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+          style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}
+          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-center w-[120%] whitespace-nowrap"
+        >
           FRONTEND
-        </h1>
-        <h1 className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-[#0a0a0a] text-center w-[120%] whitespace-nowrap opacity-20 mt-4" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}>
+        </motion.h1>
+        
+        <motion.h1 
+          initial={{ color: "#ffffff", opacity: 1, scale: 1.05 }}
+          animate={{ color: "transparent", opacity: 0.2, scale: 0.95 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+          style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}
+          className="text-[14vw] sm:text-[16vw] font-black tracking-tighter uppercase leading-[0.85] text-center w-[120%] whitespace-nowrap mt-4"
+        >
           BACKEND
-        </h1>
+        </motion.h1>
       </div>
 
       {/* Center Name Typography & Portrait */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {/* We use negative margins to overlap the text on the image nicely like the reference */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full"> 
-          
-          <h2 className="absolute top-1/2 -translate-y-[100%] text-[15vw] sm:text-[13vw] font-black tracking-tighter uppercase text-white leading-none whitespace-nowrap flex gap-48 sm:gap-64 z-10 w-full justify-center">
-            <span>PED</span>
-            <span>RO</span>
-          </h2>
-
-          <h2 className="absolute top-1/2 translate-y-[0%] text-[15vw] sm:text-[13vw] font-black tracking-tighter uppercase text-transparent leading-none whitespace-nowrap flex gap-40 sm:gap-60 z-30 w-full justify-center" style={{ WebkitTextStroke: "2px #cef441" }}>
-            <span>RE</span>
-            <span>IS</span>
-          </h2>
-
-          {/* Center Portrait Image */}
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-20 w-[280px] h-[340px] sm:w-[500px] sm:h-[600px] grayscale transition-all duration-700 mx-auto mt-20"
+        {/* Layer 1: Typography Block */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 w-full h-full pb-10 sm:pb-20">
+          <motion.h2 
+            initial={{ opacity: 0, scale: 1.1, filter: "blur(5px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+            className="text-[17vw] sm:text-[13vw] font-black tracking-tighter uppercase text-zinc-300 leading-[0.85] whitespace-nowrap"
           >
-            <img 
-              src="/eu-profissional.png" 
-              alt="Pedro Lucas Reis" 
-              className="w-full h-full object-cover object-top" 
-              style={{ WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)", maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)" }} 
-            />
-          </motion.div>
+            PEDRO
+          </motion.h2>
+
+          <motion.h2 
+            initial={{ opacity: 0, scale: 1.1, filter: "blur(5px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, delay: 1.4, ease: "easeOut" }}
+            className="text-[17vw] sm:text-[13vw] font-black tracking-tighter uppercase text-transparent leading-[0.85] whitespace-nowrap" 
+            style={{ WebkitTextStroke: "2px #cef441" }}
+          >
+            REIS
+          </motion.h2>
         </div>
+
+        {/* Layer 2: Center Portrait Image overlapping text */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50, scale: 0.95, filter: "blur(5px)" }}
+          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.6 }}
+          className="relative z-20 w-[360px] h-[480px] sm:w-[550px] sm:h-[700px] lg:w-[650px] lg:h-[850px] grayscale transition-all duration-700 mx-auto mt-24 sm:mt-32 lg:mt-32"
+        >
+          <img 
+            src="/eu-profissional.png" 
+            alt="Pedro Lucas Reis" 
+            className="w-full h-full object-cover object-top hover:grayscale-0 transition-all duration-700" 
+            style={{ WebkitMaskImage: "linear-gradient(to bottom, black 65%, transparent 100%)", maskImage: "linear-gradient(to bottom, black 65%, transparent 100%)" }} 
+          />
+        </motion.div>
       </div>
 
       {/* Left Telemetry Card */}

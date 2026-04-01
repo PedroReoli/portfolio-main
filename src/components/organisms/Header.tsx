@@ -1,27 +1,35 @@
 import { useState, useEffect } from "react"
-import { Home, User, Briefcase, Layers, Mail, Code2, Trophy } from "lucide-react"
+import { Home, User, Briefcase, Layers, Mail, Code2, Trophy, Globe } from "lucide-react"
 
 type HeaderProps = {
   navigation: readonly { label: string; href: string }[]
+  lang: "pt" | "en"
+  toggleLang: () => void
 }
 
 const mapIcon = (label: string) => {
   switch(label.toLowerCase()) {
-    case 'resumo': return User;
-    case 'projetos': return Code2;
-    case 'experiência': return Trophy;
+    case 'resumo':
+    case 'about':
+    case 'sobre mim': 
+    case 'about me': return User;
+    case 'projetos':
+    case 'projects': return Code2;
+    case 'experiência':
+    case 'experience': return Trophy;
     case 'expertise': return Layers;
-    case 'formação': return Briefcase;
-    case 'contato': return Mail;
+    case 'formação':
+    case 'education': return Briefcase;
+    case 'contato':
+    case 'contact': return Mail;
     default: return Home;
   }
 }
 
-const Header = ({ navigation }: HeaderProps) => {
+const Header = ({ navigation, lang, toggleLang }: HeaderProps) => {
   const [activeHash, setActiveHash] = useState("#home")
 
   useEffect(() => {
-    // Simple scroll spy logic mapping each section's offset
     const handleScroll = () => {
       const scrollY = window.scrollY
       const sections = ["home", ...navigation.map(n => n.href.replace('#', ''))]
@@ -63,13 +71,27 @@ const Header = ({ navigation }: HeaderProps) => {
             >
               <Icon size={isActive ? 20 : 22} strokeWidth={isActive ? 2.5 : 1.5} />
               
-              {/* Tooltip */}
               <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform origin-bottom bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 rounded-md whitespace-nowrap shadow-xl pointer-events-none">
                 {item.label}
               </span>
             </a>
           )
         })}
+
+        <div className="w-[1px] h-6 bg-white/20 mx-1"></div>
+
+        {/* Language Toggle Button */}
+        <button
+          onClick={toggleLang}
+          className="group relative flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full transition-all outline-none bg-zinc-900 border border-white/5 text-zinc-400 hover:text-white"
+        >
+          <span className="font-black text-xs uppercase tracking-tighter">{lang === "pt" ? "EN" : "PT"}</span>
+          
+          <span className="absolute -top-12 scale-0 group-hover:scale-100 transition-transform origin-bottom bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 rounded-md whitespace-nowrap shadow-xl pointer-events-none">
+            {lang === "pt" ? "English" : "Português"}
+          </span>
+        </button>
+
       </nav>
     </div>
   )

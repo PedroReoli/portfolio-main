@@ -1,53 +1,80 @@
 import { motion } from "framer-motion"
 
-type SummarySectionProps = {
-  summary: readonly string[]
+type Stat = {
+  label: string
+  value: string
+  description: string
 }
 
-export default function SummarySection({ summary }: SummarySectionProps) {
+type SummarySectionProps = {
+  title: string
+  subtitle: string
+  statement: string
+  summary: readonly string[]
+  stats?: readonly Stat[]
+}
+
+export default function SummarySection({ title, subtitle, statement, summary, stats }: SummarySectionProps) {
+  const words = title.split(' ')
+  const firstWord = words[0]
+  const restWords = words.slice(1).join(' ')
+
   return (
-    <section className="relative z-10 px-6 py-24 lg:py-32 max-w-[90rem] mx-auto min-h-screen flex flex-col justify-center" id="resumo">
-      <div className="flex flex-col gap-16 lg:gap-24 relative z-10">
+    <section className="relative z-10 px-6 max-w-[90rem] mx-auto min-h-[100svh] flex flex-col justify-center py-10" id="resumo">
+      
+      {/* Container wrapper for max compactness without vertical stretching */}
+      <div className="flex flex-col gap-8 lg:gap-12 w-full max-h-fit">
         
-        {/* Massive Title */}
-        <div className="flex flex-col items-start w-full">
-          <span className="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-[0.3em] font-mono mb-4 text-left">
-            Identity / Mission
+        {/* Compact Header */}
+        <div className="flex flex-col items-start w-full border-b border-white/10 pb-4">
+          <span className="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest font-mono mb-2">
+            {subtitle}
           </span>
-          <h2 className="text-[14vw] lg:text-[10rem] font-black uppercase tracking-tighter text-white leading-[0.85] text-left">
-            ABOUT<br/><span className="text-transparent italic" style={{ WebkitTextStroke: "2px #cef441" }}>ME</span>
+          <h2 className="text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-none text-left">
+            {firstWord}{' '}
+            {restWords && (
+              <span className="text-transparent italic" style={{ WebkitTextStroke: "2px #cef441" }}>
+                {restWords}
+              </span>
+            )}
           </h2>
         </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col lg:flex-row gap-12 lg:gap-24 w-full items-start"
+          viewport={{ once: true, margin: "0px" }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start"
         >
-          {/* Main Statement Focus */}
-          <div className="w-full lg:w-1/2 flex items-start">
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase text-white leading-[1.1] tracking-tighter">
-              ENGENHARIA DE SOFTWARE COM FOCO EM ESCALA, ARQUITETURA MODERNA E CONSTRUÇÃO DE <span className="text-[#cef441] italic">PRODUTOS SÓLIDOS</span>.
+          {/* Left Column: Statement & Paras */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <h3 className="text-2xl lg:text-3xl font-black uppercase text-white leading-tight tracking-tighter">
+              {statement}
             </h3>
+            
+            <div className="flex flex-col gap-4">
+              {summary.map((paragraph, idx) => (
+                <p key={idx} className="text-zinc-400 font-light leading-relaxed text-sm sm:text-base">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
 
-          {/* Paragraphs */}
-          <div className="w-full lg:w-1/2 flex flex-col gap-8">
-            {summary.map((paragraph, idx) => (
-              <p key={idx} className="text-zinc-400 font-light leading-relaxed text-base sm:text-lg">
-                {paragraph}
-              </p>
+          {/* Right Column: Mini Stats Grid */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+            {stats && stats.length > 0 && stats.map((stat, idx) => (
+              <div key={idx} className="flex flex-col justify-center gap-1 p-5 rounded-2xl border border-white/5 bg-[#0a0a0a] shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] hover:border-[#cef441]/30 transition-colors group">
+                <span className="text-[9px] sm:text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{stat.label}</span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tighter uppercase group-hover:text-[#cef441] transition-colors leading-[0.9] mt-1">{stat.value}</span>
+                <span className="text-[10px] lg:text-xs text-zinc-400 font-light leading-tight mt-1">{stat.description}</span>
+              </div>
             ))}
           </div>
         </motion.div>
       </div>
 
-      {/* Decorative background element */}
-      <span className="absolute right-[-10%] sm:right-0 top-1/2 -translate-y-1/2 text-[15rem] lg:text-[40rem] font-black italic tracking-tighter text-transparent z-0 opacity-10 pointer-events-none select-none" style={{ WebkitTextStroke: "2px rgba(255,255,255,1)" }}>
-        V1
-      </span>
     </section>
   )
 }
