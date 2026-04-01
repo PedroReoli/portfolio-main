@@ -102,20 +102,15 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
         </div>
 
         {/* Layer 2: Center Portrait Image overlapping text */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          className="relative z-20 w-[360px] h-[480px] sm:w-[550px] sm:h-[700px] lg:w-[650px] lg:h-[850px] grayscale transition-all duration-700 mx-auto mt-24 sm:mt-32 lg:mt-32"
-        >
+        <div className="relative z-20 w-[360px] h-[480px] sm:w-[550px] sm:h-[700px] lg:w-[650px] lg:h-[850px] mx-auto mt-24 sm:mt-32 lg:mt-32 group cursor-crosshair">
           <img 
             src="/eu-profissional.png" 
             alt="Pedro Lucas Reis" 
             decoding="async"
-            className="w-full h-full object-cover object-top hover:grayscale-0 transition-all duration-500" 
+            className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 pointer-events-auto" 
             style={{ WebkitMaskImage: "linear-gradient(to bottom, black 65%, transparent 100%)", maskImage: "linear-gradient(to bottom, black 65%, transparent 100%)" }} 
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Left Telemetry Card */}
