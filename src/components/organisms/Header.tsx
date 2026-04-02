@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Home, User, Briefcase, Layers, Mail, Code2, Trophy, Globe } from "lucide-react"
+import { Home, User, Briefcase, Layers, Mail, Code2, Trophy } from "lucide-react"
 
 type HeaderProps = {
   navigation: readonly { label: string; href: string }[]

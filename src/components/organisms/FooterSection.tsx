@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import { ArrowUpRight, Mail, Phone } from "lucide-react"
 import { SiLinkedin, SiGithub } from "react-icons/si"
 
