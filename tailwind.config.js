@@ -72,7 +72,7 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["Outfit", "system-ui", "sans-serif"],
+        sans: ["Space Grotesk", "sans-serif"],
         mono: ["Space Mono", "monospace"],
       },
       borderRadius: {
