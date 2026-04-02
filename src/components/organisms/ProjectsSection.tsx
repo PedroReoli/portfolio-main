@@ -37,6 +37,13 @@ const projects = [
   }
 ]
 
+const projectImages: Record<string, string> = {
+  domusdev: "/Domus.png",
+  autocom3: "/autocom3.png",
+  sivis: "/sivis.png",
+  nexusbrazil: "/nexus.png",
+}
+
 export default function ProjectsSection() {
   const targetRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
@@ -83,7 +90,7 @@ export default function ProjectsSection() {
                 </span>
 
                 <img 
-                  src={`/${proj.id}.jpg`} 
+                  src={projectImages[proj.id]} 
                   alt={proj.name}
                   className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                   loading="lazy"
@@ -123,3 +130,4 @@ export default function ProjectsSection() {
     </section>
   )
 }
+
