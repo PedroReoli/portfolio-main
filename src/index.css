@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 :root {
   color: #fafafa;
   background: #0a0a0a;
-  font-family: "Outfit", "Segoe UI", system-ui, sans-serif;
+  font-family: "Outfit";
   line-height: 1.5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -36,6 +34,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background: transparent;
+  font-family: "Outfit";
 }
 
 a {

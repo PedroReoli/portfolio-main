@@ -72,8 +72,8 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["Outfit", "system-ui", "sans-serif"],
-        mono: ["Space Mono", "monospace"],
+        sans: ["Outfit"],
+        mono: ["Outfit"],
       },
       borderRadius: {
         lg: "var(--radius)",
