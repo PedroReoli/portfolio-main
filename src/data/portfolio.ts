@@ -306,6 +306,7 @@ export const projects = [
     domain: "autocom3.com.br/autocom3clientes",
     type: "erp",
     category: "ERP + E-commerce",
+    image: "/portal-cliente.png",
     shortDescription:
       "Portal autenticado com ERP + e-commerce, histórico de compras e documentos fiscais.",
     stack: ["React", "Next.js", "TypeScript", "Node.js", "REST APIs", "TailwindCSS"],
@@ -328,6 +329,7 @@ export const projects = [
     domain: "propose-sable.vercel.app",
     type: "saas",
     category: "SaaS NoCode",
+    image: "/propose.png",
     shortDescription:
       "SaaS NoCode para criar propostas comerciais e páginas dinâmicas com aceite digital.",
     stack: ["React", "Next.js", "TypeScript", "TailwindCSS", "JSON Schema", "PDF Export"],
@@ -351,6 +353,7 @@ export const projects = [
     domain: "autocom3.com.br/autocom3contabilidade",
     type: "erp",
     category: "Gestão Fiscal",
+    image: "/portal-contador.png",
     shortDescription:
       "Sistema para gestão fiscal e contábil, com regras da reforma tributária aplicadas.",
     stack: ["React", "Next.js", "TypeScript", "C#", "Node.js", "PostgreSQL"],
@@ -373,6 +376,7 @@ export const projects = [
     domain: "autocom3.com.br/admin",
     type: "internal",
     category: "Suporte & Operações",
+    image: "/portal-admin.png",
     shortDescription:
       "Sistema interno para operações, suporte técnico e dashboards financeiros.",
     stack: ["React", "TypeScript", "Node.js", "C#", "SQL", "PostgreSQL"],
@@ -395,6 +399,7 @@ export const projects = [
     domain: "autocom3.com.br/proposta",
     type: "internal",
     category: "NoCode",
+    image: "/propostas-ac3.png",
     shortDescription:
       "Plataforma no-code para montar propostas comerciais com editor drag-and-drop.",
     stack: ["React", "TypeScript", "Next.js", "JSON Schema", "TailwindCSS"],
@@ -417,6 +422,7 @@ export const projects = [
     domain: "Google Play",
     type: "mobile",
     category: "ERP Mobile",
+    image: "/ac3-flex.png",
     shortDescription:
       "App Android de ERP para gestão empresarial em tempo real, publicado na Google Play.",
     stack: ["React Native", "TypeScript", "REST APIs", "Node.js"],

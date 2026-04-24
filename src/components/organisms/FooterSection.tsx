@@ -1,5 +1,5 @@
-import { ArrowUpRight, Mail, Phone } from "lucide-react"
-import { SiLinkedin, SiGithub } from "react-icons/si"
+import { ArrowUpRight, Mail } from "lucide-react"
+import { SiLinkedin, SiGithub, SiWhatsapp } from "react-icons/si"
 
 type Language = {
   name: string
@@ -64,7 +64,7 @@ const FooterSection = ({
               </a>
               <a href={phoneHref} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-xs sm:text-sm font-bold font-mono text-zinc-300 hover:text-[#cef441] transition-colors group">
                 <div className="w-10 h-10 rounded-full bg-white/5 group-hover:bg-[#cef441] group-hover:text-black flex items-center justify-center transition-colors border border-white/10 group-hover:border-[#cef441]">
-                  <Phone size={16} />
+                  <SiWhatsapp size={16} />
                 </div>
                 {phoneLabel}
               </a>

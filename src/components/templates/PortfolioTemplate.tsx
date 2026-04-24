@@ -8,6 +8,7 @@ import SkillsSection from "../organisms/SkillsSection"
 import SummarySection from "../organisms/SummarySection"
 import ProjectsSection from "../organisms/ProjectsSection"
 import ExperienceSection from "../organisms/ExperienceSection"
+import WhatsAppFloat from "../atoms/WhatsAppFloat"
 
 const navPT = [
   { label: "Sobre Mim", href: "#resumo" },
@@ -76,6 +77,11 @@ const PortfolioTemplate = () => {
         phoneLabel={data.profile.phoneLabel}
         linkedin={data.profile.linkedin}
         github={data.profile.github}
+      />
+
+      <WhatsAppFloat
+        href={data.profile.phoneHref}
+        label={lang === "pt" ? "Falar no WhatsApp" : "Chat on WhatsApp"}
       />
     </main>
   )
