@@ -71,8 +71,20 @@ export default function SummarySection({
         >
           {/* Left Column: Statement & Paras */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <h3 className="text-2xl lg:text-3xl font-black uppercase text-white leading-tight tracking-tighter">
-              {statement}
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase text-white leading-[0.95] tracking-tighter">
+              {statement.split(",").map((chunk, i, arr) => {
+                const trimmed = chunk.trim();
+                const isLast = i === arr.length - 1;
+                const isMiddle = arr.length === 3 && i === 1;
+                return (
+                  <span key={i}>
+                    <span className={isMiddle ? "text-[#cef441]" : undefined}>
+                      {trimmed}
+                    </span>
+                    {!isLast && <span className="text-white/40">, </span>}
+                  </span>
+                );
+              })}
             </h3>
 
             <div className="flex flex-col gap-4">

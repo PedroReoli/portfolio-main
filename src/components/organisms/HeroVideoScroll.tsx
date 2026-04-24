@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { ArrowUpRight, MapPin, Clock, Zap } from "lucide-react"
+import { ArrowUpRight, MapPin, Clock, Zap, Sparkles, CalendarClock } from "lucide-react"
 import { useState, useEffect } from "react"
 
 type HeroSectionProps = {
@@ -48,6 +48,40 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
       <div className="absolute top-8 right-8 z-30 hidden sm:block">
         <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em]">Full Stack Engineer</div>
       </div>
+
+      {/* Signature Badges — mobile (top) */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="sm:hidden absolute top-6 left-1/2 -translate-x-1/2 z-40 flex gap-2"
+      >
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#cef441] text-black font-black uppercase tracking-[0.18em] text-[9px] rounded-full">
+          <CalendarClock size={11} />
+          4+ yrs
+        </span>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#cef441]/40 bg-black/50 backdrop-blur text-[#cef441] font-black uppercase tracking-[0.18em] text-[9px] rounded-full">
+          <Sparkles size={11} />
+          Agentic Dev
+        </span>
+      </motion.div>
+
+      {/* Signature Badges — desktop (top-right, stacked) */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.35 }}
+        className="hidden sm:flex absolute top-20 right-8 z-40 flex-col items-end gap-2"
+      >
+        <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#cef441] text-black font-black uppercase tracking-[0.2em] text-[10px] rounded-full shadow-[0_0_30px_rgba(206,244,65,0.25)]">
+          <CalendarClock size={13} />
+          4+ Years
+        </span>
+        <span className="inline-flex items-center gap-2 px-4 py-2 border border-[#cef441]/40 bg-black/50 backdrop-blur text-[#cef441] font-black uppercase tracking-[0.2em] text-[10px] rounded-full">
+          <Sparkles size={13} />
+          Agentic Developer
+        </span>
+      </motion.div>
 
       {/* Bottom Corners */}
       <div className="absolute bottom-8 left-8 z-30 hidden sm:flex items-center gap-2">

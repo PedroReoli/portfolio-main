@@ -1,154 +1,307 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { useMemo, useState } from "react";
+import ProjectDetailsModal, {
+  type ProjectDetails,
+} from "../molecules/ProjectDetailsModal";
 
-const projects = [
-  {
-    id: "domusdev",
-    name: "DomusDev",
-    href: "https://domusdev.com.br/",
-    domain: "domusdev.com.br",
-    category: "Full Stack",
-    description:
-      "Site institucional criado para uma software house especializada na criação de sistemas web sob medida. O projeto visa destacar os serviços, soluções de alta performance e excelência técnica no desenvolvimento.",
-  },
-  {
-    id: "autocom3",
-    name: "Autocom3",
-    href: "https://autocom3.com.br/",
-    domain: "autocom3.com.br",
-    category: "Software ERP",
-    description:
-      "Site institucional criado para empresa especializada em sistemas ERP para o varejo. A estrutura foi planejada para apresentar soluções, módulos e diferenciais da plataforma de forma clara e objetiva.",
-  },
-  {
-    id: "sivis",
-    name: "Sivis",
-    href: "https://sivis.com.br/",
-    domain: "sivis.com.br",
-    category: "Cloud Platform",
-    description:
-      "Site institucional criado para empresa especializada em sistemas de gestão para clubes. A estrutura foi pensada para apresentar soluções, diferenciais e módulos do sistema de forma clara e objetiva.",
-  },
-  {
-    id: "nexusbrazil",
-    name: "Nexus Brazil",
-    href: "https://nexusbrazil.com.br/",
-    domain: "nexusbrazil.com.br",
-    category: "Corporate",
-    description:
-      "Site institucional desenvolvido para empresa de proteção veicular. O projeto destaca planos, benefícios, cobertura e formas de adesão, com foco em confiança, acessibilidade e navegação intuitiva.",
-  },
-];
+type ProjectType = "site" | "erp" | "saas" | "mobile" | "internal";
 
-const projectImages: Record<string, string> = {
-  domusdev: "/Domus.png",
-  autocom3: "/autocom3.png",
-  sivis: "/sivis.png",
-  nexusbrazil: "/nexus.png",
+type Project = {
+  id: string;
+  name: string;
+  href: string;
+  domain: string;
+  type: string;
+  category: string;
+  image?: string;
+  shortDescription: string;
+  stack: readonly string[];
+  features: readonly string[];
+  metrics: readonly { label: string; value: string }[];
 };
 
-const formatProjectNumber = (index: number) => `${index + 1}`.padStart(2, "0");
-export default function ProjectsSection() {
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+type ProjectsLabels = {
+  kicker: string;
+  title1: string;
+  title2: string;
+  details: string;
+  visit: string;
+  stack: string;
+  features: string;
+  metrics: string;
+  close: string;
+  all?: string;
+  types: Record<ProjectType, string>;
+};
 
-  // Horizontal translate value based on scroll progress.
-  // Adjust the "-60%" to ensure the last item is fully visible at the end of scroll.
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
+type Props = {
+  projects: readonly Project[];
+  labels: ProjectsLabels;
+};
+
+const TYPE_GRADIENTS: Record<ProjectType, string> = {
+  site: "from-zinc-800 via-zinc-900 to-black",
+  erp: "from-[#1a2e1a] via-[#0e1a10] to-black",
+  saas: "from-[#2a1f4a] via-[#130e24] to-black",
+  mobile: "from-[#1f2e4a] via-[#0e1524] to-black",
+  internal: "from-[#3a2a14] via-[#1c1408] to-black",
+};
+
+const ProjectPlaceholder = ({
+  type,
+  name,
+}: {
+  type: ProjectType;
+  name: string;
+}) => (
+  <div
+    className={`absolute inset-0 bg-gradient-to-br ${TYPE_GRADIENTS[type]} flex items-center justify-center`}
+  >
+    <div
+      className="absolute inset-0 opacity-30"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 1px 1px, rgba(206,244,65,0.15) 1px, transparent 0)",
+        backgroundSize: "24px 24px",
+      }}
+    />
+    <div className="relative text-center px-6 select-none">
+      <div className="text-[10px] text-[#cef441]/60 uppercase tracking-[0.4em] font-mono mb-2">
+        {type}
+      </div>
+      <div className="text-2xl sm:text-3xl font-black uppercase tracking-tighter italic text-white/80">
+        {name}
+      </div>
+    </div>
+  </div>
+);
+
+type Filter = "all" | ProjectType;
+
+export default function ProjectsSection({ projects, labels }: Props) {
+  const [activeProject, setActiveProject] = useState<ProjectDetails | null>(
+    null,
+  );
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const counts = useMemo(() => {
+    const acc: Record<string, number> = { all: projects.length };
+    for (const p of projects) acc[p.type] = (acc[p.type] ?? 0) + 1;
+    return acc;
+  }, [projects]);
+
+  const filterOrder: Filter[] = ["all", "site", "erp", "saas", "mobile", "internal"];
+  const availableFilters = filterOrder.filter(
+    (f) => f === "all" || (counts[f] ?? 0) > 0,
+  );
+
+  const visibleProjects = useMemo(
+    () => (filter === "all" ? projects : projects.filter((p) => p.type === filter)),
+    [filter, projects],
+  );
+
+  const allLabel = labels.all ?? "All";
 
   return (
-    <section
-      ref={targetRef}
-      className="relative z-10 w-full h-[350vh] bg-[#0a0a0a]"
-      id="projetos"
-    >
-      {/* Sticky Container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-20">
-        {/* Fixed Title inside the sticky container */}
-        <div className="mb-10 md:mb-16 flex flex-col items-start px-6 max-w-[90rem] mx-auto w-full">
-          <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 text-left">
-            Featured Work
-          </h2>
-          <h3 className="text-[12vw] sm:text-7xl lg:text-[8rem] font-black tracking-tighter uppercase text-white leading-none pb-4 text-left">
-            LATEST
-            <br />
-            <span
-              className="text-transparent"
-              style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}
-            >
-              PROJECTS
-            </span>
-          </h3>
-        </div>
-
-        {/* The Track that moves horizontally */}
-        <motion.div
-          style={{ x }}
-          className="flex gap-6 sm:gap-10 px-6 sm:px-12 md:px-24 xl:px-[calc((100vw-90rem)/2+1.5rem)] w-max pr-[20vw]"
-        >
-          {projects.map((proj, idx) => (
-            <div
-              key={proj.name}
-              className="group flex flex-col relative shrink-0 w-[85vw] md:w-[45vw] lg:w-[32vw] max-w-[450px] bg-[#111] border border-white/5 hover:border-[#cef441]/40 rounded-[2rem] overflow-hidden transition-colors select-none"
-            >
-              {/* Top Half: Image Container */}
-              <a
-                href={proj.href}
-                target="_blank"
-                rel="noreferrer"
-                className="relative w-full h-[220px] sm:h-[260px] bg-zinc-900 border-b border-white/10 block overflow-hidden cursor-pointer"
+    <>
+      <section
+        className="relative z-10 w-full bg-[#0a0a0a] py-24 lg:py-32"
+        id="projetos"
+      >
+        <div className="px-6 max-w-[90rem] mx-auto">
+          {/* Header */}
+          <div className="mb-10 md:mb-14 flex flex-col items-start">
+            <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4">
+              {labels.kicker}
+            </h2>
+            <h3 className="text-[12vw] sm:text-7xl lg:text-[8rem] font-black tracking-tighter uppercase text-white leading-none pb-4">
+              {labels.title1}
+              <br />
+              <span
+                className="text-transparent"
+                style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}
               >
-                <div className="absolute inset-0 bg-[#cef441]/0 group-hover:bg-[#cef441]/10 transition-colors duration-500 z-10 pointer-events-none" />
-                <img
-                  src={projectImages[proj.id]}
-                  alt={proj.name}
-                  className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                  loading="lazy"
-                />
-              </a>
+                {labels.title2}
+              </span>
+            </h3>
+          </div>
 
-              {/* Bottom Half: Content Info */}
-              <div className="flex flex-col items-start w-full p-6 sm:p-8 relative z-20 overflow-hidden">
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-2 right-4 sm:bottom-3 sm:right-6 lg:bottom-4 lg:right-8 text-[5.5rem] sm:text-[6.5rem] lg:text-[8rem] font-black italic tracking-[-0.08em] text-transparent opacity-60 select-none pointer-events-none leading-none"
-                  style={{ WebkitTextStroke: "1px rgba(206,244,65,0.2)" }}
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2 mb-10 md:mb-14 border-y border-white/10 py-5">
+            {availableFilters.map((f) => {
+              const isActive = f === filter;
+              const label = f === "all" ? allLabel : labels.types[f];
+              const count = counts[f] ?? 0;
+
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setFilter(f)}
+                  className={[
+                    "inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-mono uppercase tracking-[0.2em] border transition-colors",
+                    isActive
+                      ? "bg-[#cef441] text-black border-[#cef441]"
+                      : "bg-white/[0.03] text-zinc-400 border-white/10 hover:text-white hover:border-white/25",
+                  ].join(" ")}
                 >
-                  {formatProjectNumber(idx)}
-                </span>
-                <div className="flex items-center justify-between w-full mb-6">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[9px] text-zinc-500 uppercase tracking-[0.2em] font-mono border border-white/10 px-3 py-1.5 rounded-full">
-                      {proj.category}
-                    </span>
-                    <span className="text-[9px] text-[#cef441] uppercase tracking-[0.2em] font-mono">
-                      {proj.domain}
-                    </span>
-                  </div>
-
-                  <a
-                    href={proj.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-[#cef441] text-white group-hover:text-black transition-colors hover:scale-110"
+                  <span>{label}</span>
+                  <span
+                    className={[
+                      "text-[10px] font-mono px-1.5 py-0.5 rounded-full",
+                      isActive
+                        ? "bg-black/20 text-black"
+                        : "bg-white/5 text-zinc-500",
+                    ].join(" ")}
                   >
-                    <ArrowUpRight size={18} />
-                  </a>
-                </div>
-                <h4 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-black uppercase tracking-tighter italic leading-none text-white group-hover:text-[#cef441] transition-colors mb-4">
-                  {proj.name}
-                </h4>
-                <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                  {proj.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Grid */}
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
+          >
+            <AnimatePresence mode="popLayout">
+              {visibleProjects.map((proj, idx) => {
+                const type = proj.type as ProjectType;
+                const typeLabel = labels.types[type] ?? proj.type;
+
+                return (
+                  <motion.div
+                    key={proj.id}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="group relative flex flex-col bg-[#111] border border-white/5 hover:border-[#cef441]/40 rounded-3xl overflow-hidden transition-colors"
+                  >
+                    {/* Image / Placeholder */}
+                    <a
+                      href={proj.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="relative w-full h-[200px] sm:h-[220px] bg-zinc-900 border-b border-white/10 block overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-[#cef441]/0 group-hover:bg-[#cef441]/10 transition-colors duration-500 z-10 pointer-events-none" />
+
+                      {proj.image ? (
+                        <img
+                          src={proj.image}
+                          alt={proj.name}
+                          className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <ProjectPlaceholder type={type} name={proj.name} />
+                      )}
+
+                      <span className="absolute top-4 left-4 z-20 text-[9px] text-[#cef441] uppercase tracking-[0.25em] font-mono border border-[#cef441]/30 bg-black/60 backdrop-blur px-2.5 py-1 rounded-full">
+                        {typeLabel}
+                      </span>
+                      <span className="absolute top-4 right-4 z-20 text-[9px] text-white/60 font-mono tracking-widest bg-black/50 backdrop-blur border border-white/10 px-2 py-1 rounded-full">
+                        {`${idx + 1}`.padStart(2, "0")}
+                      </span>
+                    </a>
+
+                    {/* Content */}
+                    <div className="flex flex-col w-full p-6 gap-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter italic leading-none text-white group-hover:text-[#cef441] transition-colors">
+                          {proj.name}
+                        </h4>
+                        <a
+                          href={proj.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`${labels.visit} ${proj.name}`}
+                          className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-[#cef441] text-white group-hover:text-black transition-colors"
+                        >
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[9px] text-zinc-500 uppercase tracking-[0.2em] font-mono border border-white/10 px-2.5 py-1 rounded-full">
+                          {proj.category}
+                        </span>
+                        <span className="text-[9px] text-[#cef441]/80 uppercase tracking-[0.2em] font-mono truncate max-w-[180px]">
+                          {proj.domain}
+                        </span>
+                      </div>
+
+                      <p className="text-sm text-zinc-400 font-light leading-relaxed line-clamp-2">
+                        {proj.shortDescription}
+                      </p>
+
+                      {/* Stack preview */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {proj.stack.slice(0, 4).map((item) => (
+                          <span
+                            key={item}
+                            className="text-[10px] text-zinc-300 font-mono border border-white/10 bg-white/[0.03] px-2 py-1 rounded-full"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                        {proj.stack.length > 4 && (
+                          <span className="text-[10px] text-zinc-500 font-mono px-2 py-1">
+                            +{proj.stack.length - 4}
+                          </span>
+                        )}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setActiveProject({
+                            id: proj.id,
+                            name: proj.name,
+                            href: proj.href,
+                            domain: proj.domain,
+                            type: proj.type,
+                            category: proj.category,
+                            shortDescription: proj.shortDescription,
+                            stack: proj.stack,
+                            features: proj.features,
+                            metrics: proj.metrics,
+                          })
+                        }
+                        className="mt-1 inline-flex items-center justify-between gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-white/80 hover:text-[#cef441] border border-white/10 hover:border-[#cef441]/40 bg-white/[0.03] hover:bg-[#cef441]/5 px-4 py-2.5 rounded-full transition-colors w-full"
+                      >
+                        <span>{labels.details}</span>
+                        <span aria-hidden="true">→</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </section>
+
+      <ProjectDetailsModal
+        project={activeProject}
+        labels={{
+          stack: labels.stack,
+          features: labels.features,
+          metrics: labels.metrics,
+          visit: labels.visit,
+          close: labels.close,
+          typeLabel: activeProject
+            ? labels.types[activeProject.type as ProjectType] ??
+              activeProject.type
+            : "",
+        }}
+        onClose={() => setActiveProject(null)}
+      />
+    </>
   );
 }

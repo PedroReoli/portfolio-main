@@ -14,6 +14,13 @@ type ExperienceSectionProps = {
   experiences: readonly Experience[]
 }
 
+function getCompanyClass(name: string) {
+  const len = name.length
+  if (len >= 28) return "text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3rem]"
+  if (len >= 18) return "text-3xl sm:text-4xl lg:text-[3.25rem] xl:text-[3.75rem]"
+  return "text-4xl sm:text-5xl lg:text-[4rem]"
+}
+
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   return (
     <section className="relative z-10 px-6 py-24 lg:py-32 max-w-[90rem] mx-auto min-h-screen flex flex-col justify-center" id="experiencia">
@@ -42,7 +49,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
                 {exp.period}
               </span>
-              <h4 className="text-4xl sm:text-5xl lg:text-[4rem] font-black uppercase tracking-tighter text-white group-hover:text-[#cef441] transition-colors leading-[0.9]">
+              <h4 className={`${getCompanyClass(exp.company)} font-black uppercase tracking-tighter text-white group-hover:text-[#cef441] transition-colors leading-[0.9] break-words`}>
                 {exp.company}
               </h4>
               <span className="text-[10px] sm:text-xs text-white/50 uppercase tracking-[0.2em] font-mono mt-2">

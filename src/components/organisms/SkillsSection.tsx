@@ -1,14 +1,32 @@
 import { motion } from "framer-motion"
-import { Database, Layers, Cpu, Wrench, Sparkles, GitBranch, Network } from "lucide-react"
+import {
+  Database,
+  Layers,
+  Cpu,
+  Wrench,
+  Sparkles,
+  GitBranch,
+  Network,
+  Bug,
+  Gauge,
+  Accessibility,
+  Workflow,
+  Zap,
+  Code2,
+} from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import type { IconType } from "react-icons"
 import {
   SiReact,
   SiNextdotjs,
+  SiAngular,
+  SiReactivex,
   SiTypescript,
   SiHtml5,
   SiCss3,
   SiTailwindcss,
+  SiShadcnui,
+  SiRadixui,
   SiFramer,
   SiThreedotjs,
   SiNodedotjs,
@@ -29,7 +47,11 @@ import {
   SiPostman,
   SiEslint,
   SiPrettier,
-  SiAmazonaws
+  SiAmazonaws,
+  SiVitest,
+  SiTestinglibrary,
+  SiLighthouse,
+  SiScrumalliance,
 } from "react-icons/si"
 
 type SkillGroup = {
@@ -39,6 +61,11 @@ type SkillGroup = {
 
 type SkillsSectionProps = {
   skills: readonly SkillGroup[]
+  labels?: {
+    kicker?: string
+    title1?: string
+    title2?: string
+  }
 }
 
 const ClaudeIcon = () => <img src="https://img.icons8.com/?size=100&id=BBldRmlvy0Ir&format=png&color=000000" alt="Claude AI" className="w-4 h-4 object-contain opacity-80 invert" />
@@ -49,29 +76,62 @@ const GeminiIcon = () => <img src="https://img.icons8.com/?size=100&id=KKGSMFdCb
 type GenericIconType = IconType | LucideIcon | React.FC
 
 const techIconMap: Record<string, GenericIconType> = {
-  React: SiReact, "Next.js": SiNextdotjs, TypeScript: SiTypescript, HTML: SiHtml5, CSS: SiCss3,
-  TailwindCSS: SiTailwindcss, "Framer Motion": SiFramer, "Three.js": SiThreedotjs, "Node.js": SiNodedotjs, "C#": SiCsharp,
+  React: SiReact, "Next.js": SiNextdotjs, Angular: SiAngular, RxJS: SiReactivex,
+  TypeScript: SiTypescript, HTML: SiHtml5, CSS: SiCss3,
+  TailwindCSS: SiTailwindcss, "Shadcn/ui": SiShadcnui, "Radix UI": SiRadixui,
+  "Framer Motion": SiFramer, "Three.js": SiThreedotjs, "Node.js": SiNodedotjs, "C#": SiCsharp,
   Express: SiExpress, NestJS: SiNestjs, GraphQL: SiGraphql, PostgreSQL: SiPostgresql, MySQL: SiMysql,
   MongoDB: SiMongodb, Redis: SiRedis, Kafka: SiApachekafka, RabbitMQ: SiRabbitmq, Redux: SiRedux,
   Git: SiGit, GitHub: SiGithub, Swagger: SiSwagger, Postman: SiPostman, ESLint: SiEslint,
   Prettier: SiPrettier, "AWS SQS": SiAmazonaws,
-  Cursor: CursorIcon, Claude: ClaudeIcon, Gemini: GeminiIcon, MCP: Network, "LLM Workflows": OpenAIIcon, "Prompt Engineering": GeminiIcon
+  Cursor: CursorIcon, Claude: ClaudeIcon, Gemini: GeminiIcon, MCP: Network,
+  "LLM Workflows": OpenAIIcon, "LLM Integration": OpenAIIcon, "Prompt Engineering": GeminiIcon,
+  "Streaming Responses": Zap, "AI Copilots": Sparkles, "Agentic Automation": Workflow,
+  Vitest: SiVitest, "Testing Library": SiTestinglibrary,
+  "Unit Tests": Bug, "Integration Tests": Bug, "Testes Unitários": Bug, "Testes de Integração": Bug,
+  "Core Web Vitals": Gauge, Lighthouse: SiLighthouse, "Code Splitting": Layers,
+  "Lazy Loading": Zap, "Bundle Optimization": Gauge,
+  "WCAG 2.1": Accessibility, "WAI-ARIA": Accessibility,
+  "Semantic HTML": Code2, "HTML Semântico": Code2, "Responsive Design": Layers,
+  Scrum: SiScrumalliance, Kanban: Workflow, "Clean Code": Code2, SOLID: Code2, "Code Reviews": GitBranch,
 }
 
 type CategoryIconType = IconType | LucideIcon
 
 const categoryIconMap: Record<string, CategoryIconType> = {
-  Frontend: SiReact, Backend: SiNodedotjs, "AI / Agentic": Sparkles, Data: Database,
-  "Distributed Systems": Layers, "State Management": Cpu, Tools: Wrench,
+  Frontend: SiReact,
+  Backend: SiNodedotjs,
+  "AI Applied": Sparkles,
+  "IA Aplicada": Sparkles,
+  "AI / Agentic": Sparkles,
+  Data: Database,
+  Dados: Database,
+  "Distributed Systems": Layers,
+  "Sistemas Distribuídos": Layers,
+  "State Management": Cpu,
+  Estado: Cpu,
+  Testing: Bug,
+  Testes: Bug,
+  Performance: Gauge,
+  Accessibility: Accessibility,
+  Acessibilidade: Accessibility,
+  Methodologies: Workflow,
+  Metodologias: Workflow,
+  Tools: Wrench,
+  Ferramentas: Wrench,
 }
 
-const SkillsSection = ({ skills }: SkillsSectionProps) => {
+const SkillsSection = ({ skills, labels }: SkillsSectionProps) => {
+  const kicker = labels?.kicker ?? "Tech Matrix"
+  const title1 = labels?.title1 ?? "SYSTEM"
+  const title2 = labels?.title2 ?? "SPECS"
+
   return (
     <section className="relative z-10 px-6 max-w-[90rem] mx-auto py-24 lg:py-32" id="competencias">
       <div className="mb-16 md:mb-24 flex flex-col items-center">
-        <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 text-center">Tech Matrix</h2>
+        <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 text-center">{kicker}</h2>
         <h3 className="text-[12vw] sm:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white leading-[0.85] text-center">
-          SYSTEM<br/><span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.4)" }}>SPECS</span>
+          {title1}<br/><span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.4)" }}>{title2}</span>
         </h3>
       </div>
 

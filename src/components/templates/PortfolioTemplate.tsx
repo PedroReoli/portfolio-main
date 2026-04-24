@@ -50,16 +50,16 @@ const PortfolioTemplate = () => {
       <SummarySection 
         title={lang === "pt" ? "Sobre Mim" : "About Me"} 
         subtitle={lang === "pt" ? "Identidade / Missão" : "Identity / Mission"}
-        statement={lang === "pt" 
-          ? "ENGENHARIA DE SOFTWARE COM FOCO EM ESCALA, ARQUITETURA MODERNA E CONSTRUÇÃO DE PRODUTOS SÓLIDOS." 
-          : "SOFTWARE ENGINEERING FOCUSED ON SCALE, MODERN ARCHITECTURE, AND BUILDING SOLID PRODUCTS."}
+        statement={lang === "pt"
+          ? "ENGENHEIRO, MÚSICO, LEITOR."
+          : "ENGINEER, MUSICIAN, READER."}
         summary={data.profile.summary}
         stats={data.highlights} 
       />
 
-      <ProjectsSection /> {/* Project section data binding handles internally or can be skipped for now if static */}
+      <ProjectsSection projects={data.projects} labels={data.projectsLabels} />
 
-      <SkillsSection skills={data.skills} />
+      <SkillsSection skills={data.skills} labels={data.skillsLabels} />
 
       <ExperienceSection 
         experiences={data.experiences} 
