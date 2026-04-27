@@ -415,28 +415,28 @@ export const projects = [
       { label: "Workflow", value: "Sales-integrated" },
     ],
   },
-  {
-    id: "ac3flex",
-    name: "AC3Flex — Mobile ERP",
-    href: "https://play.google.com/store/apps/details?id=br.com.autocom3tecnologiaesoftwaresltda.ac3flex&hl=pt_PT",
-    domain: "Google Play",
-    type: "mobile",
-    category: "Mobile ERP",
-    image: "/ac3-flex.png",
-    shortDescription:
-      "Android ERP app for real-time business management, published on the Google Play Store.",
-    stack: ["React Native", "TypeScript", "REST APIs", "Node.js"],
-    features: [
-      "Business management from mobile",
-      "Integration with the ERP backend APIs",
-      "Real-time data synchronization",
-      "Responsive, mobile-first interfaces",
-      "Field-ops control and tracking features",
-    ],
-    metrics: [
-      { label: "Distribution", value: "Published on Google Play" },
-      { label: "Sync", value: "Real-time" },
-      { label: "UX", value: "Mobile-first" },
-    ],
-  },
+  // {
+  //   id: "ac3flex",
+  //   name: "AC3Flex — Mobile ERP",
+  //   href: "https://play.google.com/store/apps/details?id=br.com.autocom3tecnologiaesoftwaresltda.ac3flex&hl=pt_PT",
+  //   domain: "Google Play",
+  //   type: "mobile",
+  //   category: "Mobile ERP",
+  //   image: "/ac3-flex.png",
+  //   shortDescription:
+  //     "Android ERP app for real-time business management, published on the Google Play Store.",
+  //   stack: ["React Native", "TypeScript", "REST APIs", "Node.js"],
+  //   features: [
+  //     "Business management from mobile",
+  //     "Integration with the ERP backend APIs",
+  //     "Real-time data synchronization",
+  //     "Responsive, mobile-first interfaces",
+  //     "Field-ops control and tracking features",
+  //   ],
+  //   metrics: [
+  //     { label: "Distribution", value: "Published on Google Play" },
+  //     { label: "Sync", value: "Real-time" },
+  //     { label: "UX", value: "Mobile-first" },
+  //   ],
+  // },
 ] as const
