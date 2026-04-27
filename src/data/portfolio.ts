@@ -415,28 +415,28 @@ export const projects = [
       { label: "Workflow", value: "Integrado a vendas" },
     ],
   },
-  {
-    id: "ac3flex",
-    name: "ERP Mobile — AC3Flex",
-    href: "https://play.google.com/store/apps/details?id=br.com.autocom3tecnologiaesoftwaresltda.ac3flex&hl=pt_PT",
-    domain: "Google Play",
-    type: "mobile",
-    category: "ERP Mobile",
-    image: "/ac3-flex.png",
-    shortDescription:
-      "App Android de ERP para gestão empresarial em tempo real, publicado na Google Play.",
-    stack: ["React Native", "TypeScript", "REST APIs", "Node.js"],
-    features: [
-      "Gestão empresarial direto do mobile",
-      "Integração com APIs backend do ERP",
-      "Sincronização de dados em tempo real",
-      "Interfaces responsivas focadas em mobile",
-      "Controle e acompanhamento de operações no campo",
-    ],
-    metrics: [
-      { label: "Distribuição", value: "Publicado na Google Play" },
-      { label: "Sincronização", value: "Tempo real" },
-      { label: "UX", value: "Mobile-first" },
-    ],
-  },
+  // {
+  //   id: "ac3flex",
+  //   name: "ERP Mobile — AC3Flex",
+  //   href: "https://play.google.com/store/apps/details?id=br.com.autocom3tecnologiaesoftwaresltda.ac3flex&hl=pt_PT",
+  //   domain: "Google Play",
+  //   type: "mobile",
+  //   category: "ERP Mobile",
+  //   image: "/ac3-flex.png",
+  //   shortDescription:
+  //     "App Android de ERP para gestão empresarial em tempo real, publicado na Google Play.",
+  //   stack: ["React Native", "TypeScript", "REST APIs", "Node.js"],
+  //   features: [
+  //     "Gestão empresarial direto do mobile",
+  //     "Integração com APIs backend do ERP",
+  //     "Sincronização de dados em tempo real",
+  //     "Interfaces responsivas focadas em mobile",
+  //     "Controle e acompanhamento de operações no campo",
+  //   ],
+  //   metrics: [
+  //     { label: "Distribuição", value: "Publicado na Google Play" },
+  //     { label: "Sincronização", value: "Tempo real" },
+  //     { label: "UX", value: "Mobile-first" },
+  //   ],
+  // },
 ] as const
