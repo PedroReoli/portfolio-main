@@ -1,6 +1,6 @@
 export const profile = {
   name: "Pedro Lucas Reis",
-  role: "Full Stack Software Engineer | Frontend Specialist",
+  role: "Frontend Engineer (React/Next.js/TypeScript) | Full-stack background (Node/C#)",
   email: "pedrosousa2160@gmail.com",
   phoneLabel: "+55 (24) 9932-64040",
   phoneHref: "https://wa.me/5524993264040",
@@ -9,9 +9,8 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/pedro-lucas-reis-a93945171/",
   github: "https://github.com/PedroReoli",
   summary: [
-    "Software engineer with 4+ years building full stack web applications in production. I work with React, Next.js and TypeScript on the frontend, Node.js and C# on the backend, and I like thinking about architecture end-to-end — from the database to the pixel.",
-    "I lead legacy modernization, embed AI in real interfaces (chat, copilots, automations) and move comfortably between frontend, backend and product. Founder of DomusDev, where I apply all of this to my own products — no waiting for permission to build.",
-    "Outside code, I'm a musician and a reader. Two practices that train the same muscle: long attention, repetition and patience with the process. I read a lot — tech, but also far from it. I'm drawn to how things work under the hood, whether it's a distributed system, a book or a song.",
+    "Frontend Engineer (React/Next.js/TypeScript) with experience building ERP/SaaS products in production since 2022. I focus on scalable UI, performance and developer experience — from design systems to API consumption.",
+    "Full-stack as support: Node.js and C# to integrate services, business rules and databases. I use AI in the workflow (copilots, automations and evaluation) to move faster without outsourcing technical decisions.",
   ],
 } as const
 
@@ -19,7 +18,7 @@ export const highlights = [
   {
     label: "Experience",
     value: "4+ years",
-    description: "Full stack in production, building scalable systems.",
+    description: "Production web products (ERP/SaaS).",
   },
   {
     label: "Main Focus",
@@ -32,19 +31,14 @@ export const highlights = [
     description: "Reduced load time in ERP applications.",
   },
   {
-    label: "Applied AI",
-    value: "LLMs & Copilots",
-    description: "Chat, automations, streaming and intelligent UIs.",
+    label: "Product",
+    value: "ERP/SaaS",
+    description: "Portals, dashboards and business flows.",
   },
   {
-    label: "Mentorship",
-    value: "30+ people",
-    description: "Training in technology, AI and digital inclusion.",
-  },
-  {
-    label: "Founder",
-    value: "DomusDev",
-    description: "Digital products and modern solutions focused on scale.",
+    label: "Edge",
+    value: "Applied AI",
+    description: "Copilots, automations and LLM UX.",
   },
 ] as const
 
@@ -54,21 +48,16 @@ export const skills = [
     items: [
       "React",
       "Next.js",
-      "Angular",
-      "RxJS",
       "TypeScript",
-      "HTML",
-      "CSS",
       "TailwindCSS",
-      "Shadcn/ui",
       "Radix UI",
       "Framer Motion",
-      "Three.js",
+      "React Query",
     ],
   },
   {
     title: "Backend",
-    items: ["Node.js", "C#", "Express", "NestJS", "REST APIs", "GraphQL", "Microservices"],
+    items: ["Node.js", "C#", "REST APIs", "PostgreSQL"],
   },
   {
     title: "AI Applied",
@@ -76,50 +65,16 @@ export const skills = [
       "LLM Integration",
       "Streaming Responses",
       "AI Copilots",
-      "Agentic Automation",
-      "Cursor",
-      "Claude",
-      "MCP",
       "Prompt Engineering",
     ],
   },
   {
-    title: "Data",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "SQL"],
-  },
-  {
-    title: "Distributed Systems",
-    items: ["Kafka", "RabbitMQ", "NATS", "AWS SQS"],
-  },
-  {
-    title: "State Management",
-    items: ["React Query", "Redux", "Zustand", "Context API"],
-  },
-  {
-    title: "Testing",
-    items: ["Vitest", "Testing Library", "Unit Tests", "Integration Tests"],
-  },
-  {
     title: "Performance",
-    items: [
-      "Core Web Vitals",
-      "Lighthouse",
-      "Code Splitting",
-      "Lazy Loading",
-      "Bundle Optimization",
-    ],
-  },
-  {
-    title: "Accessibility",
-    items: ["WCAG 2.1", "WAI-ARIA", "Semantic HTML", "Responsive Design"],
-  },
-  {
-    title: "Methodologies",
-    items: ["Scrum", "Kanban", "Clean Code", "SOLID", "Code Reviews"],
+    items: ["Core Web Vitals", "Lighthouse", "Code Splitting", "Lazy Loading"],
   },
   {
     title: "Tools",
-    items: ["Git", "GitHub", "Swagger", "Postman", "ESLint", "Prettier"],
+    items: ["Git", "GitHub", "Swagger", "Postman"],
   },
 ] as const
 
@@ -187,9 +142,9 @@ export const skillsLabels = {
 } as const
 
 export const projectsLabels = {
-  kicker: "Featured Work",
-  title1: "LATEST",
-  title2: "PROJECTS",
+  kicker: "Selected projects",
+  title1: "FOCUSED",
+  title2: "WORK",
   details: "Details",
   visit: "Open",
   stack: "Stack",
@@ -228,75 +183,6 @@ export const projects = [
       { label: "Performance", value: "Lighthouse 95+" },
       { label: "Responsive", value: "Mobile-first" },
       { label: "Identity", value: "Custom design system" },
-    ],
-  },
-  {
-    id: "autocom3",
-    name: "Autocom3",
-    href: "https://autocom3.com.br/",
-    domain: "autocom3.com.br",
-    type: "site",
-    category: "Corporate Site",
-    image: "/autocom3.png",
-    shortDescription:
-      "Corporate site for a retail-focused ERP company, showcasing modules and differentiators.",
-    stack: ["React", "Next.js", "TypeScript", "TailwindCSS"],
-    features: [
-      "Clear presentation of ERP modules",
-      "Conversion flows for commercial contact",
-      "Scalable content architecture",
-      "Hierarchical product navigation",
-    ],
-    metrics: [
-      { label: "Performance", value: "Lighthouse 95+" },
-      { label: "Content", value: "Multi-product" },
-      { label: "Conversion", value: "Lead-driven UX" },
-    ],
-  },
-  {
-    id: "sivis",
-    name: "Sivis",
-    href: "https://sivis.com.br/",
-    domain: "sivis.com.br",
-    type: "site",
-    category: "Corporate Site",
-    image: "/sivis.png",
-    shortDescription:
-      "Corporate site for a management-systems company serving clubs and associations.",
-    stack: ["React", "Next.js", "TypeScript", "TailwindCSS"],
-    features: [
-      "Modular presentation of solutions",
-      "Messaging driven by differentiators",
-      "Structure built for SEO and scannability",
-      "Consistent design across the journey",
-    ],
-    metrics: [
-      { label: "Performance", value: "Lighthouse 95+" },
-      { label: "UX", value: "Mobile-first" },
-      { label: "SEO", value: "Semantic structure" },
-    ],
-  },
-  {
-    id: "nexusbrazil",
-    name: "Nexus Brazil",
-    href: "https://nexusbrazil.com.br/",
-    domain: "nexusbrazil.com.br",
-    type: "site",
-    category: "Corporate",
-    image: "/nexus.png",
-    shortDescription:
-      "Corporate site for a vehicle-protection company, focused on trust and conversion.",
-    stack: ["React", "Next.js", "TypeScript", "TailwindCSS"],
-    features: [
-      "Presentation of plans and coverage",
-      "Simplified sign-up flow",
-      "Trust-driven design",
-      "Accessibility and intuitive navigation",
-    ],
-    metrics: [
-      { label: "Conversion", value: "Clear CTA on every page" },
-      { label: "Accessibility", value: "Semantic HTML" },
-      { label: "Performance", value: "Lighthouse 95+" },
     ],
   },
   {
@@ -367,29 +253,6 @@ export const projects = [
       { label: "Regulatory", value: "Tax reform ready" },
       { label: "Integration", value: "Financial ERP" },
       { label: "Visualization", value: "Structured dashboards" },
-    ],
-  },
-  {
-    id: "portal-admin",
-    name: "Admin Portal",
-    href: "https://www.autocom3.com.br/admin/login/",
-    domain: "autocom3.com.br/admin",
-    type: "internal",
-    category: "Support & Ops",
-    image: "/portal-admin.png",
-    shortDescription:
-      "Internal system for operations, technical support and financial dashboards.",
-    stack: ["React", "TypeScript", "Node.js", "C#", "SQL", "PostgreSQL"],
-    features: [
-      "Dashboards with financial and operational KPIs",
-      "Custom SQL scripts execution for technical support",
-      "Role-based access control (RBAC)",
-      "Integration with multiple internal systems",
-    ],
-    metrics: [
-      { label: "Access", value: "RBAC" },
-      { label: "Support", value: "Built-in SQL runner" },
-      { label: "Integration", value: "Multi-system" },
     ],
   },
   {

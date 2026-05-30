@@ -33,7 +33,8 @@ const LocalTime = ({ format = "full" }: { format?: "full" | "timeOnly" | "short"
   return <>{timeStr}</>
 }
 
-export default function HeroVideoScroll({ email }: HeroSectionProps) {
+export default function HeroVideoScroll({ role, email }: HeroSectionProps) {
+  const heroRole = role || "Frontend Engineer"
 
   return (
     <section className="relative w-full min-h-[100svh] bg-[#0a0a0a] flex items-center justify-center overflow-hidden" id="home">
@@ -46,7 +47,7 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
         <div className="text-[#cef441] font-black text-2xl italic tracking-tighter">PR</div>
       </div>
       <div className="absolute top-8 right-8 z-30 hidden sm:block">
-        <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em]">Full Stack Engineer</div>
+        <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em]">{heroRole}</div>
       </div>
 
       {/* Signature Badges — mobile (top) */}
@@ -62,7 +63,7 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
         </span>
         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#cef441]/40 bg-black/50 backdrop-blur text-[#cef441] font-black uppercase tracking-[0.18em] text-[9px] rounded-full">
           <Sparkles size={11} />
-          Agentic Dev
+          AI-assisted
         </span>
       </motion.div>
 
@@ -79,7 +80,7 @@ export default function HeroVideoScroll({ email }: HeroSectionProps) {
         </span>
         <span className="inline-flex items-center gap-2 px-4 py-2 border border-[#cef441]/40 bg-black/50 backdrop-blur text-[#cef441] font-black uppercase tracking-[0.2em] text-[10px] rounded-full">
           <Sparkles size={13} />
-          Agentic Developer
+          AI-assisted delivery
         </span>
       </motion.div>
 

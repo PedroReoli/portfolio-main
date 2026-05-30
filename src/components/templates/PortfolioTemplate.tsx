@@ -52,8 +52,8 @@ const PortfolioTemplate = () => {
         title={lang === "pt" ? "Sobre Mim" : "About Me"} 
         subtitle={lang === "pt" ? "Identidade / Missão" : "Identity / Mission"}
         statement={lang === "pt"
-          ? "ENGENHEIRO, MÚSICO, LEITOR."
-          : "ENGINEER, MUSICIAN, READER."}
+          ? "FRONTEND ENGINEER, FULL STACK COMO APOIO, IA NA PRÁTICA."
+          : "FRONTEND ENGINEER, FULL-STACK BACKGROUND, AI IN PRACTICE."}
         summary={data.profile.summary}
         stats={data.highlights} 
       />
