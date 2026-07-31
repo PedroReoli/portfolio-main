@@ -1,6 +1,3 @@
-import { useRef } from "react"
-import { gsap } from "gsap"
-import { useGSAP } from "@gsap/react"
 import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from "react-icons/fa"
 import { FiArrowDownRight, FiZap, FiMapPin } from "react-icons/fi"
 
@@ -36,44 +33,9 @@ const HeroSection = ({
   github,
   phoneHref,
 }: HeroSectionProps) => {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const imageRef = useRef<HTMLImageElement>(null)
-
-  useGSAP(
-    () => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.out" },
-        onComplete: () => {
-          // Clear GSAP inline transforms to prevent sub-pixel hover jitter
-          gsap.set(
-            [".hero-anim-item", imageRef.current],
-            { clearProps: "transform,opacity" }
-          )
-        },
-      })
-
-      tl.fromTo(
-        ".hero-anim-item",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.08 }
-      )
-
-      if (imageRef.current) {
-        tl.fromTo(
-          imageRef.current,
-          { opacity: 0, x: 20 },
-          { opacity: 0.75, x: 0, duration: 0.5 },
-          "-=0.3"
-        )
-      }
-    },
-    { scope: containerRef }
-  )
-
   return (
     <section
       id="hero"
-      ref={containerRef}
       className="relative min-h-[85vh] flex items-center justify-center pt-24 pb-12 px-4 md:px-8 overflow-hidden"
     >
       {/* Background ambient lighting */}
@@ -84,7 +46,7 @@ const HeroSection = ({
         {/* Left Column: Core Info */}
         <div className="lg:col-span-8 space-y-6">
           {/* Location & Status Badges */}
-          <div className="hero-anim-item flex flex-wrap items-center gap-2">
+          <div className="hero-fade-in flex flex-wrap items-center gap-2" style={{ animationDelay: "0s" }}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 backdrop-blur-md border border-[#00f0ff]/30 text-xs font-bold text-zinc-200 shadow-md">
               <span className="w-2.5 h-2.5 rounded-full bg-[#00f0ff] animate-pulse shadow-[0_0_10px_#00f0ff]" />
               <span>Disponível para Projetos & Engajamentos</span>
@@ -99,7 +61,7 @@ const HeroSection = ({
           </div>
 
           {/* Name, Title & Tagline */}
-          <div className="hero-anim-item space-y-1">
+          <div className="hero-fade-in space-y-1" style={{ animationDelay: "0.08s" }}>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-none">
               {name}
             </h1>
@@ -115,14 +77,14 @@ const HeroSection = ({
           </div>
 
           {/* Summary Paragraph */}
-          <div className="hero-anim-item space-y-2.5 text-zinc-300 text-sm md:text-base leading-relaxed max-w-2xl">
+          <div className="hero-fade-in space-y-2.5 text-zinc-300 text-sm md:text-base leading-relaxed max-w-2xl" style={{ animationDelay: "0.16s" }}>
             {summary.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
           </div>
 
           {/* Action Buttons (Strictly stable, zero layout shift) */}
-          <div className="hero-anim-item flex flex-wrap items-center gap-3 pt-2">
+          <div className="hero-fade-in flex flex-wrap items-center gap-3 pt-2" style={{ animationDelay: "0.24s" }}>
             <a
               href={phoneHref}
               target="_blank"
@@ -163,7 +125,7 @@ const HeroSection = ({
           </div>
 
           {/* Stats Mini Grid (3 Cards Only) */}
-          <div className="hero-anim-item grid grid-cols-1 sm:grid-cols-3 gap-4 pt-5 border-t border-zinc-800/80 max-w-3xl">
+          <div className="hero-fade-in grid grid-cols-1 sm:grid-cols-3 gap-4 pt-5 border-t border-zinc-800/80 max-w-3xl" style={{ animationDelay: "0.32s" }}>
             {stats.slice(0, 3).map((st, idx) => (
               <div
                 key={idx}
@@ -194,7 +156,6 @@ const HeroSection = ({
         <div className="lg:col-span-4 relative flex justify-center lg:justify-end items-end min-h-[320px] lg:min-h-[440px]">
           <div className="relative w-64 h-80 sm:w-72 sm:h-96 lg:w-80 lg:h-[450px] rounded-[2rem] overflow-hidden border border-[#00f0ff]/30 bg-zinc-950/50 shadow-[0_0_30px_rgba(0,240,255,0.1)]">
             <img
-              ref={imageRef}
               src="/eu-profissional.png"
               alt={name}
               className="w-full h-full object-cover object-top opacity-80 hover:opacity-100 transition-opacity duration-200 filter grayscale hover:grayscale-0"

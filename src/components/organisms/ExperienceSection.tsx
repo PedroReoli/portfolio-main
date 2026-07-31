@@ -39,10 +39,10 @@ const ExperienceSection = ({
         {experiences.map((exp, idx) => (
           <div key={idx} className="relative group">
             {/* Timeline Dot Indicator */}
-            <div className="absolute -left-[31px] md:-left-[39px] top-2.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-[#00f0ff] group-hover:bg-[#00f0ff] group-hover:shadow-[0_0_12px_#00f0ff] transition-all" />
+            <div className="absolute -left-[31px] md:-left-[39px] top-2.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-[#00f0ff] group-hover:bg-[#00f0ff] group-hover:shadow-[0_0_12px_#00f0ff] transition-colors duration-150" />
 
             {/* Compact Streamlined Card */}
-            <div className="p-5 md:p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 hover:border-[#00f0ff]/40 transition-all space-y-3 shadow-xl">
+            <div className="p-5 md:p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 hover:border-[#00f0ff]/40 transition-colors duration-150 space-y-3 shadow-xl">
               {/* Header: Company, Role & Date */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
@@ -88,7 +88,7 @@ const ExperienceSection = ({
 
                 <button
                   onClick={() => setSelectedExp(exp)}
-                  className="px-4 py-2 rounded-full bg-zinc-950 border border-white/15 text-white hover:text-[#00f0ff] hover:border-[#00f0ff]/50 text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors shadow-md shrink-0 self-end sm:self-auto"
+                  className="px-4 py-2 rounded-full bg-zinc-950 border border-white/15 text-white hover:text-[#00f0ff] hover:border-[#00f0ff]/50 text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors duration-150 shadow-md shrink-0 self-end sm:self-auto"
                 >
                   <FiMaximize2 className="w-3.5 h-3.5 text-[#00f0ff]" />
                   <span>Ver Detalhes</span>
@@ -108,16 +108,16 @@ const ExperienceSection = ({
           >
             <motion.div
               onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
               className="relative w-full max-w-5xl bg-zinc-950 border border-[#00f0ff]/40 rounded-3xl p-6 md:p-8 shadow-2xl text-zinc-100 space-y-6 cursor-default my-auto"
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedExp(null)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors border border-white/10"
+                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-150 border border-white/10"
                 aria-label="Fechar"
               >
                 <FiX className="w-5 h-5" />

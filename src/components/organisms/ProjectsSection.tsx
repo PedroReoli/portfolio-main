@@ -59,7 +59,7 @@ const ReoliAiLogosBanner = () => {
   ]
 
   return (
-    <div className="w-full h-full min-h-[200px] md:min-h-[220px] rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-white/10 p-4 relative overflow-hidden flex flex-col justify-between group-hover:border-[#00f0ff]/40 transition-colors duration-200">
+    <div className="w-full h-full min-h-[200px] md:min-h-[220px] rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-white/10 p-4 relative overflow-hidden flex flex-col justify-between group-hover:border-[#00f0ff]/40 transition-colors duration-150">
       {/* Background glow radial */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00f0ff]/15 rounded-full blur-2xl pointer-events-none" />
 
@@ -146,7 +146,7 @@ const ProjectsSection = ({ projects, labels }: ProjectsSectionProps) => {
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="group glass-card rounded-3xl p-5 flex flex-col justify-between border border-white/10 hover:border-[#00f0ff]/40 shadow-xl overflow-hidden transition-colors duration-200"
+            className="group glass-card rounded-3xl p-5 flex flex-col justify-between border border-white/10 hover:border-[#00f0ff]/40 shadow-xl overflow-hidden transition-colors duration-150"
           >
             {/* Card Image Thumbnail or AI Logos Showcase for ReoliOS */}
             <div className="w-full h-52 md:h-56 rounded-2xl overflow-hidden bg-zinc-950 border border-white/5 relative mb-4">
@@ -157,7 +157,7 @@ const ProjectsSection = ({ projects, labels }: ProjectsSectionProps) => {
                   <img
                     src={project.image}
                     alt={project.name}
-                    className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity duration-200"
+                    className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity duration-150"
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-zinc-950/80 text-[#00f0ff] border border-white/10 backdrop-blur-md shadow-md">
