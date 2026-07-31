@@ -1,71 +1,89 @@
 import { useState } from "react"
 import * as dbPT from "../../data/portfolio"
 import * as dbEN from "../../data/portfolio.en"
-import FooterSection from "../organisms/FooterSection"
 import Header from "../organisms/Header"
-import HeroVideoScroll from "../organisms/HeroVideoScroll"
+import HeroSection from "../organisms/HeroSection"
 import SkillsSection from "../organisms/SkillsSection"
-import SummarySection from "../organisms/SummarySection"
 import ProjectsSection from "../organisms/ProjectsSection"
 import ExperienceSection from "../organisms/ExperienceSection"
+import BlogSection from "../organisms/BlogSection"
+import FooterSection from "../organisms/FooterSection"
 import WhatsAppFloat from "../atoms/WhatsAppFloat"
 
 const navPT = [
-  { label: "Sobre Mim", href: "#resumo" },
+  { label: "Início", href: "#hero" },
+  { label: "Stack", href: "#skills" },
   { label: "Projetos", href: "#projetos" },
-  { label: "Expertise", href: "#competencias" },
   { label: "Experiência", href: "#experiencia" },
+  { label: "Blog", href: "#blog" },
   { label: "Contato", href: "#contato" },
 ] as const
 
 const navEN = [
-  { label: "About Me", href: "#resumo" },
+  { label: "Home", href: "#hero" },
+  { label: "Stack", href: "#skills" },
   { label: "Projects", href: "#projetos" },
-  { label: "Expertise", href: "#competencias" },
   { label: "Experience", href: "#experiencia" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contato" },
 ] as const
 
-const PortfolioTemplate = () => {
-  const [lang, setLang] = useState<"pt" | "en">("en")
-  
+interface PortfolioTemplateProps {
+  onNavigateToBlog?: () => void
+}
+
+const PortfolioTemplate = ({ onNavigateToBlog }: PortfolioTemplateProps) => {
+  const [lang, setLang] = useState<"pt" | "en">("pt")
+
   const data = lang === "pt" ? dbPT : dbEN
   const navigation = lang === "pt" ? navPT : navEN
 
   return (
-    <main className="site-shell bg-[#0a0a0a] relative">
-      <Header 
-        navigation={navigation} 
-        lang={lang} 
-        toggleLang={() => setLang(l => l === "pt" ? "en" : "pt")} 
+    <div className="relative min-h-screen bg-[#080a11] text-zinc-100 font-sans selection:bg-[#00f0ff]/30 selection:text-white">
+      {/* Background Mesh Grid */}
+      <div className="bg-mesh" />
+
+      {/* Main Header */}
+      <Header
+        navigation={navigation}
+        lang={lang}
+        toggleLang={() => setLang((l) => (l === "pt" ? "en" : "pt"))}
       />
 
-      <HeroVideoScroll
+      {/* Merged Hero + About */}
+      <HeroSection
+        name={data.profile.name}
         role={data.profile.role}
+        tagline={data.profile.tagline}
+        location={data.profile.location}
+        summary={data.profile.summary}
+        stats={data.highlights}
         email={data.profile.email}
         linkedin={data.profile.linkedin}
         github={data.profile.github}
-        website={data.profile.website}
+        phoneHref={data.profile.phoneHref}
       />
 
-      <SummarySection 
-        title={lang === "pt" ? "Sobre Mim" : "About Me"} 
-        subtitle={lang === "pt" ? "Identidade / Missão" : "Identity / Mission"}
-        statement={lang === "pt"
-          ? "FRONTEND ENGINEER, FULL STACK COMO APOIO, IA NA PRÁTICA."
-          : "FRONTEND ENGINEER, FULL-STACK BACKGROUND, AI IN PRACTICE."}
-        summary={data.profile.summary}
-        stats={data.highlights} 
+      {/* Skills / Stack Grid */}
+      <SkillsSection skills={data.skills} />
+
+      {/* Projects Section */}
+      <ProjectsSection
+        projects={data.projects}
+        labels={data.projectsLabels}
       />
 
-      <ProjectsSection projects={data.projects} labels={data.projectsLabels} />
+      {/* Experience Section */}
+      <ExperienceSection experiences={data.experiences} />
 
-      <SkillsSection skills={data.skills} labels={data.skillsLabels} />
-
-      <ExperienceSection 
-        experiences={data.experiences} 
+      {/* Blog Section (strictly 3 items on main page) */}
+      <BlogSection
+        posts={data.blogPosts}
+        lang={lang}
+        onViewAllClick={onNavigateToBlog}
       />
 
+      {/* Contact / Footer Section */}
       <FooterSection
         lang={lang}
         degree={data.education.degree}
@@ -74,16 +92,16 @@ const PortfolioTemplate = () => {
         languages={data.languages}
         email={data.profile.email}
         phoneHref={data.profile.phoneHref}
-        phoneLabel={data.profile.phoneLabel}
         linkedin={data.profile.linkedin}
         github={data.profile.github}
       />
 
+      {/* Floating Action Button */}
       <WhatsAppFloat
         href={data.profile.phoneHref}
         label={lang === "pt" ? "Falar no WhatsApp" : "Chat on WhatsApp"}
       />
-    </main>
+    </div>
   )
 }
 

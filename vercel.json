@@ -1,3 +1,8 @@
 {
-  "version": 2
+  "version": 2,
+  "rewrites": [
+    { "source": "/blog", "destination": "/index.html" },
+    { "source": "/blog/:path*", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

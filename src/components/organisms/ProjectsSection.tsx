@@ -1,307 +1,236 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { useMemo, useState } from "react";
-import ProjectDetailsModal, {
-  type ProjectDetails,
-} from "../molecules/ProjectDetailsModal";
+import { useState } from "react"
+import { FiExternalLink, FiMaximize2, FiCpu } from "react-icons/fi"
+import {
+  SiAnthropic,
+  SiOpenai,
+  SiGoogle,
+  SiMeta,
+  SiPytorch,
+  SiGithub,
+} from "react-icons/si"
+import SectionHeading from "../molecules/SectionHeading"
+import ProjectDetailsModal from "../molecules/ProjectDetailsModal"
+import Tag from "../atoms/Tag"
 
-type ProjectType = "site" | "erp" | "saas" | "mobile" | "internal";
+interface Metric {
+  readonly label: string
+  readonly value: string
+}
 
-type Project = {
-  id: string;
-  name: string;
-  href: string;
-  domain: string;
-  type: string;
-  category: string;
-  image?: string;
-  shortDescription: string;
-  stack: readonly string[];
-  features: readonly string[];
-  metrics: readonly { label: string; value: string }[];
-};
+interface Project {
+  readonly id: string
+  readonly name: string
+  readonly href: string
+  readonly domain: string
+  readonly type: string
+  readonly category: string
+  readonly image: string
+  readonly shortDescription: string
+  readonly stack: readonly string[]
+  readonly features: readonly string[]
+  readonly metrics: readonly Metric[]
+}
 
-type ProjectsLabels = {
-  kicker: string;
-  title1: string;
-  title2: string;
-  details: string;
-  visit: string;
-  stack: string;
-  features: string;
-  metrics: string;
-  close: string;
-  all?: string;
-  types: Record<ProjectType, string>;
-};
+interface ProjectsSectionProps {
+  projects: readonly Project[]
+  labels: {
+    readonly kicker: string
+    readonly title1: string
+    readonly title2: string
+    readonly details: string
+    readonly visit: string
+    readonly stack: string
+    readonly features: string
+    readonly metrics: string
+    readonly close: string
+    readonly all: string
+    readonly types: Record<string, string>
+  }
+}
 
-type Props = {
-  projects: readonly Project[];
-  labels: ProjectsLabels;
-};
-
-const TYPE_GRADIENTS: Record<ProjectType, string> = {
-  site: "from-zinc-800 via-zinc-900 to-black",
-  erp: "from-[#1a2e1a] via-[#0e1a10] to-black",
-  saas: "from-[#2a1f4a] via-[#130e24] to-black",
-  mobile: "from-[#1f2e4a] via-[#0e1524] to-black",
-  internal: "from-[#3a2a14] via-[#1c1408] to-black",
-};
-
-const ProjectPlaceholder = ({
-  type,
-  name,
-}: {
-  type: ProjectType;
-  name: string;
-}) => (
-  <div
-    className={`absolute inset-0 bg-gradient-to-br ${TYPE_GRADIENTS[type]} flex items-center justify-center`}
-  >
-    <div
-      className="absolute inset-0 opacity-30"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 1px 1px, rgba(206,244,65,0.15) 1px, transparent 0)",
-        backgroundSize: "24px 24px",
-      }}
-    />
-    <div className="relative text-center px-6 select-none">
-      <div className="text-[10px] text-[#cef441]/60 uppercase tracking-[0.4em] font-mono mb-2">
-        {type}
-      </div>
-      <div className="text-2xl sm:text-3xl font-black uppercase tracking-tighter italic text-white/80">
-        {name}
-      </div>
-    </div>
-  </div>
-);
-
-type Filter = "all" | ProjectType;
-
-export default function ProjectsSection({ projects, labels }: Props) {
-  const [activeProject, setActiveProject] = useState<ProjectDetails | null>(
-    null,
-  );
-  const [filter, setFilter] = useState<Filter>("all");
-
-  const counts = useMemo(() => {
-    const acc: Record<string, number> = { all: projects.length };
-    for (const p of projects) acc[p.type] = (acc[p.type] ?? 0) + 1;
-    return acc;
-  }, [projects]);
-
-  const filterOrder: Filter[] = ["all", "site", "erp", "saas", "mobile", "internal"];
-  const availableFilters = filterOrder.filter(
-    (f) => f === "all" || (counts[f] ?? 0) > 0,
-  );
-
-  const visibleProjects = useMemo(
-    () => (filter === "all" ? projects : projects.filter((p) => p.type === filter)),
-    [filter, projects],
-  );
-
-  const allLabel = labels.all ?? "All";
+const ReoliAiLogosBanner = () => {
+  const aiLogos = [
+    { name: "Claude", icon: <SiAnthropic className="w-5 h-5 text-[#00f0ff]" /> },
+    { name: "ChatGPT", icon: <SiOpenai className="w-5 h-5 text-emerald-400" /> },
+    { name: "Gemini", icon: <SiGoogle className="w-5 h-5 text-blue-400" /> },
+    { name: "Meta AI", icon: <SiMeta className="w-5 h-5 text-cyan-400" /> },
+    { name: "PyTorch", icon: <SiPytorch className="w-5 h-5 text-amber-400" /> },
+    { name: "Copilot", icon: <SiGithub className="w-5 h-5 text-purple-400" /> },
+  ]
 
   return (
-    <>
-      <section
-        className="relative z-10 w-full bg-[#0a0a0a] py-24 lg:py-32"
-        id="projetos"
-      >
-        <div className="px-6 max-w-[90rem] mx-auto">
-          {/* Header */}
-          <div className="mb-10 md:mb-14 flex flex-col items-start">
-            <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4">
-              {labels.kicker}
-            </h2>
-            <h3 className="text-[12vw] sm:text-7xl lg:text-[8rem] font-black tracking-tighter uppercase text-white leading-none pb-4">
-              {labels.title1}
-              <br />
-              <span
-                className="text-transparent"
-                style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}
-              >
-                {labels.title2}
-              </span>
-            </h3>
-          </div>
+    <div className="w-full h-full min-h-[200px] md:min-h-[220px] rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 border border-white/10 p-4 relative overflow-hidden flex flex-col justify-between group-hover:border-[#00f0ff]/40 transition-colors duration-200">
+      {/* Background glow radial */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#00f0ff]/15 rounded-full blur-2xl pointer-events-none" />
 
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2 mb-10 md:mb-14 border-y border-white/10 py-5">
-            {availableFilters.map((f) => {
-              const isActive = f === filter;
-              const label = f === "all" ? allLabel : labels.types[f];
-              const count = counts[f] ?? 0;
+      {/* Header Tag */}
+      <div className="flex items-center justify-between z-10">
+        <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-950/90 text-[#00f0ff] border border-[#00f0ff]/30 backdrop-blur-md shadow-md flex items-center gap-1.5">
+          <FiCpu className="w-3.5 h-3.5" />
+          <span>43 Operational Skills</span>
+        </span>
+        <span className="text-[10px] font-extrabold text-zinc-400 uppercase tracking-widest">
+          Claude Code CLI
+        </span>
+      </div>
 
-              return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setFilter(f)}
-                  className={[
-                    "inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-mono uppercase tracking-[0.2em] border transition-colors",
-                    isActive
-                      ? "bg-[#cef441] text-black border-[#cef441]"
-                      : "bg-white/[0.03] text-zinc-400 border-white/10 hover:text-white hover:border-white/25",
-                  ].join(" ")}
-                >
-                  <span>{label}</span>
-                  <span
-                    className={[
-                      "text-[10px] font-mono px-1.5 py-0.5 rounded-full",
-                      isActive
-                        ? "bg-black/20 text-black"
-                        : "bg-white/5 text-zinc-500",
-                    ].join(" ")}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Grid */}
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
+      {/* AI Logos Grid Showcase */}
+      <div className="grid grid-cols-3 gap-2.5 my-3 z-10">
+        {aiLogos.map((ai, idx) => (
+          <div
+            key={idx}
+            className="flex items-center justify-center gap-1.5 p-2 rounded-xl bg-zinc-950/80 border border-white/10 hover:border-[#00f0ff]/50 backdrop-blur-md shadow-sm transition-colors duration-150"
           >
-            <AnimatePresence mode="popLayout">
-              {visibleProjects.map((proj, idx) => {
-                const type = proj.type as ProjectType;
-                const typeLabel = labels.types[type] ?? proj.type;
+            {ai.icon}
+            <span className="text-[11px] font-bold text-zinc-200 hidden sm:inline">
+              {ai.name}
+            </span>
+          </div>
+        ))}
+      </div>
 
-                return (
-                  <motion.div
-                    key={proj.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="group relative flex flex-col bg-[#111] border border-white/5 hover:border-[#cef441]/40 rounded-3xl overflow-hidden transition-colors"
-                  >
-                    {/* Image / Placeholder */}
-                    <a
-                      href={proj.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative w-full h-[200px] sm:h-[220px] bg-zinc-900 border-b border-white/10 block overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-[#cef441]/0 group-hover:bg-[#cef441]/10 transition-colors duration-500 z-10 pointer-events-none" />
+      {/* Bottom Footer Label */}
+      <div className="text-[11px] font-semibold text-zinc-400 text-center z-10 bg-zinc-950/60 py-1 px-3 rounded-full border border-white/5">
+        ⚡ Automações com LLMs & Engenharia de Prompts
+      </div>
+    </div>
+  )
+}
 
-                      {proj.image ? (
-                        <img
-                          src={proj.image}
-                          alt={proj.name}
-                          className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <ProjectPlaceholder type={type} name={proj.name} />
-                      )}
+const ProjectsSection = ({ projects, labels }: ProjectsSectionProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [activeProject, setActiveProject] = useState<Project | null>(null)
 
-                      <span className="absolute top-4 left-4 z-20 text-[9px] text-[#cef441] uppercase tracking-[0.25em] font-mono border border-[#cef441]/30 bg-black/60 backdrop-blur px-2.5 py-1 rounded-full">
-                        {typeLabel}
-                      </span>
-                      <span className="absolute top-4 right-4 z-20 text-[9px] text-white/60 font-mono tracking-widest bg-black/50 backdrop-blur border border-white/10 px-2 py-1 rounded-full">
-                        {`${idx + 1}`.padStart(2, "0")}
-                      </span>
-                    </a>
+  const categories = [
+    { id: "all", label: labels.all },
+    ...Array.from(new Set(projects.map((p) => p.type))).map((type) => ({
+      id: type,
+      label: labels.types[type] || type,
+    })),
+  ]
 
-                    {/* Content */}
-                    <div className="flex flex-col w-full p-6 gap-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter italic leading-none text-white group-hover:text-[#cef441] transition-colors">
-                          {proj.name}
-                        </h4>
-                        <a
-                          href={proj.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`${labels.visit} ${proj.name}`}
-                          className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-[#cef441] text-white group-hover:text-black transition-colors"
-                        >
-                          <ArrowUpRight size={16} />
-                        </a>
-                      </div>
+  const filteredProjects =
+    selectedCategory === "all"
+      ? projects
+      : projects.filter((p) => p.type === selectedCategory)
 
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[9px] text-zinc-500 uppercase tracking-[0.2em] font-mono border border-white/10 px-2.5 py-1 rounded-full">
-                          {proj.category}
-                        </span>
-                        <span className="text-[9px] text-[#cef441]/80 uppercase tracking-[0.2em] font-mono truncate max-w-[180px]">
-                          {proj.domain}
-                        </span>
-                      </div>
+  return (
+    <section id="projetos" className="py-14 px-4 md:px-8 max-w-6xl mx-auto">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <SectionHeading
+          kicker={labels.kicker}
+          title1={labels.title1}
+          title2={labels.title2}
+        />
 
-                      <p className="text-sm text-zinc-400 font-light leading-relaxed line-clamp-2">
-                        {proj.shortDescription}
-                      </p>
-
-                      {/* Stack preview */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {proj.stack.slice(0, 4).map((item) => (
-                          <span
-                            key={item}
-                            className="text-[10px] text-zinc-300 font-mono border border-white/10 bg-white/[0.03] px-2 py-1 rounded-full"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                        {proj.stack.length > 4 && (
-                          <span className="text-[10px] text-zinc-500 font-mono px-2 py-1">
-                            +{proj.stack.length - 4}
-                          </span>
-                        )}
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setActiveProject({
-                            id: proj.id,
-                            name: proj.name,
-                            href: proj.href,
-                            domain: proj.domain,
-                            type: proj.type,
-                            category: proj.category,
-                            shortDescription: proj.shortDescription,
-                            stack: proj.stack,
-                            features: proj.features,
-                            metrics: proj.metrics,
-                          })
-                        }
-                        className="mt-1 inline-flex items-center justify-between gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-white/80 hover:text-[#cef441] border border-white/10 hover:border-[#cef441]/40 bg-white/[0.03] hover:bg-[#cef441]/5 px-4 py-2.5 rounded-full transition-colors w-full"
-                      >
-                        <span>{labels.details}</span>
-                        <span aria-hidden="true">→</span>
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </motion.div>
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-1.5 p-1.5 bg-zinc-900/80 backdrop-blur-md border border-white/10 rounded-2xl">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors duration-150 ${
+                selectedCategory === cat.id
+                  ? "bg-[#00f0ff] text-zinc-950 shadow-md shadow-[#00f0ff]/20"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800/60"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
-      </section>
+      </div>
 
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredProjects.map((project) => (
+          <div
+            key={project.id}
+            className="group glass-card rounded-3xl p-5 flex flex-col justify-between border border-white/10 hover:border-[#00f0ff]/40 shadow-xl overflow-hidden transition-colors duration-200"
+          >
+            {/* Card Image Thumbnail or AI Logos Showcase for ReoliOS */}
+            <div className="w-full h-52 md:h-56 rounded-2xl overflow-hidden bg-zinc-950 border border-white/5 relative mb-4">
+              {project.id === "reolios" ? (
+                <ReoliAiLogosBanner />
+              ) : (
+                <>
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-zinc-950/80 text-[#00f0ff] border border-white/10 backdrop-blur-md shadow-md">
+                      {project.category}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Card Body */}
+            <div className="space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-xl font-extrabold text-white group-hover:text-[#00f0ff] transition-colors duration-150">
+                    {project.name}
+                  </h3>
+                  <span className="text-xs text-zinc-400 font-medium">
+                    {project.domain}
+                  </span>
+                </div>
+
+                <p className="text-xs md:text-sm text-zinc-300 mt-1.5 leading-relaxed line-clamp-2">
+                  {project.shortDescription}
+                </p>
+              </div>
+
+              {/* Tech Stack Tags */}
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {project.stack.slice(0, 5).map((st) => (
+                  <Tag key={st}>{st}</Tag>
+                ))}
+                {project.stack.length > 5 && (
+                  <span className="text-[10px] text-zinc-400 font-semibold self-center">
+                    +{project.stack.length - 5}
+                  </span>
+                )}
+              </div>
+
+              {/* Card Footer Actions */}
+              <div className="flex items-center justify-between pt-4 mt-2 border-t border-white/5 gap-2">
+                <button
+                  onClick={() => setActiveProject(project)}
+                  className="px-4 py-2 rounded-full bg-zinc-900/90 border border-white/15 text-white hover:text-[#00f0ff] hover:border-[#00f0ff]/40 text-xs md:text-sm font-bold flex items-center gap-1.5 transition-colors duration-150 shadow-sm"
+                >
+                  <FiMaximize2 className="w-4 h-4" />
+                  <span>{labels.details}</span>
+                </button>
+
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-full bg-[#00f0ff] text-zinc-950 hover:bg-[#38bdf8] text-xs md:text-sm font-extrabold flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,240,255,0.25)] transition-colors duration-150"
+                >
+                  <span>{labels.visit}</span>
+                  <FiExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal */}
       <ProjectDetailsModal
         project={activeProject}
-        labels={{
-          stack: labels.stack,
-          features: labels.features,
-          metrics: labels.metrics,
-          visit: labels.visit,
-          close: labels.close,
-          typeLabel: activeProject
-            ? labels.types[activeProject.type as ProjectType] ??
-              activeProject.type
-            : "",
-        }}
+        isOpen={Boolean(activeProject)}
         onClose={() => setActiveProject(null)}
+        labels={labels}
       />
-    </>
-  );
+    </section>
+  )
 }
+
+export default ProjectsSection

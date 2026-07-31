@@ -1,93 +1,195 @@
-import { motion } from "framer-motion"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { FiMaximize2, FiX, FiCheckCircle, FiBriefcase, FiMapPin, FiCalendar } from "react-icons/fi"
+import SectionHeading from "../molecules/SectionHeading"
+import Tag from "../atoms/Tag"
 
-type Experience = {
-  company: string
-  role: string
-  context: string
-  period: string
-  location: string
-  stack: readonly string[]
-  achievements: readonly string[]
+interface Experience {
+  readonly company: string
+  readonly role: string
+  readonly context: string
+  readonly period: string
+  readonly location: string
+  readonly stack: readonly string[]
+  readonly achievements: readonly string[]
 }
 
-type ExperienceSectionProps = {
+interface ExperienceSectionProps {
   experiences: readonly Experience[]
+  title?: string
+  subtitle?: string
 }
 
-function getCompanyClass(name: string) {
-  const len = name.length
-  if (len >= 28) return "text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3rem]"
-  if (len >= 18) return "text-3xl sm:text-4xl lg:text-[3.25rem] xl:text-[3.75rem]"
-  return "text-4xl sm:text-5xl lg:text-[4rem]"
-}
+const ExperienceSection = ({
+  experiences,
+  title = "CARREIRA &",
+  subtitle = "EXPERIÊNCIA",
+}: ExperienceSectionProps) => {
+  const [selectedExp, setSelectedExp] = useState<Experience | null>(null)
 
-export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   return (
-    <section className="relative z-10 px-6 py-24 lg:py-32 max-w-[90rem] mx-auto min-h-screen flex flex-col justify-center" id="experiencia">
-      
-      {/* Huge Title */}
-      <div className="mb-20 md:mb-32 flex flex-col items-start">
-        <h2 className="text-zinc-500 font-mono text-xs sm:text-sm tracking-[0.3em] uppercase mb-4">Track Record</h2>
-        <h3 className="text-[12vw] sm:text-7xl lg:text-[8rem] xl:text-[9rem] font-black tracking-tighter uppercase text-white leading-[0.85]">
-          CAREER<br/><span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.4)" }}>JOURNEY</span>
-        </h3>
-      </div>
+    <section id="experiencia" className="py-14 px-4 md:px-8 max-w-6xl mx-auto">
+      <SectionHeading
+        kicker="Trajetória Profissional"
+        title1={title}
+        title2={subtitle}
+      />
 
-      {/* List */}
-      <div className="flex flex-col border-t border-white/10">
+      <div className="relative pl-6 md:pl-8 border-l border-zinc-800 space-y-6">
         {experiences.map((exp, idx) => (
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            key={`${exp.company}-${idx}`}
-            className="flex flex-col lg:flex-row justify-between py-12 lg:py-16 border-b border-white/10 group"
-          >
-            {/* Left Box (Company & Time) */}
-            <div className="w-full lg:w-1/3 flex flex-col gap-4 mb-8 lg:mb-0 relative lg:pr-10">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
-                {exp.period}
-              </span>
-              <h4 className={`${getCompanyClass(exp.company)} font-black uppercase tracking-tighter text-white group-hover:text-[#cef441] transition-colors leading-[0.9] break-words`}>
-                {exp.company}
-              </h4>
-              <span className="text-[10px] sm:text-xs text-white/50 uppercase tracking-[0.2em] font-mono mt-2">
-                {exp.location}
-              </span>
-            </div>
+          <div key={idx} className="relative group">
+            {/* Timeline Dot Indicator */}
+            <div className="absolute -left-[31px] md:-left-[39px] top-2.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-[#00f0ff] group-hover:bg-[#00f0ff] group-hover:shadow-[0_0_12px_#00f0ff] transition-all" />
 
-            {/* Right Box (Role & Body) */}
-            <div className="w-full lg:w-2/3 flex flex-col gap-6 lg:pl-12 xl:pl-24">
-              <h5 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tighter text-white leading-none">
-                {exp.role}
-              </h5>
-              
-              <p className="text-zinc-400 font-light leading-relaxed text-sm sm:text-base max-w-2xl">
-                {exp.context}
-              </p>
+            {/* Compact Streamlined Card */}
+            <div className="p-5 md:p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 hover:border-[#00f0ff]/40 transition-all space-y-3 shadow-xl">
+              {/* Header: Company, Role & Date */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+                    {exp.company}
+                  </span>
+                  <h3 className="text-lg md:text-xl font-extrabold text-white leading-tight mt-0.5">
+                    {exp.role}
+                  </h3>
+                </div>
 
-              <ul className="flex flex-col gap-3 py-4">
-                {exp.achievements.map((ach, i) => (
-                  <li key={i} className="flex items-start gap-4 text-zinc-400 text-sm sm:text-base">
-                    <span className="text-[#cef441] mt-[3px] font-mono text-[10px]">&gt;</span>
-                    <span className="leading-relaxed">{ach}</span>
+                <div className="text-xs md:text-sm font-extrabold text-[#00f0ff] bg-[#00f0ff]/10 px-3.5 py-1.5 rounded-full border border-[#00f0ff]/30 self-start sm:self-center shrink-0 shadow-xs flex items-center gap-1.5">
+                  <FiCalendar className="w-3.5 h-3.5" />
+                  <span>{exp.period}</span>
+                </div>
+              </div>
+
+              {/* Context */}
+              <p className="text-xs text-zinc-400 italic line-clamp-1">{exp.context}</p>
+
+              {/* Top 2 Concise Bullets */}
+              <ul className="space-y-1.5 text-xs text-zinc-300">
+                {exp.achievements.slice(0, 2).map((ach, achIdx) => (
+                  <li key={achIdx} className="flex items-start gap-2 leading-relaxed">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] mt-1.5 shrink-0" />
+                    <span className="line-clamp-2">{ach}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-2 pt-4">
-                {exp.stack.map(tech => (
-                  <span key={tech} className="px-3 py-1.5 border border-white/10 text-white/60 bg-white/5 text-[9px] sm:text-[10px] uppercase font-mono tracking-widest rounded-full group-hover:border-[#cef441]/30 group-hover:bg-[#cef441]/5 transition-colors">
-                    {tech}
-                  </span>
-                ))}
+              {/* Card Bottom Bar: Stack Tags + Ver Detalhes Button */}
+              <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-white/5">
+                <div className="flex flex-wrap gap-1.5">
+                  {exp.stack.slice(0, 4).map((tech) => (
+                    <Tag key={tech}>{tech}</Tag>
+                  ))}
+                  {exp.stack.length > 4 && (
+                    <span className="text-[10px] text-zinc-400 font-semibold self-center">
+                      +{exp.stack.length - 4}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  onClick={() => setSelectedExp(exp)}
+                  className="px-4 py-2 rounded-full bg-zinc-950 border border-white/15 text-white hover:text-[#00f0ff] hover:border-[#00f0ff]/50 text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors shadow-md shrink-0 self-end sm:self-auto"
+                >
+                  <FiMaximize2 className="w-3.5 h-3.5 text-[#00f0ff]" />
+                  <span>Ver Detalhes</span>
+                </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
-      
+
+      {/* Spacious Click-Outside-To-Close Pop-Up Overlay */}
+      <AnimatePresence>
+        {selectedExp && (
+          <div
+            onClick={() => setSelectedExp(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-xl cursor-pointer overflow-y-auto"
+          >
+            <motion.div
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="relative w-full max-w-5xl bg-zinc-950 border border-[#00f0ff]/40 rounded-3xl p-6 md:p-8 shadow-2xl text-zinc-100 space-y-6 cursor-default my-auto"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedExp(null)}
+                className="absolute top-5 right-5 p-2 rounded-full bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors border border-white/10"
+                aria-label="Fechar"
+              >
+                <FiX className="w-5 h-5" />
+              </button>
+
+              {/* Pop-Up Header */}
+              <div className="space-y-2 pr-8">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#00f0ff]/10 text-[#00f0ff] border border-[#00f0ff]/30">
+                    {selectedExp.company}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs text-zinc-400 font-semibold">
+                    <FiCalendar className="w-3.5 h-3.5 text-[#00f0ff]" />
+                    {selectedExp.period}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs text-zinc-400 font-semibold">
+                    <FiMapPin className="w-3.5 h-3.5 text-zinc-400" />
+                    {selectedExp.location}
+                  </span>
+                </div>
+
+                <h3 className="text-2xl md:text-3xl font-black text-white flex items-center gap-2">
+                  <FiBriefcase className="w-6 h-6 text-[#00f0ff] shrink-0" />
+                  <span>{selectedExp.role}</span>
+                </h3>
+
+                <p className="text-xs md:text-sm text-zinc-300 italic bg-zinc-900/90 p-3 rounded-2xl border border-white/5">
+                  {selectedExp.context}
+                </p>
+              </div>
+
+              {/* Wide 2-Column Grid for Achievements */}
+              <div className="space-y-2.5">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#00f0ff]">
+                  Realizações & Contribuições Técnicas Completas
+                </h4>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {selectedExp.achievements.map((ach, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-2xl bg-zinc-900/70 border border-white/5 flex items-start gap-2.5 text-xs text-zinc-200 leading-relaxed"
+                    >
+                      <FiCheckCircle className="w-4 h-4 text-[#00f0ff] shrink-0 mt-0.5" />
+                      <span>{ach}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Complete Technologies Stack */}
+              <div className="space-y-2 pt-2 border-t border-white/10">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#00f0ff]">
+                  Stack & Ferramentas Utilizadas
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedExp.stack.map((tech) => (
+                    <Tag key={tech}>{tech}</Tag>
+                  ))}
+                </div>
+              </div>
+
+              {/* Click outside hint */}
+              <div className="text-[11px] text-center text-zinc-500 font-medium pt-1">
+                💡 Clique em qualquer lugar fora do pop-up para fechar
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
+
+export default ExperienceSection
