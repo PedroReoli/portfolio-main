@@ -1,5 +1,5 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa"
-import { FiArrowUpRight, FiHeart, FiBookOpen } from "react-icons/fi"
+import { FiArrowUpRight, FiBookOpen } from "react-icons/fi"
 
 interface BlogFooterProps {
   lang: "pt" | "en"
@@ -22,11 +22,11 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
         {/* Column 1: Blog Brand & Description */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/40 flex items-center justify-center text-xs font-black text-[#00f0ff]">
+            <div className="w-7 h-7 rounded-full bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-xs font-black text-emerald-400">
               <FiBookOpen className="w-3.5 h-3.5" />
             </div>
             <span className="text-sm font-black text-white">
-              Pedro Lucas Reis <span className="text-[#00f0ff]">• Blog</span>
+              Pedro Lucas Reis <span className="text-emerald-400">• Blog</span>
             </span>
           </div>
           <p className="text-xs text-zinc-400 leading-relaxed">
@@ -38,20 +38,20 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
 
         {/* Column 2: Navigation Links */}
         <div className="space-y-2.5">
-          <h4 className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+          <h4 className="text-xs font-black uppercase tracking-wider text-emerald-400">
             {lang === "pt" ? "Navegação" : "Navigation"}
           </h4>
           <div className="flex flex-col gap-2 text-xs font-bold">
             <button
               onClick={handleBack}
-              className="text-left text-zinc-300 hover:text-[#00f0ff] transition-colors flex items-center gap-1.5"
+              className="text-left text-zinc-300 hover:text-emerald-400 transition-colors flex items-center gap-1.5"
             >
               <span>{lang === "pt" ? "← Voltar ao Portfólio Principal" : "← Back to Main Portfolio"}</span>
             </button>
             <a
               href="#search"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-zinc-300 hover:text-[#00f0ff] transition-colors"
+              className="text-zinc-300 hover:text-emerald-400 transition-colors"
             >
               {lang === "pt" ? "Pesquisar Artigos" : "Search Articles"}
             </a>
@@ -60,7 +60,7 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
 
         {/* Column 3: Social & Author */}
         <div className="space-y-2.5">
-          <h4 className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+          <h4 className="text-xs font-black uppercase tracking-wider text-emerald-400">
             {lang === "pt" ? "Redes do Autor" : "Author Links"}
           </h4>
           <div className="flex flex-col gap-2 text-xs font-bold">
@@ -68,9 +68,9 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
               href="https://www.linkedin.com/in/pedro-lucas-reis-a93945171"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-zinc-300 hover:text-[#00f0ff] transition-colors"
+              className="flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors"
             >
-              <FaLinkedin className="w-4 h-4 text-[#00f0ff]" />
+              <FaLinkedin className="w-4 h-4 text-emerald-400" />
               <span>LinkedIn</span>
               <FiArrowUpRight className="w-3 h-3 text-zinc-500" />
             </a>
@@ -78,9 +78,9 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
               href="https://github.com/PedroReoli"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-zinc-300 hover:text-[#00f0ff] transition-colors"
+              className="flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors"
             >
-              <FaGithub className="w-4 h-4 text-[#00f0ff]" />
+              <FaGithub className="w-4 h-4 text-emerald-400" />
               <span>GitHub</span>
               <FiArrowUpRight className="w-3 h-3 text-zinc-500" />
             </a>
@@ -91,7 +91,6 @@ const BlogFooter = ({ lang, onBackToPortfolio }: BlogFooterProps) => {
       {/* Bottom Copyright Notice */}
       <div className="text-center text-xs text-zinc-500 font-semibold flex items-center justify-center gap-1.5 pt-6 border-t border-white/5">
         <span>© {new Date().getFullYear()} Pedro Lucas Reis. {lang === "pt" ? "Todos os direitos reservados." : "All rights reserved."}</span>
-        <FiHeart className="w-3.5 h-3.5 text-[#00f0ff]" />
       </div>
     </footer>
   )

@@ -1,5 +1,4 @@
 import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from "react-icons/fa"
-import { FiHeart } from "react-icons/fi"
 
 interface Language {
   readonly name: string
@@ -42,19 +41,19 @@ const FooterSection = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* Education Card */}
         <div className="p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+          <h3 className="text-xs font-black uppercase tracking-wider text-emerald-400">
             {content.educationTitle}
           </h3>
           <div>
             <div className="text-base font-extrabold text-white">{degree}</div>
             <div className="text-xs text-zinc-400 font-medium mt-1">{institution}</div>
-            <div className="text-xs text-[#00f0ff] font-bold mt-2">{period}</div>
+            <div className="text-xs text-emerald-400 font-bold mt-2">{period}</div>
           </div>
         </div>
 
         {/* Languages & Community Card */}
         <div className="p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+          <h3 className="text-xs font-black uppercase tracking-wider text-emerald-400">
             {content.languagesTitle}
           </h3>
           <div className="space-y-2">
@@ -69,7 +68,7 @@ const FooterSection = ({
 
         {/* Social & Contact Card */}
         <div className="p-6 rounded-3xl bg-zinc-900/60 backdrop-blur-md border border-white/10 space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-[#00f0ff]">
+          <h3 className="text-xs font-black uppercase tracking-wider text-emerald-400">
             {content.contactTitle}
           </h3>
           <div className="flex flex-col gap-2.5">
@@ -77,34 +76,34 @@ const FooterSection = ({
               href={phoneHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-[#00f0ff] transition-colors duration-150"
+              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-emerald-400 transition-colors duration-150"
             >
-              <FaWhatsapp className="w-4 h-4 text-[#00f0ff]" />
+              <FaWhatsapp className="w-4 h-4 text-emerald-400" />
               <span>WhatsApp (+55 24 99326-4040)</span>
             </a>
             <a
               href={`mailto:${email}`}
-              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-[#00f0ff] transition-colors duration-150"
+              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-emerald-400 transition-colors duration-150"
             >
-              <FaEnvelope className="w-4 h-4 text-[#00f0ff]" />
+              <FaEnvelope className="w-4 h-4 text-emerald-400" />
               <span>{email}</span>
             </a>
             <a
               href={linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-[#00f0ff] transition-colors duration-150"
+              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-emerald-400 transition-colors duration-150"
             >
-              <FaLinkedin className="w-4 h-4 text-[#00f0ff]" />
+              <FaLinkedin className="w-4 h-4 text-emerald-400" />
               <span>linkedin.com/in/pedro-lucas-reis</span>
             </a>
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-[#00f0ff] transition-colors duration-150"
+              className="flex items-center gap-2.5 text-xs font-bold text-zinc-300 hover:text-emerald-400 transition-colors duration-150"
             >
-              <FaGithub className="w-4 h-4 text-[#00f0ff]" />
+              <FaGithub className="w-4 h-4 text-emerald-400" />
               <span>github.com/PedroReoli</span>
             </a>
           </div>
@@ -114,7 +113,6 @@ const FooterSection = ({
       {/* Bottom Rights Notice */}
       <div className="text-center text-xs text-zinc-500 font-semibold flex items-center justify-center gap-1.5 pt-6 border-t border-white/5">
         <span>© {new Date().getFullYear()} Pedro Lucas Reis. {content.rights}</span>
-        <FiHeart className="w-3.5 h-3.5 text-[#00f0ff]" />
       </div>
     </footer>
   )

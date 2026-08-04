@@ -16,7 +16,7 @@ const NavLinks = ({ items, onItemClick }: NavLinksProps) => {
           key={item.href}
           href={item.href}
           onClick={onItemClick}
-          className="px-3.5 py-1.5 rounded-full text-xs font-bold text-zinc-300 hover:text-white hover:bg-[#00f0ff]/15 hover:border hover:border-[#00f0ff]/40 border border-transparent transition-colors duration-150 flex items-center justify-center shrink-0"
+          className="px-3.5 py-1.5 rounded-full text-xs font-bold text-zinc-300 hover:text-white hover:bg-emerald-500/15 hover:border hover:border-emerald-500/40 border border-transparent transition-colors duration-150 flex items-center justify-center shrink-0"
         >
           <span>{item.label}</span>
         </a>

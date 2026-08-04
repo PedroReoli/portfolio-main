@@ -15,11 +15,11 @@ const SectionHeading = ({ kicker, title1, title2 }: SectionHeadingProps) => {
       transition={{ duration: 0.3 }}
       className="mb-8 space-y-1"
     >
-      <span className="text-xs font-black uppercase tracking-widest text-[#00f0ff]">
+      <span className="text-xs font-black uppercase tracking-widest text-emerald-400">
         {kicker}
       </span>
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-        {title1} <span className="text-[#00f0ff]">{title2}</span>
+        {title1} <span className="text-emerald-400">{title2}</span>
       </h2>
     </motion.div>
   )
