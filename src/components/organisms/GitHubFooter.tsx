@@ -4,8 +4,8 @@ import { FiGithub, FiLinkedin, FiMail, FiPhone } from "react-icons/fi"
 
 export const GitHubFooter: React.FC = () => {
   return (
-    <footer className="bg-[#0d1117] border-t border-[#30363d] py-8 text-sm text-[#8b949e]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer className="bg-[#0d1117] border-t border-[#30363d] py-6 sm:py-8 text-xs sm:text-sm text-[#8b949e]">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         
         {/* Left: Copyright */}
         <div className="flex items-center gap-2">
@@ -21,7 +21,7 @@ export const GitHubFooter: React.FC = () => {
             className="hover:text-[#58a6ff] transition-colors p-1"
             title="GitHub"
           >
-            <FiGithub className="text-lg" />
+            <FiGithub className="text-base sm:text-lg" />
           </a>
           <a
             href={profile.linkedin}
@@ -30,14 +30,14 @@ export const GitHubFooter: React.FC = () => {
             className="hover:text-[#58a6ff] transition-colors p-1"
             title="LinkedIn"
           >
-            <FiLinkedin className="text-lg" />
+            <FiLinkedin className="text-base sm:text-lg" />
           </a>
           <a
             href={`mailto:${profile.email}`}
             className="hover:text-[#58a6ff] transition-colors p-1"
             title="Email"
           >
-            <FiMail className="text-lg" />
+            <FiMail className="text-base sm:text-lg" />
           </a>
           <a
             href={profile.phoneHref}
@@ -46,7 +46,7 @@ export const GitHubFooter: React.FC = () => {
             className="hover:text-[#3fb950] transition-colors p-1"
             title="WhatsApp"
           >
-            <FiPhone className="text-lg" />
+            <FiPhone className="text-base sm:text-lg" />
           </a>
         </div>
 

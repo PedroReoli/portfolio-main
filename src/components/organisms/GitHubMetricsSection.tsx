@@ -52,19 +52,19 @@ export const GitHubMetricsSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-10 bg-[#0d1117] border-b border-[#30363d]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+    <section className="py-8 sm:py-10 bg-[#0d1117] border-b border-[#30363d]">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12">
         
         {/* Compact Title */}
-        <div className="flex items-center gap-2.5 mb-6">
-          <FiTrendingUp className="text-[#3fb950] text-xl" />
-          <h2 className="text-base font-bold text-[#f0f6fc] tracking-tight">
+        <div className="flex items-center gap-2.5 mb-5 sm:mb-6">
+          <FiTrendingUp className="text-[#3fb950] text-lg sm:text-xl shrink-0" />
+          <h2 className="text-sm sm:text-base font-bold text-[#f0f6fc] tracking-tight">
             Métricas de Engenharia & Impacto de Software
           </h2>
         </div>
 
         {/* Compact Grid of Stat Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {metrics.map((m, idx) => {
             const Icon = m.icon
             return (
@@ -74,13 +74,13 @@ export const GitHubMetricsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.06 }}
-                className="gh-card p-4 flex flex-col justify-between hover:border-[#58a6ff] transition-all duration-300 rounded-2xl"
+                className="gh-card p-3.5 sm:p-4 flex flex-col justify-between hover:border-[#58a6ff] transition-all duration-300 rounded-2xl"
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className={`p-2 rounded-xl ${m.bg} ${m.border} border`}>
-                    <Icon className={`text-base ${m.color}`} />
+                  <span className={`p-1.5 sm:p-2 rounded-xl ${m.bg} ${m.border} border`}>
+                    <Icon className={`text-sm sm:text-base ${m.color}`} />
                   </span>
-                  <span className={`text-2xl font-extrabold font-mono ${m.color}`}>
+                  <span className={`text-xl sm:text-2xl font-extrabold font-mono ${m.color}`}>
                     {m.value}
                   </span>
                 </div>
@@ -89,7 +89,7 @@ export const GitHubMetricsSection: React.FC = () => {
                   <h3 className="text-xs font-semibold text-[#f0f6fc] leading-tight mb-0.5">
                     {m.label}
                   </h3>
-                  <p className="text-[11px] font-mono text-[#8b949e]">
+                  <p className="text-[10px] sm:text-[11px] font-mono text-[#8b949e]">
                     {m.sub}
                   </p>
                 </div>

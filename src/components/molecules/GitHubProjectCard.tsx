@@ -21,36 +21,36 @@ const getLanguageColor = (tech: string) => {
 
 export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, onSelect }) => {
   return (
-    <div className="gh-card p-6 flex flex-col justify-between h-full group">
+    <div className="gh-card p-4 xs:p-5 sm:p-6 flex flex-col justify-between h-full group">
       <div>
         {/* Top Bar: Icon, Name & Type Badge */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <FiBookmark className="text-[#8b949e] text-lg shrink-0 group-hover:text-[#58a6ff] transition-colors" />
+        <div className="flex items-start justify-between gap-2.5 mb-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <FiBookmark className="text-[#8b949e] text-base sm:text-lg shrink-0 group-hover:text-[#58a6ff] transition-colors" />
             <h3 
-              className="text-base font-bold text-[#58a6ff] hover:underline truncate cursor-pointer tracking-tight"
+              className="text-sm sm:text-base font-bold text-[#58a6ff] hover:underline truncate cursor-pointer tracking-tight"
               onClick={() => onSelect(project)}
             >
               {project.name}
             </h3>
           </div>
-          <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] shrink-0 font-medium">
+          <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] shrink-0 font-medium">
             {project.category}
           </span>
         </div>
 
         {/* Short Description */}
-        <p className="text-sm text-[#8b949e] leading-relaxed mb-5 line-clamp-3">
+        <p className="text-xs sm:text-sm text-[#8b949e] leading-relaxed mb-4 sm:mb-5 line-clamp-3">
           {project.shortDescription}
         </p>
 
         {/* Key Metrics Badges */}
         {project.metrics && project.metrics.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
             {project.metrics.map((metric, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full bg-[#1f6feb]/10 text-[#58a6ff] border border-[#1f6feb]/30 font-medium"
+                className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-mono px-2.5 py-0.5 sm:py-1 rounded-full bg-[#1f6feb]/10 text-[#58a6ff] border border-[#1f6feb]/30 font-medium"
               >
                 <FiTrendingUp className="text-xs" />
                 {metric.value}
@@ -61,43 +61,43 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
       </div>
 
       {/* Footer: Languages & Actions */}
-      <div className="pt-4 border-t border-[#30363d] flex items-center justify-between gap-3 text-xs">
+      <div className="pt-3.5 border-t border-[#30363d] flex items-center justify-between gap-2 text-xs">
         {/* Tech Stack Indicator */}
-        <div className="flex items-center gap-3.5 overflow-hidden">
+        <div className="flex items-center gap-2 sm:gap-3.5 overflow-hidden">
           {project.stack.slice(0, 3).map((tech, i) => (
-            <div key={i} className="flex items-center gap-1.5 text-xs text-[#8b949e] font-mono shrink-0">
+            <div key={i} className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs text-[#8b949e] font-mono shrink-0">
               <span
-                className="w-2.5 h-2.5 rounded-full shrink-0"
+                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: getLanguageColor(tech) }}
               />
-              <span className="truncate max-w-[90px] font-medium">{tech}</span>
+              <span className="truncate max-w-[65px] sm:max-w-[90px] font-medium">{tech}</span>
             </div>
           ))}
           {project.stack.length > 3 && (
-            <span className="text-xs text-[#8b949e] font-mono font-medium">
+            <span className="text-[11px] sm:text-xs text-[#8b949e] font-mono font-medium">
               +{project.stack.length - 3}
             </span>
           )}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           <button
             onClick={() => onSelect(project)}
-            className="p-2 text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-full transition-colors"
+            className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-full transition-colors"
             title="Ver detalhes"
           >
-            <FiInfo className="text-base" />
+            <FiInfo className="text-sm sm:text-base" />
           </button>
           {project.href && (
             <a
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="p-2 text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-full transition-colors"
+              className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-full transition-colors"
               title="Acessar projeto"
             >
-              <FiExternalLink className="text-base" />
+              <FiExternalLink className="text-sm sm:text-base" />
             </a>
           )}
         </div>
