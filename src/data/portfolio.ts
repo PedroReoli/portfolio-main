@@ -217,8 +217,8 @@ export const projects = [
   {
     id: "reolios",
     name: "ReoliOS — Skills para Claude Code",
-    href: "https://pedroreis.vercel.app/",
-    domain: "pedroreis.vercel.app",
+    href: "https://reoli-os.lovable.app/",
+    domain: "reoli-os.lovable.app",
     type: "ai",
     category: "IA & Automação",
     image: "/propose.png",
