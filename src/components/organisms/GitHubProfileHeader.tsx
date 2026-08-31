@@ -38,7 +38,7 @@ export const GitHubProfileHeader: React.FC = () => {
     <header className="border-b border-[#30363d] bg-[#0d1117] pt-6 sm:pt-10 pb-8 sm:pb-12">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12">
         {/* Profile Card / Banner Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
           
           {/* Left Column: Real Photo Avatar & Basic Info */}
           <motion.div 
@@ -132,10 +132,10 @@ export const GitHubProfileHeader: React.FC = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-8 flex flex-col justify-between"
+            className="lg:col-span-8"
           >
             {/* README.md Container */}
-            <div className="gh-card p-5 xs:p-6 sm:p-8 md:p-10 lg:min-h-[620px] relative h-full flex flex-col justify-between border-t-4 border-t-[#58a6ff]">
+            <div className="gh-card p-5 xs:p-6 sm:p-8 md:p-10 relative border-t-4 border-t-[#58a6ff]">
               <div>
                 <div className="flex items-center justify-between border-b border-[#30363d] pb-3.5 mb-5 sm:mb-6 gap-2">
                   <div className="flex items-center gap-2 text-xs sm:text-sm text-[#8b949e] font-mono min-w-0">
@@ -163,7 +163,7 @@ export const GitHubProfileHeader: React.FC = () => {
               </div>
 
               {/* Core Technologies Pills */}
-              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#30363d]">
+              <div className="mt-4 pt-4 border-t border-[#30363d]">
                 <p className="text-xs font-semibold text-[#8b949e] uppercase tracking-wider mb-3">
                   {labels.stack}
                 </p>

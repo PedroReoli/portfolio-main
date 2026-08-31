@@ -71,14 +71,13 @@ export const GitHubPortfolioTemplate: React.FC = () => {
           <button
             type="button"
             onClick={toggleLanguage}
-            className="group flex h-11 items-center gap-1.5 rounded-md border border-[#30363d] bg-[#161b22] px-2 font-mono text-[11px] font-semibold text-[#c9d1d9] transition-colors hover:border-[#58a6ff] hover:text-[#f0f6fc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58a6ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#010409] shrink-0"
+            className="group flex h-11 items-center gap-1 rounded-full border border-[#30363d] bg-[#161b22] p-1 pr-1.5 font-mono text-[11px] font-semibold text-[#c9d1d9] shadow-sm transition-colors hover:border-[#58a6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58a6ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#010409] shrink-0"
             aria-label={labels.switchLanguage}
             title={labels.switchLanguage}
           >
-            <FiGlobe className="text-sm text-[#58a6ff]" aria-hidden="true" />
-            <span className={language === "pt" ? "text-[#f0f6fc]" : "text-[#8b949e]"}>PT</span>
-            <span className="text-[#484f58]">/</span>
-            <span className={language === "en" ? "text-[#f0f6fc]" : "text-[#8b949e]"}>EN</span>
+            <FiGlobe className="ml-1 text-sm text-[#58a6ff]" aria-hidden="true" />
+            <span className={`rounded-full px-2 py-1 transition-colors ${language === "pt" ? "bg-[#1f6feb] text-white" : "text-[#8b949e] group-hover:text-[#c9d1d9]"}`}>PT</span>
+            <span className={`rounded-full px-2 py-1 transition-colors ${language === "en" ? "bg-[#1f6feb] text-white" : "text-[#8b949e] group-hover:text-[#c9d1d9]"}`}>EN</span>
           </button>
         </div>
       </nav>
