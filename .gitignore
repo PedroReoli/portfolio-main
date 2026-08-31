@@ -5,3 +5,10 @@ Testimonials.tsx
 .vercel
 .env
 /taste-skill-temp
+\!reoli/
+\!reoli
+.claude/temp/
+temp_skills/
+/.claude
+/.playwright-mcp
+/output
