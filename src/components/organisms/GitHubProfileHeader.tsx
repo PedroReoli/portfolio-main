@@ -1,6 +1,8 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { profile } from "../../data/portfolio"
+import * as portfolioPT from "../../data/portfolio"
+import * as portfolioEN from "../../data/portfolio.en"
+import { useLanguage } from "../../i18n/LanguageContext"
 import { 
   FiGithub, 
   FiLinkedin, 
@@ -12,6 +14,26 @@ import {
 } from "react-icons/fi"
 
 export const GitHubProfileHeader: React.FC = () => {
+  const { language } = useLanguage()
+  const profile = language === "pt" ? portfolioPT.profile : portfolioEN.profile
+  const labels = language === "pt"
+    ? {
+        availability: "Disponível PJ / Remoto",
+        focus: "Foco em Frontend, APIs, React, Next.js, Node.js, PostgreSQL e IA aplicada.",
+        overview: "Visão geral",
+        headline: "Full Stack Engineer com foco em Frontend, APIs e produtos corporativos.",
+        detail: "Experiência prática em sistemas multi-tenant, autenticação e RBAC, integrações, Design Systems e aplicações em produção.",
+        stack: "Stack principal & especialidades",
+      }
+    : {
+        availability: "Available for contractor / Remote",
+        focus: "Focused on Frontend, APIs, React, Next.js, Node.js, PostgreSQL, and applied AI.",
+        overview: "Overview",
+        headline: "Full Stack Engineer focused on Frontend, APIs, and enterprise products.",
+        detail: "Hands-on experience with multi-tenant systems, authentication and RBAC, integrations, Design Systems, and production applications.",
+        stack: "Core stack & specialties",
+      }
+
   return (
     <header className="border-b border-[#30363d] bg-[#0d1117] pt-6 sm:pt-10 pb-8 sm:pb-12">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12">
@@ -42,7 +64,7 @@ export const GitHubProfileHeader: React.FC = () => {
                 {/* Online / Availability status pill placed cleanly below avatar */}
                 <div className="mt-3.5 bg-[#161b22] border border-[#30363d] rounded-full px-3.5 py-1 flex items-center gap-2 shadow-md">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#3fb950] animate-pulse"></span>
-                  <span className="text-[11px] xs:text-xs font-semibold text-[#c9d1d9] font-mono">🟢 Disponível PJ / Remoto</span>
+                  <span className="text-[11px] xs:text-xs font-semibold text-[#c9d1d9] font-mono">{labels.availability}</span>
                 </div>
               </div>
 
@@ -58,7 +80,7 @@ export const GitHubProfileHeader: React.FC = () => {
               {/* Status box */}
               <div className="w-full bg-[#161b22] border border-[#30363d] rounded-2xl p-3.5 sm:p-4 mb-5 sm:mb-6 text-xs sm:text-sm text-[#c9d1d9] flex items-center gap-3 shadow-md">
                 <FiCheckCircle className="text-[#3fb950] shrink-0 text-lg sm:text-xl" />
-                <span className="text-left">Focado em Frontend, React, Next.js & IAs operacionais (Claude Code).</span>
+                <span className="text-left">{labels.focus}</span>
               </div>
             </div>
 
@@ -113,7 +135,7 @@ export const GitHubProfileHeader: React.FC = () => {
             className="lg:col-span-8 flex flex-col justify-between"
           >
             {/* README.md Container */}
-            <div className="gh-card p-5 xs:p-6 sm:p-8 md:p-9 relative h-full flex flex-col justify-between border-t-4 border-t-[#58a6ff]">
+            <div className="gh-card p-5 xs:p-6 sm:p-8 md:p-10 lg:min-h-[620px] relative h-full flex flex-col justify-between border-t-4 border-t-[#58a6ff]">
               <div>
                 <div className="flex items-center justify-between border-b border-[#30363d] pb-3.5 mb-5 sm:mb-6 gap-2">
                   <div className="flex items-center gap-2 text-xs sm:text-sm text-[#8b949e] font-mono min-w-0">
@@ -121,26 +143,29 @@ export const GitHubProfileHeader: React.FC = () => {
                     <span className="font-semibold text-[#f0f6fc] truncate">PedroReoli / README.md</span>
                   </div>
                   <span className="text-[11px] sm:text-xs font-mono text-[#3fb950] bg-[#238636]/10 border border-[#238636]/30 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full shrink-0">
-                    Visão Geral
+                    {labels.overview}
                   </span>
                 </div>
 
                 <div className="space-y-4 sm:space-y-5 text-sm sm:text-base md:text-lg text-[#c9d1d9] leading-relaxed">
                   <p className="text-lg sm:text-xl md:text-2xl font-bold text-[#f0f6fc] leading-snug">
-                    👋 Olá! Sou Desenvolvedor Full Stack Pleno com especialização em Frontend.
+                    {labels.headline}
                   </p>
                   {profile.summary.map((paragraph, index) => (
                     <p key={index} className="text-sm sm:text-base md:text-lg text-[#c9d1d9] leading-relaxed">
                       {paragraph}
                     </p>
                   ))}
+                  <p className="text-sm sm:text-base text-[#8b949e] leading-relaxed border-l-2 border-[#3fb950] pl-4">
+                    {labels.detail}
+                  </p>
                 </div>
               </div>
 
               {/* Core Technologies Pills */}
               <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#30363d]">
                 <p className="text-xs font-semibold text-[#8b949e] uppercase tracking-wider mb-3">
-                  Stack Principal & Especialidades
+                  {labels.stack}
                 </p>
                 <div className="flex flex-wrap gap-2 sm:gap-2.5">
                   {[

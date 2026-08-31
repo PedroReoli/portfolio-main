@@ -49,7 +49,7 @@ const HeroSection = ({
           <div className="hero-fade-in flex flex-wrap items-center gap-2.5" style={{ animationDelay: "0s" }}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 backdrop-blur-md border border-emerald-500/35 text-xs font-extrabold text-zinc-100 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981]" />
-              <span>Disponível para Novos Projetos & Liderança</span>
+              <span>Disponível PJ / Remoto</span>
             </div>
 
             {location && (
@@ -167,7 +167,7 @@ const HeroSection = ({
             <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-zinc-950/90 backdrop-blur-xl border border-emerald-500/30 text-xs flex items-center justify-between text-zinc-200 shadow-xl pointer-events-none">
               <div className="flex flex-col">
                 <span className="font-extrabold text-white text-sm">Pedro Lucas Reis</span>
-                <span className="text-[10px] font-bold text-emerald-400">Full Stack & Architect</span>
+                <span className="text-[10px] font-bold text-emerald-400">Full Stack Engineer</span>
               </div>
               <FiArrowDownRight className="w-4 h-4 text-emerald-400" />
             </div>

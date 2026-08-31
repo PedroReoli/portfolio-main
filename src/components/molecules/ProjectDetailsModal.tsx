@@ -139,7 +139,7 @@ const ProjectDetailsModal = ({
           {/* Action Footer */}
           <div className="flex items-center justify-between pt-4 border-t border-white/10">
             <span className="text-[11px] text-zinc-500 font-medium">
-              💡 Clique fora do modal para fechar
+              Clique fora do modal para fechar
             </span>
 
             <a

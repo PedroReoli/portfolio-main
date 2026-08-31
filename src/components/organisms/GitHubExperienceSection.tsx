@@ -1,9 +1,18 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { experiences, education, languages } from "../../data/portfolio"
+import * as portfolioPT from "../../data/portfolio"
+import * as portfolioEN from "../../data/portfolio.en"
 import { FiBriefcase, FiCalendar, FiMapPin, FiAward, FiGlobe, FiChevronRight } from "react-icons/fi"
+import { useLanguage } from "../../i18n/LanguageContext"
 
 export const GitHubExperienceSection: React.FC = () => {
+  const { language } = useLanguage()
+  const data = language === "pt" ? portfolioPT : portfolioEN
+  const { experiences, education, languages } = data
+  const labels = language === "pt"
+    ? { title: "Trajetória profissional & experiência", career: "4+ anos de carreira", scope: "Resumo do escopo:", achievements: "Principais atividades e entregas:", education: "Formação acadêmica", languages: "Idiomas & comunidade" }
+    : { title: "Professional background & experience", career: "4+ years of experience", scope: "Scope summary:", achievements: "Key responsibilities & deliverables:", education: "Education", languages: "Languages & community" }
+
   return (
     <section className="py-8 sm:py-12 bg-[#0d1117] border-b border-[#30363d]">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12">
@@ -18,11 +27,11 @@ export const GitHubExperienceSection: React.FC = () => {
               <div className="flex items-center gap-2.5 sm:gap-3">
                 <FiBriefcase className="text-[#3fb950] text-xl sm:text-2xl shrink-0" />
                 <h2 className="text-lg sm:text-xl font-bold text-[#f0f6fc] tracking-tight">
-                  Trajetória Profissional & Experiência
+                  {labels.title}
                 </h2>
               </div>
               <span className="text-xs font-mono text-[#8b949e] px-3 py-1 rounded-full bg-[#21262d] border border-[#30363d] w-fit">
-                4+ Anos de Carreira
+                {labels.career}
               </span>
             </div>
 
@@ -72,14 +81,14 @@ export const GitHubExperienceSection: React.FC = () => {
                     </div>
 
                     <div className="text-xs sm:text-sm text-[#c9d1d9] bg-[#0d1117] p-3 sm:p-3.5 rounded-xl border border-[#30363d] mb-4 sm:mb-5 leading-relaxed font-mono relative">
-                      <span className="text-[#58a6ff] font-semibold">Resumo do escopo: </span>
+                      <span className="text-[#58a6ff] font-semibold">{labels.scope} </span>
                       {exp.context}
                     </div>
 
                     {/* Achievements List */}
                     <div className="space-y-2 mb-5">
                       <p className="text-xs font-semibold text-[#8b949e] uppercase tracking-wider mb-2">
-                        Principais Impactos & Atividades:
+                        {labels.achievements}
                       </p>
                       {exp.achievements.map((ach, i) => (
                         <div key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm text-[#c9d1d9] leading-relaxed group/item">
@@ -121,7 +130,7 @@ export const GitHubExperienceSection: React.FC = () => {
             >
               <div className="flex items-center gap-2.5 border-b border-[#30363d] pb-3 mb-3.5">
                 <FiAward className="text-[#58a6ff] text-lg sm:text-xl shrink-0" />
-                <h3 className="text-sm sm:text-base font-semibold text-[#f0f6fc]">Formação Acadêmica</h3>
+                <h3 className="text-sm sm:text-base font-semibold text-[#f0f6fc]">{labels.education}</h3>
               </div>
               <div>
                 <h4 className="text-xs sm:text-base font-bold text-[#f0f6fc] mb-1">{education.degree}</h4>
@@ -142,7 +151,7 @@ export const GitHubExperienceSection: React.FC = () => {
             >
               <div className="flex items-center gap-2.5 border-b border-[#30363d] pb-3 mb-3.5">
                 <FiGlobe className="text-[#bc8cff] text-lg sm:text-xl shrink-0" />
-                <h3 className="text-sm sm:text-base font-semibold text-[#f0f6fc]">Idiomas & Comunidade</h3>
+                <h3 className="text-sm sm:text-base font-semibold text-[#f0f6fc]">{labels.languages}</h3>
               </div>
               <div className="space-y-3.5">
                 {languages.map((lang, i) => (

@@ -67,7 +67,7 @@ const ReoliAiLogosBanner = () => {
       <div className="flex items-center justify-between z-10">
         <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-950/90 text-[#00f0ff] border border-[#00f0ff]/30 backdrop-blur-md shadow-md flex items-center gap-1.5">
           <FiCpu className="w-3.5 h-3.5" />
-          <span>43 Operational Skills</span>
+          <span>43 skills operacionais</span>
         </span>
         <span className="text-[10px] font-extrabold text-zinc-400 uppercase tracking-widest">
           Claude Code CLI
@@ -91,7 +91,7 @@ const ReoliAiLogosBanner = () => {
 
       {/* Bottom Footer Label */}
       <div className="text-[11px] font-semibold text-zinc-400 text-center z-10 bg-zinc-950/60 py-1 px-3 rounded-full border border-white/5">
-        ⚡ Automações com LLMs & Engenharia de Prompts
+        Automações com LLMs & engenharia de prompts
       </div>
     </div>
   )

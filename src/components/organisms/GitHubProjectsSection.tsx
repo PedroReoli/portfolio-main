@@ -1,26 +1,39 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
-import { projects } from "../../data/portfolio"
+import * as portfolioPT from "../../data/portfolio"
+import * as portfolioEN from "../../data/portfolio.en"
 import GitHubProjectCard from "../molecules/GitHubProjectCard"
 import GitHubProjectModal from "../molecules/GitHubProjectModal"
 import { FiBookmark, FiFilter } from "react-icons/fi"
+import { useLanguage } from "../../i18n/LanguageContext"
+import type { PortfolioProject } from "../../types/portfolio"
 
 export const GitHubProjectsSection: React.FC = () => {
+  const { language } = useLanguage()
+  const projects: readonly PortfolioProject[] = language === "pt" ? portfolioPT.projects : portfolioEN.projects
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
-  const [activeProject, setActiveProject] = useState<typeof projects[number] | null>(null)
+  const [activeProject, setActiveProject] = useState<PortfolioProject | null>(null)
 
-  const categories = [
-    { id: "all", label: "Todos os Projetos" },
-    { id: "ai", label: "IA & Automação" },
-    { id: "erp", label: "ERP Corporativo" },
-    { id: "saas", label: "SaaS & NoCode" },
-    { id: "site", label: "Full Stack" },
-  ]
+  const categories = language === "pt"
+    ? [
+        { id: "all", label: "Todos os projetos" },
+        { id: "ai", label: "IA & Automação" },
+        { id: "erp", label: "ERP Corporativo" },
+        { id: "saas", label: "SaaS & Ferramentas" },
+        { id: "site", label: "Full Stack" },
+      ]
+    : [
+        { id: "all", label: "All projects" },
+        { id: "ai", label: "AI & Automation" },
+        { id: "erp", label: "Enterprise ERP" },
+        { id: "saas", label: "SaaS & Tools" },
+        { id: "site", label: "Full Stack" },
+      ]
 
   const filteredProjects = selectedCategory === "all"
     ? projects
     : projects.filter((p) => {
-        if (selectedCategory === "ai") return p.type === "ai" || p.category.includes("IA")
+        if (selectedCategory === "ai") return p.type === "ai"
         if (selectedCategory === "erp") return p.type === "erp" || p.category.includes("ERP")
         if (selectedCategory === "saas") return p.type === "saas" || p.category.includes("SaaS") || p.type === "internal"
         if (selectedCategory === "site") return p.type === "site" || p.category.includes("Full Stack")
@@ -36,7 +49,7 @@ export const GitHubProjectsSection: React.FC = () => {
           <div className="flex items-center gap-3">
             <FiBookmark className="text-[#58a6ff] text-2xl" />
             <h2 className="text-xl font-bold text-[#f0f6fc] tracking-tight">
-              Projetos de Destaque (Pinned Work)
+              {language === "pt" ? "Projetos selecionados" : "Selected projects"}
             </h2>
             <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] font-semibold">
               {filteredProjects.length}

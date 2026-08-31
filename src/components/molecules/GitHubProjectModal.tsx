@@ -1,14 +1,20 @@
 import React from "react"
-import { projects } from "../../data/portfolio"
 import { FiX, FiExternalLink, FiCheckCircle, FiLayers, FiTrendingUp, FiImage } from "react-icons/fi"
+import { useLanguage } from "../../i18n/LanguageContext"
+import type { PortfolioProject } from "../../types/portfolio"
 
 interface GitHubProjectModalProps {
-  project: typeof projects[number] | null
+  project: PortfolioProject | null
   onClose: () => void
 }
 
 export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project, onClose }) => {
+  const { language } = useLanguage()
   if (!project) return null
+
+  const labels = language === "pt"
+    ? { preview: "Preview do sistema", features: "Principais funcionalidades & entregas", technologies: "Tecnologias utilizadas", close: "Fechar", open: "Acessar projeto" }
+    : { preview: "System preview", features: "Key features & deliverables", technologies: "Technologies used", close: "Close", open: "Open project" }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn">
@@ -18,6 +24,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         <button
           onClick={onClose}
           className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 text-[#8b949e] hover:text-[#f0f6fc] rounded-full bg-[#161b22]/90 border border-[#30363d] hover:bg-[#21262d] transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
+          aria-label={labels.close}
         >
           <FiX className="text-lg sm:text-xl" />
         </button>
@@ -36,7 +43,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
             <div className="absolute inset-0 bg-gradient-to-t from-[#161b22] via-transparent to-transparent opacity-80" />
             <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-[11px] font-mono text-[#8b949e] bg-[#0d1117]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#30363d]">
               <FiImage className="text-[#58a6ff]" />
-              <span>Preview do Sistema</span>
+              <span>{labels.preview}</span>
             </div>
           </div>
         )}
@@ -82,7 +89,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         <div className="mb-5 sm:mb-6">
           <h3 className="text-xs font-mono uppercase tracking-wider text-[#8b949e] mb-3 flex items-center gap-2">
             <FiCheckCircle className="text-[#3fb950]" />
-            Principais Funcionalidades & Entregas
+            {labels.features}
           </h3>
           <ul className="space-y-2">
             {project.features.map((feat, i) => (
@@ -98,7 +105,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         <div className="mb-6 sm:mb-8">
           <h3 className="text-xs font-mono uppercase tracking-wider text-[#8b949e] mb-3 flex items-center gap-2">
             <FiLayers className="text-[#bc8cff]" />
-            Tecnologias Utilizadas
+            {labels.technologies}
           </h3>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {project.stack.map((tech, i) => (
@@ -115,7 +122,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
             onClick={onClose}
             className="w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-xl hover:bg-[#30363d] transition-colors"
           >
-            Fechar
+            {labels.close}
           </button>
           {project.href && (
             <a
@@ -124,7 +131,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
               rel="noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#238636] hover:bg-[#2ea043] border border-transparent rounded-xl transition-colors shadow-lg"
             >
-              <span>Acessar Projeto</span>
+              <span>{labels.open}</span>
               <FiExternalLink />
             </a>
           )}

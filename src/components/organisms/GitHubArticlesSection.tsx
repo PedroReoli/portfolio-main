@@ -1,10 +1,34 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
-import { blogPosts } from "../../data/portfolio"
+import * as portfolioPT from "../../data/portfolio"
+import * as portfolioEN from "../../data/portfolio.en"
 import { FiBookOpen, FiX, FiArrowRight, FiClock, FiCalendar } from "react-icons/fi"
+import { useLanguage } from "../../i18n/LanguageContext"
+import type { PortfolioArticle } from "../../types/portfolio"
 
 export const GitHubArticlesSection: React.FC = () => {
-  const [selectedArticle, setSelectedArticle] = useState<typeof blogPosts[number] | null>(null)
+  const { language } = useLanguage()
+  const blogPosts: readonly PortfolioArticle[] = language === "pt" ? portfolioPT.blogPosts : portfolioEN.blogPosts
+  const [selectedArticle, setSelectedArticle] = useState<PortfolioArticle | null>(null)
+  const labels = language === "pt"
+    ? {
+        title: "Artigos & publicações técnicas",
+        publications: "publicações",
+        topics: "Engenharia de Software, IA, Arquitetura & Design Systems",
+        read: "Ler artigo",
+        covered: "Tópicos abordados:",
+        topicItems: ["Padrões de engenharia e boas práticas de produção", "Redução de débito técnico e melhoria de performance", "Integração contínua e utilitários reutilizáveis"],
+        close: "Fechar",
+      }
+    : {
+        title: "Articles & technical publications",
+        publications: "publications",
+        topics: "Software Engineering, AI, Architecture & Design Systems",
+        read: "Read article",
+        covered: "Topics covered:",
+        topicItems: ["Engineering patterns and production practices", "Technical debt reduction and performance improvements", "Continuous integration and reusable utilities"],
+        close: "Close",
+      }
 
   return (
     <section className="py-8 sm:py-12 bg-[#0d1117] border-b border-[#30363d]">
@@ -15,15 +39,15 @@ export const GitHubArticlesSection: React.FC = () => {
           <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
             <FiBookOpen className="text-[#bc8cff] text-xl sm:text-2xl" />
             <h2 className="text-lg sm:text-xl font-bold text-[#f0f6fc] tracking-tight">
-              Artigos & Publicações Técnicas
+              {labels.title}
             </h2>
             <span className="text-xs font-mono px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] font-semibold">
-              {blogPosts.length} Publicações
+              {blogPosts.length} {labels.publications}
             </span>
           </div>
 
           <p className="text-xs text-[#8b949e] font-mono">
-            Engenharia de Software, IA, Arquitetura & Design Systems
+            {labels.topics}
           </p>
         </div>
 
@@ -65,7 +89,7 @@ export const GitHubArticlesSection: React.FC = () => {
                   {post.date}
                 </span>
                 <span className="flex items-center gap-1 text-[#bc8cff] font-semibold group-hover:translate-x-1 transition-transform">
-                  Ler artigo <FiArrowRight />
+                  {labels.read} <FiArrowRight />
                 </span>
               </div>
             </motion.button>
@@ -81,6 +105,7 @@ export const GitHubArticlesSection: React.FC = () => {
             <button
               onClick={() => setSelectedArticle(null)}
               className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-2 text-[#8b949e] hover:text-[#f0f6fc] rounded-full bg-[#161b22] border border-[#30363d] hover:bg-[#21262d] transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
+              aria-label={labels.close}
             >
               <FiX className="text-lg sm:text-xl" />
             </button>
@@ -98,11 +123,9 @@ export const GitHubArticlesSection: React.FC = () => {
             </p>
 
             <div className="bg-[#0d1117] p-3.5 sm:p-4 rounded-xl border border-[#30363d] text-xs text-[#8b949e] space-y-2 mb-6 font-mono">
-              <p className="text-[#c9d1d9] font-semibold text-xs sm:text-sm">Tópicos abordados:</p>
+              <p className="text-[#c9d1d9] font-semibold text-xs sm:text-sm">{labels.covered}</p>
               <ul className="list-disc list-inside space-y-1.5 text-xs text-[#c9d1d9]">
-                <li>Padrões de engenharia e boas práticas de produção</li>
-                <li>Redução de débito técnico e melhoria de performance</li>
-                <li>Integração contínua e utilitários reutilizáveis</li>
+                {labels.topicItems.map((topic) => <li key={topic}>{topic}</li>)}
               </ul>
             </div>
 
@@ -111,7 +134,7 @@ export const GitHubArticlesSection: React.FC = () => {
                 onClick={() => setSelectedArticle(null)}
                 className="w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-xl hover:bg-[#30363d] transition-colors"
               >
-                Fechar
+                {labels.close}
               </button>
             </div>
           </div>

@@ -152,7 +152,7 @@ const ExperienceSection = ({
               {/* Wide 2-Column Grid for Achievements */}
               <div className="space-y-2.5">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#00f0ff]">
-                  Realizações & Contribuições Técnicas Completas
+                  Atividades e entregas técnicas
                 </h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -171,7 +171,7 @@ const ExperienceSection = ({
               {/* Complete Technologies Stack */}
               <div className="space-y-2 pt-2 border-t border-white/10">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#00f0ff]">
-                  Stack & Ferramentas Utilizadas
+                  Stack e ferramentas utilizadas
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedExp.stack.map((tech) => (
@@ -182,7 +182,7 @@ const ExperienceSection = ({
 
               {/* Click outside hint */}
               <div className="text-[11px] text-center text-zinc-500 font-medium pt-1">
-                💡 Clique em qualquer lugar fora do pop-up para fechar
+                Clique fora do pop-up para fechar
               </div>
             </motion.div>
           </div>

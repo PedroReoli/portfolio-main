@@ -1,10 +1,11 @@
 import React from "react"
-import { projects } from "../../data/portfolio"
 import { FiBookmark, FiExternalLink, FiInfo, FiTrendingUp } from "react-icons/fi"
+import { useLanguage } from "../../i18n/LanguageContext"
+import type { PortfolioProject } from "../../types/portfolio"
 
 interface GitHubProjectCardProps {
-  project: typeof projects[number]
-  onSelect: (project: typeof projects[number]) => void
+  project: PortfolioProject
+  onSelect: (project: PortfolioProject) => void
 }
 
 const getLanguageColor = (tech: string) => {
@@ -20,6 +21,8 @@ const getLanguageColor = (tech: string) => {
 }
 
 export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, onSelect }) => {
+  const { language } = useLanguage()
+
   return (
     <div className="gh-card p-4 xs:p-5 sm:p-6 flex flex-col justify-between h-full group">
       <div>
@@ -85,7 +88,8 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
           <button
             onClick={() => onSelect(project)}
             className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-full transition-colors"
-            title="Ver detalhes"
+            title={language === "pt" ? "Ver detalhes" : "View details"}
+            aria-label={language === "pt" ? `Ver detalhes de ${project.name}` : `View details for ${project.name}`}
           >
             <FiInfo className="text-sm sm:text-base" />
           </button>
@@ -95,7 +99,8 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
               target="_blank"
               rel="noreferrer"
               className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-full transition-colors"
-              title="Acessar projeto"
+              title={language === "pt" ? "Acessar projeto" : "Open project"}
+              aria-label={language === "pt" ? `Acessar ${project.name}` : `Open ${project.name}`}
             >
               <FiExternalLink className="text-sm sm:text-base" />
             </a>
