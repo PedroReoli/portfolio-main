@@ -38,7 +38,7 @@ export const GitHubProfileHeader: React.FC = () => {
     <header className="border-b border-[#30363d] bg-[#0d1117] pt-6 sm:pt-10 pb-8 sm:pb-12">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-8 lg:px-12">
         {/* Profile Card / Banner Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
           
           {/* Left Column: Real Photo Avatar & Basic Info */}
           <motion.div 
@@ -50,7 +50,7 @@ export const GitHubProfileHeader: React.FC = () => {
             <div className="w-full flex flex-col items-center lg:items-start">
               {/* User Real Photo Avatar */}
               <div className="flex flex-col items-center lg:items-start mb-5 sm:mb-6">
-                <div className="w-36 h-36 xs:w-44 xs:h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-tr from-[#1f6feb] via-[#58a6ff] to-[#3fb950] p-[3px] shadow-2xl relative group">
+                <div className="w-36 h-36 xs:w-44 xs:h-44 sm:w-52 sm:h-52 lg:w-44 lg:h-44 rounded-full bg-gradient-to-tr from-[#1f6feb] via-[#58a6ff] to-[#3fb950] p-[3px] shadow-2xl relative group">
                   <div className="w-full h-full rounded-full bg-[#161b22] border-2 border-[#0d1117] overflow-hidden">
                     <img
                       src="/eu-profissional.png"
@@ -85,42 +85,54 @@ export const GitHubProfileHeader: React.FC = () => {
             </div>
 
             {/* Social & Contact Links */}
-            <div className="w-full space-y-2 text-xs sm:text-sm text-[#8b949e]">
+            <div className="w-full space-y-2 lg:grid lg:grid-cols-2 lg:gap-2 lg:space-y-0 text-xs sm:text-sm text-[#8b949e]">
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
+                title="github.com/PedroReoli"
+                aria-label="GitHub: github.com/PedroReoli"
                 className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiGithub className="text-base sm:text-lg text-[#8b949e] shrink-0" />
-                <span className="truncate">github.com/PedroReoli</span>
+                <span className="truncate lg:hidden">github.com/PedroReoli</span>
+                <span className="hidden lg:inline">@PedroReoli</span>
               </a>
               <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
+                title="linkedin.com/in/pedro-lucas-reis"
+                aria-label="LinkedIn: Pedro Lucas Reis"
                 className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiLinkedin className="text-base sm:text-lg text-[#8b949e] shrink-0" />
-                <span className="truncate">linkedin.com/in/pedro-lucas-reis</span>
+                <span className="truncate lg:hidden">linkedin.com/in/pedro-lucas-reis</span>
+                <span className="hidden lg:inline">LinkedIn</span>
               </a>
               <a
                 href={`mailto:${profile.email}`}
+                title={profile.email}
+                aria-label={`E-mail: ${profile.email}`}
                 className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiMail className="text-base sm:text-lg text-[#8b949e] shrink-0" />
-                <span className="truncate">{profile.email}</span>
+                <span className="truncate lg:hidden">{profile.email}</span>
+                <span className="hidden lg:inline">E-mail</span>
               </a>
               <a
                 href={profile.phoneHref}
                 target="_blank"
                 rel="noreferrer"
+                title={profile.phoneLabel}
+                aria-label={`WhatsApp: ${profile.phoneLabel}`}
                 className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#3fb950] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiPhone className="text-base sm:text-lg text-[#8b949e] shrink-0" />
-                <span className="truncate">{profile.phoneLabel}</span>
+                <span className="truncate lg:hidden">{profile.phoneLabel}</span>
+                <span className="hidden lg:inline">WhatsApp</span>
               </a>
-              <div className="flex items-center gap-2.5 sm:gap-3 py-1.5 px-2 min-w-0">
+              <div className="flex items-center gap-2.5 sm:gap-3 py-1.5 px-2 min-w-0 lg:col-span-2">
                 <FiMapPin className="text-base sm:text-lg text-[#8b949e] shrink-0" />
                 <span className="truncate">{profile.location}</span>
               </div>
@@ -132,10 +144,10 @@ export const GitHubProfileHeader: React.FC = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-8"
+            className="lg:col-span-8 h-full"
           >
             {/* README.md Container */}
-            <div className="gh-card p-5 xs:p-6 sm:p-8 md:p-10 relative border-t-4 border-t-[#58a6ff]">
+            <div className="gh-card h-full p-5 xs:p-6 sm:p-8 md:p-10 relative border-t-4 border-t-[#58a6ff]">
               <div>
                 <div className="flex items-center justify-between border-b border-[#30363d] pb-3.5 mb-5 sm:mb-6 gap-2">
                   <div className="flex items-center gap-2 text-xs sm:text-sm text-[#8b949e] font-mono min-w-0">

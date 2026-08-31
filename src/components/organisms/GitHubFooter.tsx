@@ -23,7 +23,7 @@ export const GitHubFooter: React.FC = () => {
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="GitHub"
             aria-label="GitHub"
           >
@@ -33,7 +33,7 @@ export const GitHubFooter: React.FC = () => {
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="LinkedIn"
             aria-label="LinkedIn"
           >
@@ -41,7 +41,7 @@ export const GitHubFooter: React.FC = () => {
           </a>
           <a
             href={`mailto:${profile.email}`}
-            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="Email"
             aria-label="Email"
           >
@@ -51,7 +51,7 @@ export const GitHubFooter: React.FC = () => {
             href={profile.phoneHref}
             target="_blank"
             rel="noreferrer"
-            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#3fb950] transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#161b22] hover:text-[#3fb950] transition-colors"
             title="WhatsApp"
             aria-label="WhatsApp"
           >

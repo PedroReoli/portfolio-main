@@ -33,35 +33,35 @@ export const GitHubPortfolioTemplate: React.FC = () => {
           <div className="flex items-center gap-0.5 sm:gap-2 ml-auto text-xs sm:text-sm font-mono text-[#8b949e]">
             <a
               href="#about"
-              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-md hover:bg-[#161b22] shrink-0 active:scale-95"
+              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-full hover:bg-[#161b22] shrink-0 active:scale-95"
             >
               <FiUser aria-hidden="true" className="text-base" />
               <span className="sr-only sm:not-sr-only">{labels.about}</span>
             </a>
             <a
               href="#articles"
-              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-md hover:bg-[#161b22] shrink-0 active:scale-95"
+              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-full hover:bg-[#161b22] shrink-0 active:scale-95"
             >
               <FiBookOpen aria-hidden="true" className="text-base" />
               <span className="sr-only sm:not-sr-only">{labels.articles}</span>
             </a>
             <a
               href="#projects"
-              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-md hover:bg-[#161b22] shrink-0 active:scale-95"
+              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-full hover:bg-[#161b22] shrink-0 active:scale-95"
             >
               <FiBookmark aria-hidden="true" className="text-base" />
               <span className="sr-only sm:not-sr-only">{labels.projects}</span>
             </a>
             <a
               href="#metrics"
-              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-md hover:bg-[#161b22] shrink-0 active:scale-95"
+              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-full hover:bg-[#161b22] shrink-0 active:scale-95"
             >
               <FiTrendingUp aria-hidden="true" className="text-base" />
               <span className="sr-only sm:not-sr-only">{labels.metrics}</span>
             </a>
             <a
               href="#experience"
-              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-md hover:bg-[#161b22] shrink-0 active:scale-95"
+              className="flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 hover:text-[#58a6ff] transition-colors sm:px-2.5 rounded-full hover:bg-[#161b22] shrink-0 active:scale-95"
             >
               <FiBriefcase aria-hidden="true" className="text-base" />
               <span className="sr-only sm:not-sr-only">{labels.experience}</span>
