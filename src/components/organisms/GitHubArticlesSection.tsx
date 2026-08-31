@@ -3,13 +3,16 @@ import { motion } from "framer-motion"
 import * as portfolioPT from "../../data/portfolio"
 import * as portfolioEN from "../../data/portfolio.en"
 import { FiBookOpen, FiX, FiArrowRight, FiClock, FiCalendar } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioArticle } from "../../types/portfolio"
+import { useModalAccessibility } from "../../hooks/useModalAccessibility"
 
 export const GitHubArticlesSection: React.FC = () => {
   const { language } = useLanguage()
   const blogPosts: readonly PortfolioArticle[] = language === "pt" ? portfolioPT.blogPosts : portfolioEN.blogPosts
   const [selectedArticle, setSelectedArticle] = useState<PortfolioArticle | null>(null)
+  const closeArticle = () => setSelectedArticle(null)
+  const { dialogRef, closeButtonRef } = useModalAccessibility(Boolean(selectedArticle), closeArticle)
   const labels = language === "pt"
     ? {
         title: "Artigos & publicações técnicas",
@@ -61,6 +64,7 @@ export const GitHubArticlesSection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               onClick={() => setSelectedArticle(post)}
+              aria-haspopup="dialog"
               className="text-left gh-card p-5 sm:p-6 flex flex-col justify-between h-full group hover:border-[#bc8cff] transition-all duration-300 rounded-2xl active:scale-[0.99]"
             >
               <div>
@@ -100,11 +104,21 @@ export const GitHubArticlesSection: React.FC = () => {
 
       {/* Article Detail Modal */}
       {selectedArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="gh-card max-w-xl w-full p-5 xs:p-6 sm:p-7 relative max-h-[88vh] overflow-y-auto shadow-2xl rounded-2xl border-[#30363d]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn"
+          onMouseDown={(event) => event.target === event.currentTarget && closeArticle()}
+        >
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`article-title-${selectedArticle.id}`}
+            className="gh-card max-w-xl w-full p-5 xs:p-6 sm:p-7 relative max-h-[88vh] overflow-y-auto shadow-2xl rounded-2xl border-[#30363d]"
+          >
             <button
-              onClick={() => setSelectedArticle(null)}
-              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-2 text-[#8b949e] hover:text-[#f0f6fc] rounded-full bg-[#161b22] border border-[#30363d] hover:bg-[#21262d] transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
+              ref={closeButtonRef}
+              onClick={closeArticle}
+              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-[#8b949e] hover:text-[#f0f6fc] rounded-md bg-[#161b22] border border-[#30363d] hover:bg-[#21262d] transition-colors w-11 h-11 flex items-center justify-center"
               aria-label={labels.close}
             >
               <FiX className="text-lg sm:text-xl" />
@@ -114,7 +128,7 @@ export const GitHubArticlesSection: React.FC = () => {
               {selectedArticle.category} • {selectedArticle.date}
             </span>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-[#f0f6fc] mb-3 sm:mb-4 leading-snug mt-3 pr-8">
+            <h3 id={`article-title-${selectedArticle.id}`} className="text-xl sm:text-2xl font-bold text-[#f0f6fc] mb-3 sm:mb-4 leading-snug mt-3 pr-8">
               {selectedArticle.title}
             </h3>
 
@@ -131,8 +145,8 @@ export const GitHubArticlesSection: React.FC = () => {
 
             <div className="flex justify-end">
               <button
-                onClick={() => setSelectedArticle(null)}
-                className="w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-xl hover:bg-[#30363d] transition-colors"
+                onClick={closeArticle}
+                className="min-h-[44px] w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-md hover:bg-[#30363d] transition-colors"
               >
                 {labels.close}
               </button>

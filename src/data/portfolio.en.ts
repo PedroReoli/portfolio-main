@@ -5,7 +5,7 @@ export const profile = {
   email: "pedrosousa2160@gmail.com",
   phoneLabel: "+55 24 99326-4040",
   phoneHref: "https://wa.me/5524993264040",
-  location: "Volta Redonda, RJ | Remote or hybrid | Contractor",
+  location: "Volta Redonda, Brazil | Remote or hybrid",
   website: "https://pedroreis.vercel.app/",
   linkedin: "https://www.linkedin.com/in/pedro-lucas-reis-a93945171",
   github: "https://github.com/PedroReoli",

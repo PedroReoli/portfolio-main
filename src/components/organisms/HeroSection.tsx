@@ -49,7 +49,7 @@ const HeroSection = ({
           <div className="hero-fade-in flex flex-wrap items-center gap-2.5" style={{ animationDelay: "0s" }}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 backdrop-blur-md border border-emerald-500/35 text-xs font-extrabold text-zinc-100 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981]" />
-              <span>Disponível PJ / Remoto</span>
+              <span>Aberto a oportunidades</span>
             </div>
 
             {location && (

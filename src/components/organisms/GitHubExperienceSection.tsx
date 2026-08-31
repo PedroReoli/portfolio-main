@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import * as portfolioPT from "../../data/portfolio"
 import * as portfolioEN from "../../data/portfolio.en"
 import { FiBriefcase, FiCalendar, FiMapPin, FiAward, FiGlobe, FiChevronRight } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 
 export const GitHubExperienceSection: React.FC = () => {
   const { language } = useLanguage()
@@ -38,12 +38,8 @@ export const GitHubExperienceSection: React.FC = () => {
             {/* Timeline List */}
             <div className="relative border-l-2 border-[#30363d] ml-2.5 sm:ml-3.5 pl-5 sm:pl-8 space-y-6 sm:space-y-8">
               {experiences.map((exp, idx) => (
-                <motion.div 
+                <div
                   key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
                   className="relative group"
                 >
                   
@@ -51,7 +47,7 @@ export const GitHubExperienceSection: React.FC = () => {
                   <div className="absolute -left-[27px] sm:-left-[41px] top-3 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#161b22] border-2 border-[#3fb950] group-hover:bg-[#3fb950] group-hover:scale-125 transition-all duration-300" />
 
                   {/* Experience Card */}
-                  <div className="gh-card p-4 xs:p-5 sm:p-7 relative overflow-hidden border-l-4 border-l-[#58a6ff]">
+                  <div className="gh-card p-4 xs:p-5 sm:p-7 relative overflow-hidden">
                     
                     {/* Header: Role, Company & Period */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
@@ -111,7 +107,7 @@ export const GitHubExperienceSection: React.FC = () => {
                     </div>
 
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 

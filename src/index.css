@@ -23,6 +23,11 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     overflow-x: hidden;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--gh-blue);
+    outline-offset: 3px;
+  }
 }
 
 /* GitHub Card Styling */
@@ -38,6 +43,14 @@
   background-color: #1c2128;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh-card,
+  .gh-card:hover {
+    transform: none;
+    transition: border-color 0.01ms, background-color 0.01ms;
+  }
 }
 
 .gh-badge {
@@ -67,4 +80,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #58a6ff;
 }
-

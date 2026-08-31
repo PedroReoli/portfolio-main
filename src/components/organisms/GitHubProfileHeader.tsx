@@ -2,7 +2,7 @@ import React from "react"
 import { motion } from "framer-motion"
 import * as portfolioPT from "../../data/portfolio"
 import * as portfolioEN from "../../data/portfolio.en"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 import { 
   FiGithub, 
   FiLinkedin, 
@@ -18,7 +18,7 @@ export const GitHubProfileHeader: React.FC = () => {
   const profile = language === "pt" ? portfolioPT.profile : portfolioEN.profile
   const labels = language === "pt"
     ? {
-        availability: "Disponível PJ / Remoto",
+        availability: "Aberto a oportunidades",
         focus: "Foco em Frontend, APIs, React, Next.js, Node.js, PostgreSQL e IA aplicada.",
         overview: "Visão geral",
         headline: "Full Stack Engineer com foco em Frontend, APIs e produtos corporativos.",
@@ -26,7 +26,7 @@ export const GitHubProfileHeader: React.FC = () => {
         stack: "Stack principal & especialidades",
       }
     : {
-        availability: "Available for contractor / Remote",
+        availability: "Open to opportunities",
         focus: "Focused on Frontend, APIs, React, Next.js, Node.js, PostgreSQL, and applied AI.",
         overview: "Overview",
         headline: "Full Stack Engineer focused on Frontend, APIs, and enterprise products.",
@@ -63,7 +63,7 @@ export const GitHubProfileHeader: React.FC = () => {
 
                 {/* Online / Availability status pill placed cleanly below avatar */}
                 <div className="mt-3.5 bg-[#161b22] border border-[#30363d] rounded-full px-3.5 py-1 flex items-center gap-2 shadow-md">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#3fb950] animate-pulse"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#3fb950] animate-pulse motion-reduce:animate-none"></span>
                   <span className="text-[11px] xs:text-xs font-semibold text-[#c9d1d9] font-mono">{labels.availability}</span>
                 </div>
               </div>
@@ -90,7 +90,7 @@ export const GitHubProfileHeader: React.FC = () => {
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
+                className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiGithub className="text-base sm:text-lg text-[#8b949e] shrink-0" />
                 <span className="truncate">github.com/PedroReoli</span>
@@ -99,14 +99,14 @@ export const GitHubProfileHeader: React.FC = () => {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
+                className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiLinkedin className="text-base sm:text-lg text-[#8b949e] shrink-0" />
                 <span className="truncate">linkedin.com/in/pedro-lucas-reis</span>
               </a>
               <a
                 href={`mailto:${profile.email}`}
-                className="flex items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
+                className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#58a6ff] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiMail className="text-base sm:text-lg text-[#8b949e] shrink-0" />
                 <span className="truncate">{profile.email}</span>
@@ -115,7 +115,7 @@ export const GitHubProfileHeader: React.FC = () => {
                 href={profile.phoneHref}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#3fb950] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
+                className="flex min-h-[44px] items-center gap-2.5 sm:gap-3 text-[#c9d1d9] hover:text-[#3fb950] transition-colors py-1.5 px-2 rounded-xl hover:bg-[#161b22] min-w-0"
               >
                 <FiPhone className="text-base sm:text-lg text-[#8b949e] shrink-0" />
                 <span className="truncate">{profile.phoneLabel}</span>

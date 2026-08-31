@@ -1,6 +1,6 @@
 import React from "react"
 import { FiBookmark, FiExternalLink, FiInfo, FiTrendingUp } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
 
 interface GitHubProjectCardProps {
@@ -30,11 +30,14 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
         <div className="flex items-start justify-between gap-2.5 mb-3">
           <div className="flex items-center gap-2 min-w-0">
             <FiBookmark className="text-[#8b949e] text-base sm:text-lg shrink-0 group-hover:text-[#58a6ff] transition-colors" />
-            <h3 
-              className="text-sm sm:text-base font-bold text-[#58a6ff] hover:underline truncate cursor-pointer tracking-tight"
-              onClick={() => onSelect(project)}
-            >
-              {project.name}
+            <h3 className="min-w-0 truncate text-sm sm:text-base font-bold tracking-tight">
+              <button
+                type="button"
+                onClick={() => onSelect(project)}
+                className="inline-flex min-h-[44px] max-w-full items-center truncate text-left text-[#58a6ff] hover:underline underline-offset-4"
+              >
+                {project.name}
+              </button>
             </h3>
           </div>
           <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] shrink-0 font-medium">
@@ -87,9 +90,10 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           <button
             onClick={() => onSelect(project)}
-            className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-full transition-colors"
+            className="flex h-11 w-11 items-center justify-center text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-md transition-colors"
             title={language === "pt" ? "Ver detalhes" : "View details"}
             aria-label={language === "pt" ? `Ver detalhes de ${project.name}` : `View details for ${project.name}`}
+            aria-haspopup="dialog"
           >
             <FiInfo className="text-sm sm:text-base" />
           </button>
@@ -98,7 +102,7 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, o
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 sm:p-2 text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-full transition-colors"
+              className="flex h-11 w-11 items-center justify-center text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-md transition-colors"
               title={language === "pt" ? "Acessar projeto" : "Open project"}
               aria-label={language === "pt" ? `Acessar ${project.name}` : `Open ${project.name}`}
             >

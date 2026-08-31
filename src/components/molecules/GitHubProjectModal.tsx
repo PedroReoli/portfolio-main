@@ -1,7 +1,8 @@
 import React from "react"
 import { FiX, FiExternalLink, FiCheckCircle, FiLayers, FiTrendingUp, FiImage } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
+import { useModalAccessibility } from "../../hooks/useModalAccessibility"
 
 interface GitHubProjectModalProps {
   project: PortfolioProject | null
@@ -10,6 +11,7 @@ interface GitHubProjectModalProps {
 
 export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project, onClose }) => {
   const { language } = useLanguage()
+  const { dialogRef, closeButtonRef } = useModalAccessibility(Boolean(project), onClose)
   if (!project) return null
 
   const labels = language === "pt"
@@ -17,13 +19,23 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
     : { preview: "System preview", features: "Key features & deliverables", technologies: "Technologies used", close: "Close", open: "Open project" }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="gh-card max-w-2xl w-full p-4 xs:p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl rounded-2xl border-[#30363d]">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn"
+      onMouseDown={(event) => event.target === event.currentTarget && onClose()}
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`project-title-${project.id}`}
+        className="gh-card max-w-2xl w-full p-4 xs:p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl rounded-2xl border-[#30363d]"
+      >
         
         {/* Close Button */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 text-[#8b949e] hover:text-[#f0f6fc] rounded-full bg-[#161b22]/90 border border-[#30363d] hover:bg-[#21262d] transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 text-[#8b949e] hover:text-[#f0f6fc] rounded-md bg-[#161b22]/90 border border-[#30363d] hover:bg-[#21262d] transition-colors w-11 h-11 flex items-center justify-center"
           aria-label={labels.close}
         >
           <FiX className="text-lg sm:text-xl" />
@@ -60,7 +72,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
               </span>
             )}
           </div>
-          <h2 className="text-xl xs:text-2xl sm:text-3xl font-bold text-[#f0f6fc]">
+          <h2 id={`project-title-${project.id}`} className="text-xl xs:text-2xl sm:text-3xl font-bold text-[#f0f6fc]">
             {project.name}
           </h2>
           <p className="text-xs sm:text-sm text-[#8b949e] mt-2 leading-relaxed">
@@ -120,7 +132,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         <div className="pt-4 border-t border-[#30363d] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-xl hover:bg-[#30363d] transition-colors"
+            className="min-h-[44px] w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-md hover:bg-[#30363d] transition-colors"
           >
             {labels.close}
           </button>
@@ -129,7 +141,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#238636] hover:bg-[#2ea043] border border-transparent rounded-xl transition-colors shadow-lg"
+              className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#238636] hover:bg-[#2ea043] border border-transparent rounded-md transition-colors shadow-lg"
             >
               <span>{labels.open}</span>
               <FiExternalLink />

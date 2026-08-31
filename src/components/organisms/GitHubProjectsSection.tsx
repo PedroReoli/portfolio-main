@@ -5,7 +5,7 @@ import * as portfolioEN from "../../data/portfolio.en"
 import GitHubProjectCard from "../molecules/GitHubProjectCard"
 import GitHubProjectModal from "../molecules/GitHubProjectModal"
 import { FiBookmark, FiFilter } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
 
 export const GitHubProjectsSection: React.FC = () => {
@@ -29,6 +29,8 @@ export const GitHubProjectsSection: React.FC = () => {
         { id: "saas", label: "SaaS & Tools" },
         { id: "site", label: "Full Stack" },
       ]
+
+  const filterLabel = language === "pt" ? "Filtrar projetos" : "Filter projects"
 
   const filteredProjects = selectedCategory === "all"
     ? projects
@@ -57,13 +59,14 @@ export const GitHubProjectsSection: React.FC = () => {
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          <div role="group" aria-label={filterLabel} className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             <FiFilter className="text-[#8b949e] text-sm shrink-0 mr-1" />
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-4 py-1.5 text-xs font-mono rounded-full border transition-all duration-200 shrink-0 font-medium ${
+                aria-pressed={selectedCategory === cat.id}
+                className={`min-h-[44px] px-4 py-1.5 text-xs font-mono rounded-md border transition-all duration-200 shrink-0 font-medium ${
                   selectedCategory === cat.id
                     ? "bg-[#1f6feb] text-white border-[#1f6feb] shadow-md"
                     : "bg-[#161b22] text-[#8b949e] border-[#30363d] hover:text-[#f0f6fc] hover:border-[#8b949e]"

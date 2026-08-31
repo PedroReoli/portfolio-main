@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { FiTrendingUp, FiLayers, FiCpu, FiZap, FiLayout } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 
 export const GitHubMetricsSection: React.FC = () => {
   const { language } = useLanguage()

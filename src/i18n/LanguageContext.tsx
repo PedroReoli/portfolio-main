@@ -1,16 +1,7 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react"
-
-export type Language = "pt" | "en"
+import { useEffect, useMemo, useState } from "react"
+import { LanguageContext, type Language } from "./language-context"
 
 const STORAGE_KEY = "pedroreoli-portfolio-language"
-
-interface LanguageContextValue {
-  language: Language
-  setLanguage: (language: Language) => void
-  toggleLanguage: () => void
-}
-
-const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 const detectLanguage = (): Language => {
   if (typeof window === "undefined") return "en"
@@ -51,14 +42,4 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   )
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
-}
-
-export const useLanguage = () => {
-  const context = useContext(LanguageContext)
-
-  if (!context) {
-    throw new Error("useLanguage must be used within LanguageProvider")
-  }
-
-  return context
 }

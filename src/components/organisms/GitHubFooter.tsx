@@ -2,7 +2,7 @@ import React from "react"
 import * as portfolioPT from "../../data/portfolio"
 import * as portfolioEN from "../../data/portfolio.en"
 import { FiGithub, FiLinkedin, FiMail, FiPhone } from "react-icons/fi"
-import { useLanguage } from "../../i18n/LanguageContext"
+import { useLanguage } from "../../i18n/useLanguage"
 
 export const GitHubFooter: React.FC = () => {
   const { language } = useLanguage()
@@ -18,13 +18,14 @@ export const GitHubFooter: React.FC = () => {
         </div>
 
         {/* Right: Quick Links */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2">
           <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-[#58a6ff] transition-colors p-1"
+            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="GitHub"
+            aria-label="GitHub"
           >
             <FiGithub className="text-base sm:text-lg" />
           </a>
@@ -32,15 +33,17 @@ export const GitHubFooter: React.FC = () => {
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-[#58a6ff] transition-colors p-1"
+            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="LinkedIn"
+            aria-label="LinkedIn"
           >
             <FiLinkedin className="text-base sm:text-lg" />
           </a>
           <a
             href={`mailto:${profile.email}`}
-            className="hover:text-[#58a6ff] transition-colors p-1"
+            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#58a6ff] transition-colors"
             title="Email"
+            aria-label="Email"
           >
             <FiMail className="text-base sm:text-lg" />
           </a>
@@ -48,8 +51,9 @@ export const GitHubFooter: React.FC = () => {
             href={profile.phoneHref}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-[#3fb950] transition-colors p-1"
+            className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-[#161b22] hover:text-[#3fb950] transition-colors"
             title="WhatsApp"
+            aria-label="WhatsApp"
           >
             <FiPhone className="text-base sm:text-lg" />
           </a>
