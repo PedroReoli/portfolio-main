@@ -66,7 +66,7 @@ export const GitHubProjectsSection: React.FC = () => {
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 aria-pressed={selectedCategory === cat.id}
-                className={`min-h-[44px] px-4 py-1.5 text-xs font-mono rounded-md border transition-all duration-200 shrink-0 font-medium ${
+                className={`min-h-[44px] px-4 py-1.5 text-xs font-mono rounded-full border transition-all duration-200 shrink-0 font-medium ${
                   selectedCategory === cat.id
                     ? "bg-[#1f6feb] text-white border-[#1f6feb] shadow-md"
                     : "bg-[#161b22] text-[#8b949e] border-[#30363d] hover:text-[#f0f6fc] hover:border-[#8b949e]"

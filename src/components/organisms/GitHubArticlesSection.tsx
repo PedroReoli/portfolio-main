@@ -7,6 +7,27 @@ import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioArticle } from "../../types/portfolio"
 import { useModalAccessibility } from "../../hooks/useModalAccessibility"
 
+const getArticleGridPosition = (index: number, total: number) => {
+  const isLast = index === total - 1
+  const isPenultimate = index === total - 2
+  const mediumPosition = total % 2 === 1 && isLast ? "md:col-start-4" : ""
+  const desktopRemainder = total % 3
+
+  if (desktopRemainder === 1 && isLast) {
+    return `${mediumPosition} lg:col-start-5`
+  }
+
+  if (desktopRemainder === 2 && isPenultimate) {
+    return `${mediumPosition} lg:col-start-3`
+  }
+
+  if (desktopRemainder === 2 && isLast) {
+    return `${mediumPosition} lg:col-start-7`
+  }
+
+  return `${mediumPosition} lg:col-start-auto`
+}
+
 export const GitHubArticlesSection: React.FC = () => {
   const { language } = useLanguage()
   const blogPosts: readonly PortfolioArticle[] = language === "pt" ? portfolioPT.blogPosts : portfolioEN.blogPosts
@@ -55,7 +76,7 @@ export const GitHubArticlesSection: React.FC = () => {
         </div>
 
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6">
           {blogPosts.map((post, idx) => (
             <motion.button
               key={post.id}
@@ -65,7 +86,7 @@ export const GitHubArticlesSection: React.FC = () => {
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               onClick={() => setSelectedArticle(post)}
               aria-haspopup="dialog"
-              className="text-left gh-card p-5 sm:p-6 flex flex-col justify-between h-full group hover:border-[#bc8cff] transition-all duration-300 rounded-2xl active:scale-[0.99]"
+              className={`text-left gh-card p-5 sm:p-6 flex flex-col justify-between h-full group hover:border-[#bc8cff] transition-all duration-300 rounded-2xl active:scale-[0.99] md:col-span-6 lg:col-span-4 ${getArticleGridPosition(idx, blogPosts.length)}`}
             >
               <div>
                 <div className="flex items-center justify-between text-xs text-[#8b949e] mb-3 gap-2">

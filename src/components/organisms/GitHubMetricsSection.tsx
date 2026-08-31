@@ -1,6 +1,6 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { FiTrendingUp, FiLayers, FiCpu, FiZap, FiLayout } from "react-icons/fi"
+import { FiTrendingUp, FiLayers, FiCpu, FiZap, FiLayout, FiUsers } from "react-icons/fi"
 import { useLanguage } from "../../i18n/useLanguage"
 
 export const GitHubMetricsSection: React.FC = () => {
@@ -51,6 +51,15 @@ export const GitHubMetricsSection: React.FC = () => {
       border: "border-[#238636]/30",
       icon: FiZap,
     },
+    {
+      label: "Participantes mentorados",
+      value: "30+",
+      sub: "Tecnologia e IA aplicada",
+      color: "text-[#58a6ff]",
+      bg: "bg-[#1f6feb]/10",
+      border: "border-[#1f6feb]/30",
+      icon: FiUsers,
+    },
   ]
   const metricsEN = [
     { label: "Reusable components", value: "500+", sub: "Shared Design System", color: "text-[#58a6ff]", bg: "bg-[#1f6feb]/10", border: "border-[#1f6feb]/30", icon: FiLayers },
@@ -58,6 +67,7 @@ export const GitHubMetricsSection: React.FC = () => {
     { label: "Integrated ERP pages", value: "50+", sub: "Enterprise web portals", color: "text-[#d29922]", bg: "bg-[#d29922]/10", border: "border-[#d29922]/30", icon: FiLayout },
     { label: "Claude Code skills", value: "43", sub: "ReoliOS CLI & automation", color: "text-[#bc8cff]", bg: "bg-[#bc8cff]/10", border: "border-[#bc8cff]/30", icon: FiCpu },
     { label: "Lighthouse score", value: "100", sub: "SEO, UX & Performance", color: "text-[#3fb950]", bg: "bg-[#238636]/10", border: "border-[#238636]/30", icon: FiZap },
+    { label: "People mentored", value: "30+", sub: "Technology & applied AI", color: "text-[#58a6ff]", bg: "bg-[#1f6feb]/10", border: "border-[#1f6feb]/30", icon: FiUsers },
   ]
   const metrics = language === "pt" ? metricsPT : metricsEN
 
@@ -74,7 +84,7 @@ export const GitHubMetricsSection: React.FC = () => {
         </div>
 
         {/* Compact Grid of Stat Cards */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {metrics.map((m, idx) => {
             const Icon = m.icon
             return (
