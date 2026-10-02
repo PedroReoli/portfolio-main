@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Design Tokens — Monochromatic Luxury Dark (Obsidian, Charcoal & Platinum)
+   ========================================================================== */
+
+:root {
+  /* Dark Monochromatic Base & Surfaces */
+  --bg-dark: #09090b;
+  --bg-dark-secondary: #0f0f13;
+  --bg-dark-card: #141419;
+  --bg-dark-card-hover: #1c1c24;
+  --border-dark: rgba(255, 255, 255, 0.09);
+  --border-dark-hover: rgba(255, 255, 255, 0.22);
+  --border-dark-strong: rgba(255, 255, 255, 0.16);
+
+  /* Primary Brand Tones (Monochrome Luxury White & Platinum) */
+  --color-primary: #ffffff;
+  --color-primary-hover: #e4e4e7;
+  --color-primary-text: #09090b;
+  
+  /* Subtle Neutral Highlights */
+  --color-accent: #e4e4e7;
+  --color-accent-muted: #71717a;
+  --color-whatsapp: #25d366;
+
+  /* Typography Colors */
+  --text-dark-primary: #ffffff;
+  --text-dark-secondary: #a1a1aa;
+  --text-dark-muted: #71717a;
+
+  /* Shadows */
+  --shadow-card-dark: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  --shadow-btn-primary: 0 2px 10px rgba(255, 255, 255, 0.15), 0 1px 3px rgba(0, 0, 0, 0.2);
+}

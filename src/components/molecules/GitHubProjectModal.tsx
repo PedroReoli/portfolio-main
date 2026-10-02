@@ -1,5 +1,5 @@
 import React from "react"
-import { FiX, FiExternalLink, FiCheckCircle, FiLayers, FiTrendingUp, FiImage } from "react-icons/fi"
+import { FiX, FiExternalLink, FiCheckCircle, FiTrendingUp, FiCpu, FiStar } from "react-icons/fi"
 import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
 import { useModalAccessibility } from "../../hooks/useModalAccessibility"
@@ -14,13 +14,31 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
   const { dialogRef, closeButtonRef } = useModalAccessibility(Boolean(project), onClose)
   if (!project) return null
 
+  const isFlagship = (project as { flagship?: boolean }).flagship
+
   const labels = language === "pt"
-    ? { preview: "Preview do sistema", features: "Principais funcionalidades & entregas", technologies: "Tecnologias utilizadas", close: "Fechar", open: "Acessar projeto" }
-    : { preview: "System preview", features: "Key features & deliverables", technologies: "Technologies used", close: "Close", open: "Open project" }
+    ? {
+        features: "Entregas Técnicas & Arquitetura",
+        metrics: "Indicadores de Sucesso & Escala",
+        technologies: "Stack & Tecnologias Utilizadas",
+        close: "Fechar",
+        open: "Acessar Projeto",
+        flagship: "Sistema Flagship",
+        domain: "Ambiente de Produção",
+      }
+    : {
+        features: "Technical Deliverables & Architecture",
+        metrics: "Success Metrics & Scale",
+        technologies: "Tech Stack & Tools",
+        close: "Close",
+        open: "Open Project",
+        flagship: "Flagship System",
+        domain: "Production Environment",
+      }
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 xs:p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
       <div
@@ -28,127 +46,123 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         role="dialog"
         aria-modal="true"
         aria-labelledby={`project-title-${project.id}`}
-        className="gh-card max-w-2xl w-full p-4 xs:p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl rounded-2xl border-[#30363d]"
+        className="card-dark max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border-white/20 bg-[#141419]"
       >
-        
         {/* Close Button */}
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 text-[#8b949e] hover:text-[#f0f6fc] rounded-md bg-[#161b22]/90 border border-[#30363d] hover:bg-[#21262d] transition-colors w-11 h-11 flex items-center justify-center"
+          className="absolute top-4 right-4 z-10 text-[#a1a1aa] hover:text-white rounded-full bg-[#1c1c24] border border-white/10 hover:border-white/30 transition-colors w-9 h-9 flex items-center justify-center"
           aria-label={labels.close}
         >
-          <FiX className="text-lg sm:text-xl" />
+          <FiX className="text-base" />
         </button>
 
-        {/* Project Image Preview Banner */}
-        {project.image && (
-          <div className="w-full h-40 xs:h-48 sm:h-56 rounded-xl overflow-hidden mb-5 sm:mb-6 border border-[#30363d] bg-[#0d1117] relative group">
-            <img
-              src={project.image}
-              alt={project.name}
-              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#161b22] via-transparent to-transparent opacity-80" />
-            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-[11px] font-mono text-[#8b949e] bg-[#0d1117]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#30363d]">
-              <FiImage className="text-[#58a6ff]" />
-              <span>{labels.preview}</span>
+        {/* Modal Header */}
+        <div className="mb-5 pr-10">
+          <div className="flex flex-wrap items-center gap-2 mb-2.5">
+            {isFlagship ? (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/25 text-white text-xs font-mono font-bold">
+                <FiStar className="text-xs fill-white" />
+                {labels.flagship}
+              </span>
+            ) : null}
+            <span className="badge-dark text-xs">
+              {project.category}
+            </span>
+          </div>
+
+          <h2
+            id={`project-title-${project.id}`}
+            className="text-xl sm:text-2xl font-heading font-extrabold text-white tracking-tight"
+          >
+            {project.name}
+          </h2>
+
+          <p className="text-xs font-mono text-[#a1a1aa] mt-1">
+            {project.domain}
+          </p>
+        </div>
+
+        {/* Short Description */}
+        <p className="text-xs sm:text-sm text-[#a1a1aa] mb-5 leading-relaxed font-body">
+          {project.shortDescription}
+        </p>
+
+        {/* Key Metrics Grid */}
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="mb-5">
+            <h3 className="text-xs font-mono font-bold text-[#71717a] uppercase tracking-wider mb-2.5 flex items-center gap-2">
+              <FiTrendingUp className="text-[#25d366]" /> {labels.metrics}
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {project.metrics.map((m, i) => (
+                <div key={i} className="p-2.5 rounded-xl bg-[#09090b] border border-white/10 flex flex-col justify-between">
+                  <span className="text-[10px] font-mono text-[#71717a] leading-tight block mb-1">
+                    {m.label}
+                  </span>
+                  <span className="text-sm font-heading font-extrabold text-white">
+                    {m.value}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Header */}
-        <div className="mb-5 sm:mb-6 pr-8">
-          <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#30363d] bg-[#21262d] text-[#58a6ff] font-medium">
-              {project.category}
-            </span>
-            {project.domain && (
-              <span className="text-xs font-mono text-[#8b949e] truncate max-w-[200px] xs:max-w-none">
-                {project.domain}
-              </span>
-            )}
-          </div>
-          <h2 id={`project-title-${project.id}`} className="text-xl xs:text-2xl sm:text-3xl font-bold text-[#f0f6fc]">
-            {project.name}
-          </h2>
-          <p className="text-xs sm:text-sm text-[#8b949e] mt-2 leading-relaxed">
-            {project.shortDescription}
-          </p>
-        </div>
-
-        {/* Impact / Metrics Cards */}
-        {project.metrics && project.metrics.length > 0 && (
-          <div className="grid grid-cols-1 xs:grid-cols-3 gap-2.5 sm:gap-3 mb-5 sm:mb-6">
-            {project.metrics.map((metric, i) => (
-              <div key={i} className="p-3 bg-[#0d1117] border border-[#30363d] rounded-xl">
-                <span className="text-[11px] font-mono text-[#8b949e] block mb-0.5">
-                  {metric.label}
-                </span>
-                <span className="text-xs sm:text-sm font-bold text-[#3fb950] flex items-center gap-1.5">
-                  <FiTrendingUp className="text-xs shrink-0" />
-                  {metric.value}
-                </span>
-              </div>
-            ))}
+        {/* Technical Deliverables List */}
+        {project.features && project.features.length > 0 && (
+          <div className="mb-5">
+            <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2.5 flex items-center gap-2">
+              <FiCpu className="text-[#a1a1aa]" /> {labels.features}
+            </h3>
+            <ul className="space-y-2">
+              {project.features.map((feat, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-xs text-[#d4d4d8] font-body">
+                  <FiCheckCircle className="text-[#25d366] mt-0.5 shrink-0 text-xs" />
+                  <span className="leading-relaxed">{feat}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
-        {/* Key Features */}
-        <div className="mb-5 sm:mb-6">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-[#8b949e] mb-3 flex items-center gap-2">
-            <FiCheckCircle className="text-[#3fb950]" />
-            {labels.features}
-          </h3>
-          <ul className="space-y-2">
-            {project.features.map((feat, i) => (
-              <li key={i} className="text-xs sm:text-sm text-[#c9d1d9] flex items-start gap-2 bg-[#0d1117] p-2.5 sm:p-3 rounded-xl border border-[#30363d]/60">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#58a6ff] mt-1.5 shrink-0" />
-                <span>{feat}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Tech Stack */}
-        <div className="mb-6 sm:mb-8">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-[#8b949e] mb-3 flex items-center gap-2">
-            <FiLayers className="text-[#bc8cff]" />
+        <div className="mb-6">
+          <h3 className="text-xs font-mono font-bold text-[#71717a] uppercase tracking-wider mb-2.5">
             {labels.technologies}
           </h3>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {project.stack.map((tech, i) => (
-              <span key={i} className="px-2.5 py-1 bg-[#21262d] text-[#c9d1d9] border border-[#30363d] rounded-full text-xs font-mono font-medium">
+              <span key={i} className="badge-dark text-[11px]">
                 {tech}
               </span>
             ))}
           </div>
         </div>
 
-        {/* Footer Actions */}
-        <div className="pt-4 border-t border-[#30363d] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+        {/* Actions Footer */}
+        <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
           <button
+            type="button"
             onClick={onClose}
-            className="min-h-[44px] w-full sm:w-auto px-5 py-2.5 text-xs font-semibold text-[#c9d1d9] bg-[#21262d] border border-[#30363d] rounded-md hover:bg-[#30363d] transition-colors"
+            className="motion-button-dark-tech px-4 py-2 text-xs font-semibold"
           >
             {labels.close}
           </button>
+
           {project.href && (
             <a
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#238636] hover:bg-[#2ea043] border border-transparent rounded-md transition-colors shadow-lg"
+              className="motion-button-premium px-5 py-2 text-xs font-semibold flex items-center gap-2"
             >
               <span>{labels.open}</span>
-              <FiExternalLink />
+              <FiExternalLink className="text-xs" />
             </a>
           )}
         </div>
-
       </div>
     </div>
   )

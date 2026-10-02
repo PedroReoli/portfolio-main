@@ -1,5 +1,5 @@
 import React from "react"
-import { FiBookmark, FiExternalLink, FiInfo, FiTrendingUp } from "react-icons/fi"
+import { FiExternalLink, FiInfo, FiTrendingUp, FiStar, FiLayers } from "react-icons/fi"
 import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
 
@@ -8,105 +8,111 @@ interface GitHubProjectCardProps {
   onSelect: (project: PortfolioProject) => void
 }
 
-const getLanguageColor = (tech: string) => {
-  const lower = tech.toLowerCase()
-  if (lower.includes("typescript")) return "#3178c6"
-  if (lower.includes("react")) return "#61dafb"
-  if (lower.includes("next")) return "#ffffff"
-  if (lower.includes("node")) return "#339933"
-  if (lower.includes("c#") || lower.includes("dotnet")) return "#178600"
-  if (lower.includes("claude") || lower.includes("llm")) return "#bc8cff"
-  if (lower.includes("tail")) return "#38bdf8"
-  return "#58a6ff"
-}
-
 export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({ project, onSelect }) => {
   const { language } = useLanguage()
+  const isFlagship = (project as { flagship?: boolean }).flagship
+
+  const labels = language === "pt"
+    ? { viewDetails: "Ver Arquitetura", visit: "Acessar", flagshipBadge: "Flagship" }
+    : { viewDetails: "View Architecture", visit: "Visit", flagshipBadge: "Flagship" }
 
   return (
-    <div className="gh-card p-4 xs:p-5 sm:p-6 flex flex-col justify-between h-full group">
+    <div className={`card-dark p-5 sm:p-6 flex flex-col justify-between h-full group ${
+      isFlagship ? "border-white/20 bg-[#16161d]" : "border-white/[0.08]"
+    }`}>
       <div>
-        {/* Top Bar: Icon, Name & Type Badge */}
-        <div className="flex items-start justify-between gap-2.5 mb-3">
-          <div className="flex items-center gap-2 min-w-0">
-            <FiBookmark className="text-[#8b949e] text-base sm:text-lg shrink-0 group-hover:text-[#58a6ff] transition-colors" />
-            <h3 className="min-w-0 truncate text-sm sm:text-base font-bold tracking-tight">
-              <button
-                type="button"
-                onClick={() => onSelect(project)}
-                className="inline-flex min-h-[44px] max-w-full items-center truncate text-left text-[#58a6ff] hover:underline underline-offset-4"
-              >
-                {project.name}
-              </button>
-            </h3>
+        {/* Top Header: Badge, Flagship Tag & Category */}
+        <div className="flex items-center justify-between gap-2 mb-3.5">
+          <div className="flex items-center gap-2">
+            {isFlagship ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-mono font-bold">
+                <FiStar className="text-xs fill-white" />
+                {labels.flagshipBadge}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#141419] border border-white/[0.08] text-[#a1a1aa] text-[11px] font-mono font-medium">
+                <FiLayers className="text-xs text-white" />
+                {project.category}
+              </span>
+            )}
           </div>
-          <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-full border border-[#30363d] bg-[#21262d] text-[#8b949e] shrink-0 font-medium">
-            {project.category}
+
+          <span className="text-[11px] font-mono text-[#71717a] truncate max-w-[140px]">
+            {project.domain}
           </span>
         </div>
 
-        {/* Short Description */}
-        <p className="text-xs sm:text-sm text-[#8b949e] leading-relaxed mb-4 sm:mb-5 line-clamp-3">
+        {/* Project Title */}
+        <h3 className="text-base sm:text-lg font-heading font-bold text-white mb-1.5 group-hover:text-zinc-200 transition-colors">
+          <button
+            type="button"
+            onClick={() => onSelect(project)}
+            className="text-left hover:underline underline-offset-4"
+          >
+            {project.name}
+          </button>
+        </h3>
+
+        {/* Description */}
+        <p className="text-xs text-[#a1a1aa] line-clamp-3 mb-4 leading-relaxed font-body">
           {project.shortDescription}
         </p>
 
-        {/* Key Metrics Badges */}
+        {/* Key Metrics Chips */}
         {project.metrics && project.metrics.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {project.metrics.map((metric, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-mono px-2.5 py-0.5 sm:py-1 rounded-full bg-[#1f6feb]/10 text-[#58a6ff] border border-[#1f6feb]/30 font-medium"
+                className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded bg-[#09090b] text-white border border-white/10 font-semibold"
               >
-                <FiTrendingUp className="text-xs" />
-                {metric.value}
+                <FiTrendingUp className="text-xs text-[#25d366]" />
+                <span className="text-[#71717a] font-normal">{metric.label}:</span> {metric.value}
               </span>
             ))}
           </div>
         )}
       </div>
 
-      {/* Footer: Languages & Actions */}
-      <div className="pt-3.5 border-t border-[#30363d] flex items-center justify-between gap-2 text-xs">
-        {/* Tech Stack Indicator */}
-        <div className="flex items-center gap-2 sm:gap-3.5 overflow-hidden">
+      {/* Footer: Tech Stack & Actions */}
+      <div className="pt-3.5 border-t border-white/[0.08] flex items-center justify-between gap-3 text-xs">
+        {/* Tech Stack Indicators */}
+        <div className="flex items-center gap-1.5 overflow-hidden">
           {project.stack.slice(0, 3).map((tech, i) => (
-            <div key={i} className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs text-[#8b949e] font-mono shrink-0">
-              <span
-                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0"
-                style={{ backgroundColor: getLanguageColor(tech) }}
-              />
-              <span className="truncate max-w-[65px] sm:max-w-[90px] font-medium">{tech}</span>
+            <div key={i} className="flex items-center gap-1 text-[11px] text-[#a1a1aa] font-mono shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-white/40" />
+              <span className="truncate max-w-[75px] font-medium">{tech}</span>
             </div>
           ))}
           {project.stack.length > 3 && (
-            <span className="text-[11px] sm:text-xs text-[#8b949e] font-mono font-medium">
+            <span className="text-[10px] text-[#71717a] font-mono font-medium px-1.5 py-0.5 rounded bg-white/[0.04]">
               +{project.stack.length - 3}
             </span>
           )}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <button
+            type="button"
             onClick={() => onSelect(project)}
-            className="flex h-11 w-11 items-center justify-center text-[#8b949e] hover:text-[#f0f6fc] hover:bg-[#21262d] rounded-md transition-colors"
-            title={language === "pt" ? "Ver detalhes" : "View details"}
-            aria-label={language === "pt" ? `Ver detalhes de ${project.name}` : `View details for ${project.name}`}
-            aria-haspopup="dialog"
+            className="motion-button-dark-tech px-2.5 py-1 text-xs flex items-center gap-1 text-white"
+            title={labels.viewDetails}
           >
-            <FiInfo className="text-sm sm:text-base" />
+            <FiInfo className="text-xs" />
+            <span className="hidden xs:inline">{labels.viewDetails}</span>
           </button>
+          
           {project.href && (
             <a
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="flex h-11 w-11 items-center justify-center text-[#8b949e] hover:text-[#58a6ff] hover:bg-[#21262d] rounded-md transition-colors"
-              title={language === "pt" ? "Acessar projeto" : "Open project"}
-              aria-label={language === "pt" ? `Acessar ${project.name}` : `Open ${project.name}`}
+              className="w-7 h-7 rounded-full border border-white/10 bg-[#09090b] hover:border-white/40 hover:text-white flex items-center justify-center text-[#a1a1aa] transition-all"
+              title={labels.visit}
+              aria-label={`${labels.visit} ${project.name}`}
             >
-              <FiExternalLink className="text-sm sm:text-base" />
+              <FiExternalLink className="text-xs" />
             </a>
           )}
         </div>

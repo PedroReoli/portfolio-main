@@ -6,156 +6,119 @@ const config = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "*.{js,ts,jsx,tsx,mdx}",
     "app/**/*.{ts,tsx}",
     "components/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       screens: {
-        xxs: "280px", // Telefones muito pequenos
-        xs: "375px", // iPhone SE, pequenos smartphones
-        sm: "425px", // Smartphones médios
-        md: "640px", // Tablets pequenos, smartphones grandes
-        lg: "768px", // Tablets
-        xl: "1024px", // Laptops/desktops pequenos
-        "2xl": "1280px", // Desktops
-        "3xl": "1440px", // Desktops grandes
-        "4xl": "1536px", // Telas muito grandes
-        "5xl": "1920px", // Full HD
-        tall: { raw: "(min-height: 800px)" }, // Telas altas
-        short: { raw: "(max-height: 600px)" }, // Telas curtas
-        portrait: { raw: "(orientation: portrait)" }, // Orientação retrato
-        landscape: { raw: "(orientation: landscape)" }, // Orientação paisagem
+        xxs: "280px",
+        xs: "375px",
+        sm: "425px",
+        md: "640px",
+        lg: "768px",
+        xl: "1024px",
+        "2xl": "1280px",
+        "3xl": "1440px",
+        "4xl": "1536px",
+        "5xl": "1920px",
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border, 215 28% 17%))",
+        input: "hsl(var(--input, 215 28% 17%))",
+        ring: "hsl(var(--ring, 221 83% 53%))",
+        background: "hsl(var(--background, 222 47% 4%))",
+        foreground: "hsl(var(--foreground, 210 40% 98%))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--color-primary, #1d68f2)",
+          foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "var(--color-secondary, #111622)",
+          foreground: "#f0f6fc",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#161c2a",
+          foreground: "#8b949e",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "#00d4ff",
+          foreground: "#000000",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "#0e131f",
+          foreground: "#f0f6fc",
         },
-        // Cosmic theme colors replaced with Zinc/Slate for Taste-Skill
-        cosmic: {
-          bg: "#09090b", // zinc-950
-          card: "#18181b", // zinc-900
-          text: "#a1a1aa", // zinc-400
-          accent: "#ffffff",
-          border: "rgba(255,255,255,0.1)",
+        // LOOG Brand Design System Tokens
+        loog: {
+          black: "#07090e",
+          dark: "#0b0f19",
+          card: "#0f1422",
+          cardHover: "#141b2e",
+          blue: "#1d68f2",
+          cyan: "#00d4ff",
+          gray: "#161c2a",
+          border: "rgba(255, 255, 255, 0.08)",
+          borderHover: "rgba(29, 104, 242, 0.4)",
+          white: "#f8fafc",
+          mutedWhite: "#c9d1d9",
         },
       },
       fontFamily: {
-        sans: ["Space Grotesk", "sans-serif"],
-        mono: ["Space Mono", "monospace"],
+        heading: ["'Plus Jakarta Sans'", "'Inter'", "sans-serif"],
+        sans: ["'Plus Jakarta Sans'", "'Inter'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        body: ["'Inter'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        mono: ["'JetBrains Mono'", "'Space Mono'", "monospace"],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius, 0.75rem)",
+        md: "calc(var(--radius, 0.75rem) - 2px)",
+        sm: "calc(var(--radius, 0.75rem) - 4px)",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
       },
       backgroundImage: {
-        "radial-vignette": "radial-gradient(circle, transparent 50%, rgba(9, 9, 11, 0.8) 100%)",
-        "network-gradient": "linear-gradient(to bottom, #09090b, #18181b, #09090b)",
-        "network-glow": "radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 80%)",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "loog-glow": "radial-gradient(circle at 50% 0%, rgba(29, 104, 242, 0.15), transparent 70%)",
+        "loog-card-radial": "radial-gradient(circle at 80% 20%, rgba(29, 104, 242, 0.08), transparent 50%)",
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        float: "float 6s ease-in-out infinite",
-        "spin-slow": "spin 8s linear infinite",
+        "reveal-slide": "reveal-slide 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+        "reveal-blur": "reveal-blur 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+        "reveal-tech-pulse": "reveal-tech-pulse 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+        "reveal-scanning-beam": "reveal-scanning-beam 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards",
+        "reveal-fluid-bounce": "reveal-fluid-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
+        "reveal-slide": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-      },
-      typography: {
-        DEFAULT: {
-          css: {
-            color: "#94A3B8",
-            a: {
-              color: "#60A5FA",
-              "&:hover": {
-                color: "#93C5FD",
-              },
-            },
-            h1: {
-              color: "#FFFFFF",
-            },
-            h2: {
-              color: "#FFFFFF",
-            },
-            h3: {
-              color: "#FFFFFF",
-            },
-            h4: {
-              color: "#FFFFFF",
-            },
-          },
+        "reveal-blur": {
+          "0%": { opacity: "0", filter: "blur(12px)", transform: "translateY(10px) scale(0.98)" },
+          "100%": { opacity: "1", filter: "blur(0)", transform: "translateY(0) scale(1)" },
+        },
+        "reveal-tech-pulse": {
+          "0%": { opacity: "0", transform: "scale(0.9) translateY(10px)", filter: "brightness(1.5)" },
+          "50%": { opacity: "0.8", transform: "scale(1.02) translateY(-2px)", filter: "brightness(1.2)" },
+          "100%": { opacity: "1", transform: "scale(1) translateY(0)", filter: "brightness(1)" },
+        },
+        "reveal-scanning-beam": {
+          "0%": { opacity: "0", clipPath: "inset(0 100% 0 0)", transform: "translateX(-10px)" },
+          "100%": { opacity: "1", clipPath: "inset(0 0 0 0)", transform: "translateX(0)" },
+        },
+        "reveal-fluid-bounce": {
+          "0%": { opacity: "0", transform: "translateY(40px) scale(0.8)" },
+          "70%": { transform: "translateY(-5px) scale(1.02)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    ({ addUtilities }) => {
-      const newUtilities = {
-        ".text-shadow-sm": {
-          textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-        },
-        ".text-shadow": {
-          textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-        },
-        ".text-shadow-md": {
-          textShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-        },
-        ".text-shadow-lg": {
-          textShadow: "0 8px 16px rgba(0, 0, 0, 0.5)",
-        },
-        ".text-shadow-none": {
-          textShadow: "none",
-        },
-        ".backface-hidden": {
-          backfaceVisibility: "hidden",
-        },
-        ".perspective-1000": {
-          perspective: "1000px",
-        },
-        ".transform-gpu": {
-          transform: "translateZ(0)",
-        },
-      }
-      addUtilities(newUtilities)
-    },
   ],
 }
 
 module.exports = config
-

@@ -2,68 +2,61 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./styles/tokens.css";
+@import "./styles/typography.css";
+@import "./styles/buttons.css";
+@import "./styles/cards.css";
+@import "./styles/navigation.css";
+
 @layer base {
-  :root {
-    --gh-bg: #0d1117;
-    --gh-dark: #010409;
-    --gh-card: #161b22;
-    --gh-card-hover: #1c2128;
-    --gh-border: #30363d;
-    --gh-blue: #58a6ff;
-    --gh-green: #3fb950;
-    --gh-purple: #bc8cff;
-    --gh-orange: #d29922;
-    --gh-text: #f0f6fc;
-    --gh-muted: #8b949e;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background-color: #ffffff !important;
+    color: #09090b !important;
+  }
+
+  ::-moz-selection {
+    background-color: #ffffff !important;
+    color: #09090b !important;
+  }
+
+  *::selection {
+    background-color: #ffffff !important;
+    color: #09090b !important;
   }
 
   body {
-    background-color: #0d1117;
-    color: #f0f6fc;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    background-color: var(--bg-dark);
+    color: var(--text-dark-primary);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+    letter-spacing: -0.025em;
   }
 
   :focus-visible {
-    outline: 2px solid var(--gh-blue);
+    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
   }
 }
 
-/* GitHub Card Styling */
-.gh-card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Utility to hide scrollbars while keeping scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-.gh-card:hover {
-  border-color: #58a6ff;
-  background-color: #1c2128;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.5);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gh-card,
-  .gh-card:hover {
-    transform: none;
-    transition: border-color 0.01ms, background-color 0.01ms;
-  }
-}
-
-.gh-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.7rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  border-radius: 20px;
-  border: 1px solid #30363d;
-  background-color: #21262d;
-  color: #8b949e;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Custom Scrollbar */
@@ -71,12 +64,20 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1117;
+  background: #090d16;
 }
 ::-webkit-scrollbar-thumb {
-  background: #30363d;
+  background: #1e293b;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #58a6ff;
+  background: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
