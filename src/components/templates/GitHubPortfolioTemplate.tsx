@@ -1,7 +1,6 @@
 import React from "react"
 import Navbar from "../organisms/Navbar"
 import GitHubProfileHeader from "../organisms/GitHubProfileHeader"
-import GitHubMetricsSection from "../organisms/GitHubMetricsSection"
 import GitHubProjectsSection from "../organisms/GitHubProjectsSection"
 import GitHubExperienceSection from "../organisms/GitHubExperienceSection"
 import SkillsSection from "../organisms/SkillsSection"
@@ -10,44 +9,41 @@ import FloatingSectionNav from "../molecules/FloatingSectionNav"
 
 export const GitHubPortfolioTemplate: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#ffffff] font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden relative">
+    <div className="min-h-screen bg-[#09090b] text-[#ffffff] font-sans antialiased selection:bg-white selection:text-black overflow-x-clip relative">
       
       {/* Floating Side Index (Desktop) */}
       <FloatingSectionNav />
 
-      {/* Dynamic Dual-State Navbar (Island at top -> Full width sticky upon scroll) */}
+      {/* Floating Compact Navbar */}
       <Navbar />
 
-      {/* Main Content Sections with Alternating Dark / Light Dual-Tone Surfaces */}
-      <main className="w-full overflow-x-hidden">
-        {/* Section 1: Hero Profile (Dark) */}
-        <div id="about" className="scroll-mt-10">
+      {/* Main Content */}
+      <main className="w-full overflow-x-clip relative bg-[#09090b]">
+        
+        {/* Section 1: Hero Profile */}
+        <div id="about" className="relative z-10 scroll-mt-20">
           <GitHubProfileHeader />
         </div>
 
-        {/* Section 2: Metrics & Impact (Light) */}
-        <div id="metrics" className="scroll-mt-10">
-          <GitHubMetricsSection />
-        </div>
-
-        {/* Section 3: Projects & Flagships (Dark) */}
-        <div id="projects" className="scroll-mt-10">
+        {/* Section 2: Production Flagships & Projects */}
+        <div id="projects" className="relative z-20 scroll-mt-20">
           <GitHubProjectsSection />
         </div>
 
-        {/* Section 4: Experience & Career (Light) */}
-        <div id="experience" className="scroll-mt-10">
+        {/* Section 3: Career & Experience */}
+        <div id="experience" className="relative z-20 scroll-mt-20">
           <GitHubExperienceSection />
         </div>
 
-        {/* Section 5: Tech Stack & Architecture (Dark) */}
-        <div id="skills" className="scroll-mt-10">
+        {/* Section 4: Architecture, Cloud & Tech Stack */}
+        <div id="skills" className="relative z-20 scroll-mt-20">
           <SkillsSection />
         </div>
-      </main>
 
-      {/* Footer / Contact (Dark) */}
-      <GitHubFooter />
+        {/* Footer / Contact */}
+        <GitHubFooter />
+
+      </main>
 
     </div>
   )

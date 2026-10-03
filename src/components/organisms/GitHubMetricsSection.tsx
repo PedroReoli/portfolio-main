@@ -178,11 +178,17 @@ export const GitHubMetricsSection: React.FC = () => {
       }
 
   return (
-    <section className="py-14 sm:py-20 bg-[#09090b] text-[#ffffff] border-b border-white/[0.08] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <section className="w-full min-h-screen flex flex-col justify-center py-16 sm:py-24 bg-[#09090b] text-[#ffffff] border-b border-white/[0.08] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10 w-full my-auto">
         
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-12">
+        {/* Section Header: Materializes smoothly on scroll */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10"
+        >
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono text-[#a1a1aa] uppercase tracking-wider font-semibold mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -201,26 +207,29 @@ export const GitHubMetricsSection: React.FC = () => {
               {labels.roiTag}
             </span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* 8-Card Compact Monochromatic Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {labels.metrics.map((m, index) => {
+        {/* 8-Card Compact Monochromatic Grid: Emerges in-place with staggered blur-in */}
+        <motion.div 
+          initial={{ opacity: 0, y: 35, filter: "blur(12px)", scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4"
+        >
+          {labels.metrics.map((m) => {
             const Icon = m.icon
             return (
               <motion.div
                 key={m.id}
-                initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-                className="card-dark p-4 sm:p-5 flex flex-col justify-between group hover:border-white/20 transition-all"
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className="card-dark p-4 flex flex-col justify-between group hover:border-white/20 transition-all min-h-[145px]"
               >
                 <div>
                   {/* Top Row: Icon & Category Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all">
-                      <Icon className="w-4 h-4" />
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all">
+                      <Icon className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-[10px] font-mono text-[#a1a1aa] bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.06]">
                       {m.badge}
@@ -228,7 +237,7 @@ export const GitHubMetricsSection: React.FC = () => {
                   </div>
 
                   {/* Big Number */}
-                  <div className="text-2xl sm:text-3xl font-heading font-extrabold text-white tracking-tight mb-1 group-hover:text-zinc-200 transition-colors">
+                  <div className="text-xl sm:text-2xl font-heading font-extrabold text-white tracking-tight mb-0.5 group-hover:text-zinc-200 transition-colors">
                     {m.value}
                   </div>
 
@@ -238,7 +247,7 @@ export const GitHubMetricsSection: React.FC = () => {
                   </h3>
 
                   {/* Subtitle */}
-                  <div className="text-[11px] font-mono text-[#a1a1aa] font-medium mb-2">
+                  <div className="text-[10px] font-mono text-[#a1a1aa] font-medium mb-1.5">
                     {m.sub}
                   </div>
 
@@ -250,7 +259,7 @@ export const GitHubMetricsSection: React.FC = () => {
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>
