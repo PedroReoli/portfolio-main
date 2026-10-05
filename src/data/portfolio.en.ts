@@ -302,7 +302,7 @@ export const projects = [
     domain: "github.com/PedroReoli/Achilles-CDP-Agent",
     type: "ai",
     category: "AI Engineering & Automation",
-    image: "/Domus.png",
+    image: "/nexus.png",
     flagship: true,
     shortDescription:
       "Autonomous browser automation and observation engine for AI agents via CDP and AXTree semantics, with 92.2% token savings and native MCP server.",
@@ -348,8 +348,8 @@ export const projects = [
     domain: "SaaS • B2B",
     type: "saas",
     category: "B2B SaaS Platform",
-    image: "/Domus.png",
-    flagship: false,
+    image: "/propose.png",
+    flagship: true,
     shortDescription:
       "NoCode commercial proposal builder with a drag-and-drop editor, dynamic JSON schema rendering, and automated billing integrations.",
     stack: ["React", "Next.js", "TypeScript", "Node.js", "Fastify", "PostgreSQL", "Supabase", "Tailwind CSS"],
@@ -363,5 +363,182 @@ export const projects = [
       { label: "Model", value: "NoCode & JSON Schemas" },
       { label: "Infra", value: "Fastify + Supabase" },
     ],
+  },
+  {
+    id: "portal-contador",
+    name: "Autocom3 Accountant Portal",
+    href: "https://www.autocom3.com.br",
+    domain: "autocom3.com.br/contador",
+    type: "erp",
+    category: "Tax & Accounting Platform",
+    image: "/portal-contador.png",
+    flagship: false,
+    shortDescription:
+      "Integrated accounting portal for automated XML exports, SPED fiscal compliance, and corporate financial reconciliation.",
+    stack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
+    features: [
+      "Tax reconciliation and batch invoice export module for corporate accountants.",
+      "Isolated RBAC authentication per accounting firm and connected client enterprises.",
+      "Faster month-end tax filing and reduced closing cycle time."
+    ],
+    metrics: [
+      { label: "Segment", value: "Tax & Accounting" },
+      { label: "Integration", value: "SPED / XML / ERP" },
+    ],
+  },
+  {
+    id: "portal-admin",
+    name: "Autocom3 Admin Portal & RBAC",
+    href: "https://www.autocom3.com.br",
+    domain: "autocom3.com.br/admin",
+    type: "internal",
+    category: "Security & Multi-Tenant",
+    image: "/portal-admin.png",
+    flagship: false,
+    shortDescription:
+      "Centralized administrative console with tenant management, access auditing, billing metrics, and role-based access control.",
+    stack: ["React", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Radix UI"],
+    features: [
+      "Centralized client enterprise management with granular permission schemes and access control.",
+      "Executive real-time usage dashboard and active contract lifecycle monitoring.",
+      "Comprehensive audit logs and compliance trails with end-to-end security."
+    ],
+    metrics: [
+      { label: "Control", value: "Granular RBAC" },
+      { label: "Multi-tenant", value: "20+ Organizations" },
+    ],
+  },
+  {
+    id: "sivis-erp",
+    name: "SIVIS Fleet & Billing Management",
+    href: "https://github.com/PedroReoli",
+    domain: "sivis.com.br",
+    type: "erp",
+    category: "Fintech & Fleet ERP",
+    image: "/sivis.png",
+    flagship: false,
+    shortDescription:
+      "Comprehensive ERP for fleet tracking, vehicle protection, recurring billing, claims processing, and bank reconciliation.",
+    stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "Tailwind CSS"],
+    features: [
+      "End-to-end fleet operational management, vehicle inspections, and policy tracking.",
+      "Automated financial engine for recurring billing, remittance files, and bank reconciliation.",
+      "Streamlined claims management workflow with multi-tiered approval chains."
+    ],
+    metrics: [
+      { label: "Segment", value: "Fintech & Fleet" },
+      { label: "Financial", value: "Recurring Billing" },
+    ],
+  },
+  {
+    id: "propostas-ac3",
+    name: "Autocom3 Commercial Proposal Engine",
+    href: "https://www.autocom3.com.br",
+    domain: "autocom3.com.br/propostas",
+    type: "saas",
+    category: "Billing & Proposal Automation",
+    image: "/propostas-ac3.png",
+    flagship: false,
+    shortDescription:
+      "Dynamic commercial proposal and quote generator with pricing matrix rules and digital contract workflows.",
+    stack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
+    features: [
+      "Instant PDF proposal generation with dynamic pricing tables based on customer tiering.",
+      "Real-time tracking of proposal viewing and digital signature status.",
+      "Direct automated bridge to the Autocom3 ERP contract management module."
+    ],
+    metrics: [
+      { label: "Conversion", value: "Sales Velocity" },
+      { label: "Output", value: "PDF & Digital Sign" },
+    ],
+  },
+  {
+    id: "ac3-flex",
+    name: "AC3 Flex Cloud Architecture",
+    href: "https://www.autocom3.com.br",
+    domain: "autocom3.com.br/flex",
+    type: "erp",
+    category: "Cloud ERP & Microservices",
+    image: "/ac3-flex.png",
+    flagship: false,
+    shortDescription:
+      "Scalable cloud architecture connecting legacy on-premise ERPs to modern web platforms via distributed caching.",
+    stack: ["Node.js", "TypeScript", "NestJS", "AWS", "PostgreSQL", "Docker"],
+    features: [
+      "Bidirectional abstraction and synchronization layer between legacy databases and modern web portals.",
+      "Event-driven architecture with message queues for high-throughput asynchronous workloads.",
+      "Continuous health monitoring, distributed caching, and 99.9% service uptime."
+    ],
+    metrics: [
+      { label: "Infra", value: "AWS & Docker" },
+      { label: "Architecture", value: "Event-Driven & Cache" },
+    ],
+  },
+
+] as const
+
+export const parallaxProducts = [
+  {
+    title: "Organon Desktop OS v6.23.2",
+    link: "https://github.com/PedroReoli/organon",
+    thumbnail: "/Domus.png",
+    category: "Desktop & Local-First AI",
+    id: "organon-ecosystem",
+  },
+  {
+    title: "Achilles CDP Agent (MCP Server)",
+    link: "https://github.com/PedroReoli/Achilles-CDP-Agent",
+    thumbnail: "/nexus.png",
+    category: "AI Web Automation Engine",
+    id: "achilles-cdp-agent",
+  },
+  {
+    title: "Autocom3 Unified Client Portal",
+    link: "https://www.autocom3.com.br/autocom3clientes",
+    thumbnail: "/portal-cliente.png",
+    category: "Enterprise ERP & 500+ Design System",
+    id: "portal-unificado-autocom3",
+  },
+  {
+    title: "Propose SaaS – NoCode Engine",
+    link: "https://github.com/PedroReoli",
+    thumbnail: "/propose.png",
+    category: "B2B SaaS & Dynamic JSON Schemas",
+    id: "propose-saas",
+  },
+  {
+    title: "Autocom3 Accountant Portal",
+    link: "https://www.autocom3.com.br",
+    thumbnail: "/portal-contador.png",
+    category: "Accounting & Tax Platform",
+    id: "portal-contador",
+  },
+  {
+    title: "Autocom3 Admin Portal & RBAC",
+    link: "https://www.autocom3.com.br",
+    thumbnail: "/portal-admin.png",
+    category: "Multi-Tenant Enterprise Security",
+    id: "portal-admin",
+  },
+  {
+    title: "SIVIS Fleet & Billing Management",
+    link: "https://github.com/PedroReoli",
+    thumbnail: "/sivis.png",
+    category: "Fintech & Vehicle Protection ERP",
+    id: "sivis-erp",
+  },
+  {
+    title: "Autocom3 Commercial Proposal Engine",
+    link: "https://www.autocom3.com.br",
+    thumbnail: "/propostas-ac3.png",
+    category: "Billing & Proposal Automation",
+    id: "propostas-ac3",
+  },
+  {
+    title: "AC3 Flex Cloud Architecture",
+    link: "https://www.autocom3.com.br",
+    thumbnail: "/ac3-flex.png",
+    category: "Cloud ERP & Microservices",
+    id: "ac3-flex",
   },
 ] as const
