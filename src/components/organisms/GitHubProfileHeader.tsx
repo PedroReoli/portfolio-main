@@ -79,9 +79,9 @@ export const GitHubProfileHeader: React.FC = () => {
           },
         ],
         milestones: [
-          "Ecossistema ERP com 50+ Páginas",
+          "Ecossistema ERP com 100+ Telas",
           "Arquitetura Cloud & AWS",
-          "Agent Loops & MCP Servers",
+          "Agent Loops & Servidores MCP",
         ]
       }
     : {
@@ -132,17 +132,25 @@ export const GitHubProfileHeader: React.FC = () => {
           },
         ],
         milestones: [
-          "50+ Pages ERP Ecosystem",
+          "100+ Screens ERP Ecosystem",
           "AWS Cloud & Scalable APIs",
           "Agent Loops & MCP Servers",
         ]
       }
 
   return (
-    <header className="w-full flex flex-col justify-center text-[#ffffff] pt-24 sm:pt-28 pb-12 sm:pb-16 relative">
-      {/* Subtle Atmospheric Background Glow */}
+    <header className="w-full flex flex-col justify-center text-[#ffffff] pt-24 sm:pt-28 pb-12 sm:pb-16 relative bg-[#07080b]">
+      {/* Soft Ambient Studio Lighting (Glows sutis em Cyan, Emerald e Violet) */}
       <div 
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-white/[0.015] rounded-full blur-[140px] pointer-events-none" 
+        className="absolute top-10 left-1/4 w-[450px] sm:w-[600px] h-[350px] bg-[#0ea5e9]/[0.04] rounded-full blur-[140px] pointer-events-none"
+        aria-hidden="true"
+      />
+      <div 
+        className="absolute top-1/3 right-1/4 w-[400px] sm:w-[500px] h-[300px] bg-[#10b981]/[0.03] rounded-full blur-[140px] pointer-events-none"
+        aria-hidden="true"
+      />
+      <div 
+        className="absolute bottom-10 left-1/3 w-[500px] h-[350px] bg-[#8b5cf6]/[0.03] rounded-full blur-[160px] pointer-events-none"
         aria-hidden="true"
       />
 
