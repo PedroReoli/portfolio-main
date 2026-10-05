@@ -18,7 +18,7 @@ import { useLanguage } from "../../i18n/useLanguage"
 export const GitHubExperienceSection: React.FC = () => {
   const { language } = useLanguage()
   const data = language === "pt" ? portfolioPT : portfolioEN
-  const { experiences, education, languages } = data
+  const { experiences, languages, educationList } = data
   const [activeIndex, setActiveIndex] = useState(0)
 
   const activeExp = experiences[activeIndex] || experiences[0]
@@ -242,16 +242,20 @@ export const GitHubExperienceSection: React.FC = () => {
                 </h3>
               </div>
 
-              <div>
-                <h4 className="text-sm font-heading font-extrabold text-white">
-                  {education.degree}
-                </h4>
-                <div className="text-xs text-zinc-300 font-medium mt-1">
-                  {education.institution}
-                </div>
-                <div className="text-[11px] font-mono text-zinc-400 mt-1">
-                  {education.period} • {education.status}
-                </div>
+              <div className="space-y-3">
+                {educationList.map((edu, idx) => (
+                  <div key={idx} className="pb-2 border-b border-white/[0.04] last:border-none last:pb-0">
+                    <h4 className="text-xs sm:text-sm font-heading font-extrabold text-white">
+                      {edu.degree}
+                    </h4>
+                    <div className="text-xs text-zinc-300 font-medium mt-0.5">
+                      {edu.institution}
+                    </div>
+                    <div className="text-[10px] font-mono text-zinc-400 mt-0.5">
+                      {edu.period} • {edu.status}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 

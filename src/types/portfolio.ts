@@ -10,6 +10,7 @@ export interface PortfolioProject {
   stack: readonly string[]
   features: readonly string[]
   metrics: readonly { label: string; value: string }[]
+  flagship?: boolean
 }
 
 export interface PortfolioArticle {
