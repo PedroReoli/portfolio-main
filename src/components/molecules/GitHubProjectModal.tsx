@@ -46,20 +46,20 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         role="dialog"
         aria-modal="true"
         aria-labelledby={`project-title-${project.id}`}
-        className="card-dark max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border-white/20 bg-[#141419]"
+        className="card-dark max-w-2xl w-full p-5 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border-white/20 bg-[#141419] rounded-2xl"
       >
         {/* Close Button */}
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-[#a1a1aa] hover:text-white rounded-full bg-[#1c1c24] border border-white/10 hover:border-white/30 transition-colors w-9 h-9 flex items-center justify-center"
+          className="absolute top-4 right-4 z-10 text-[#a1a1aa] hover:text-white rounded-full bg-[#1c1c24] border border-white/10 hover:border-white/30 transition-colors w-10 h-10 min-h-[40px] flex items-center justify-center"
           aria-label={labels.close}
         >
-          <FiX className="text-base" />
+          <FiX className="text-lg" />
         </button>
 
         {/* Modal Header */}
-        <div className="mb-5 pr-10">
+        <div className="mb-5 pr-12">
           <div className="flex flex-wrap items-center gap-2 mb-2.5">
             {isFlagship ? (
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/25 text-white text-xs font-mono font-bold">
@@ -85,20 +85,20 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         </div>
 
         {/* Short Description */}
-        <p className="text-xs sm:text-sm text-[#a1a1aa] mb-5 leading-relaxed font-body">
+        <p className="text-xs sm:text-sm text-zinc-300 mb-5 leading-relaxed font-body">
           {project.shortDescription}
         </p>
 
         {/* Key Metrics Grid */}
         {project.metrics && project.metrics.length > 0 && (
           <div className="mb-5">
-            <h3 className="text-xs font-mono font-bold text-[#71717a] uppercase tracking-wider mb-2.5 flex items-center gap-2">
+            <h3 className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2.5 flex items-center gap-2">
               <FiTrendingUp className="text-[#25d366]" /> {labels.metrics}
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {project.metrics.map((m, i) => (
                 <div key={i} className="p-2.5 rounded-xl bg-[#09090b] border border-white/10 flex flex-col justify-between">
-                  <span className="text-[10px] font-mono text-[#71717a] leading-tight block mb-1">
+                  <span className="text-[10px] font-mono text-[#a1a1aa] leading-tight block mb-1">
                     {m.label}
                   </span>
                   <span className="text-sm font-heading font-extrabold text-white">
@@ -114,12 +114,12 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
         {project.features && project.features.length > 0 && (
           <div className="mb-5">
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2.5 flex items-center gap-2">
-              <FiCpu className="text-[#a1a1aa]" /> {labels.features}
+              <FiCpu className="text-zinc-400" /> {labels.features}
             </h3>
             <ul className="space-y-2">
               {project.features.map((feat, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs text-[#d4d4d8] font-body">
-                  <FiCheckCircle className="text-[#25d366] mt-0.5 shrink-0 text-xs" />
+                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-200 font-body">
+                  <FiCheckCircle className="text-[#25d366] mt-0.5 shrink-0 text-sm" />
                   <span className="leading-relaxed">{feat}</span>
                 </li>
               ))}
@@ -129,7 +129,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
 
         {/* Tech Stack */}
         <div className="mb-6">
-          <h3 className="text-xs font-mono font-bold text-[#71717a] uppercase tracking-wider mb-2.5">
+          <h3 className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
             {labels.technologies}
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -146,7 +146,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
           <button
             type="button"
             onClick={onClose}
-            className="motion-button-dark-tech px-4 py-2 text-xs font-semibold"
+            className="motion-button-dark-tech px-4 py-2.5 text-xs font-semibold min-h-[44px]"
           >
             {labels.close}
           </button>
@@ -156,7 +156,7 @@ export const GitHubProjectModal: React.FC<GitHubProjectModalProps> = ({ project,
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              className="motion-button-premium px-5 py-2 text-xs font-semibold flex items-center gap-2"
+              className="motion-button-premium px-5 py-2.5 text-xs font-semibold flex items-center gap-2 min-h-[44px]"
             >
               <span>{labels.open}</span>
               <FiExternalLink className="text-xs" />

@@ -33,18 +33,20 @@
   z-index: 2;
 }
 
-.motion-button-premium:hover {
-  background: #f4f4f5;
-  transform: translateY(-1.5px);
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
-}
+@media (hover: hover) {
+  .motion-button-premium:hover {
+    background: #f4f4f5;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  }
 
-.motion-button-premium:hover::before {
-  left: 150%;
+  .motion-button-premium:hover::before {
+    left: 150%;
+  }
 }
 
 .motion-button-premium:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 /* Motion Button WhatsApp (Serious Charcoal with Official WhatsApp Green Highlight) */
@@ -65,15 +67,17 @@
   justify-content: center;
 }
 
-.motion-button-whatsapp:hover {
-  border-color: #25d366;
-  background: rgba(37, 211, 102, 0.1);
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
-  transform: translateY(-1.5px);
+@media (hover: hover) {
+  .motion-button-whatsapp:hover {
+    border-color: #25d366;
+    background: rgba(37, 211, 102, 0.1);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+    transform: translateY(-1.5px);
+  }
 }
 
 .motion-button-whatsapp:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 /* Motion Button Dark Tech */
@@ -95,13 +99,15 @@
   justify-content: center;
 }
 
-.motion-button-dark-tech:hover {
-  border-color: var(--border-dark-hover);
-  background: #1c1c24;
-  color: #ffffff !important;
-  transform: translateY(-1.5px);
+@media (hover: hover) {
+  .motion-button-dark-tech:hover {
+    border-color: var(--border-dark-hover);
+    background: #1c1c24;
+    color: #ffffff !important;
+    transform: translateY(-1.5px);
+  }
 }
 
 .motion-button-dark-tech:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }

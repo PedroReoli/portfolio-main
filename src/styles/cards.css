@@ -11,11 +11,13 @@
   position: relative;
 }
 
-.card-dark:hover {
-  border-color: var(--border-dark-hover);
-  background: var(--bg-dark-card-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-dark);
+@media (hover: hover) {
+  .card-dark:hover {
+    border-color: var(--border-dark-hover);
+    background: var(--bg-dark-card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-dark);
+  }
 }
 
 /* Light/Subtle Surface for Metrics/Cards */
@@ -27,10 +29,12 @@
   position: relative;
 }
 
-.card-subtle:hover {
-  border-color: var(--border-dark-hover);
-  background: var(--bg-dark-card);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .card-subtle:hover {
+    border-color: var(--border-dark-hover);
+    background: var(--bg-dark-card);
+    transform: translateY(-2px);
+  }
 }
 
 /* Monochromatic Dark Badge */
@@ -49,9 +53,11 @@
   transition: all 0.2s ease;
 }
 
-.badge-dark:hover {
-  border-color: var(--border-dark-hover);
-  color: #ffffff;
+@media (hover: hover) {
+  .badge-dark:hover {
+    border-color: var(--border-dark-hover);
+    color: #ffffff;
+  }
 }
 
 /* Neutral Highlight Badge */

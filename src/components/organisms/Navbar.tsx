@@ -18,7 +18,7 @@ export const Navbar: React.FC = () => {
         const el = document.getElementById(sectionId)
         if (el) {
           const rect = el.getBoundingClientRect()
-          if (rect.top <= 250 && rect.bottom >= 250) {
+          if (rect.top <= 200 && rect.bottom >= 150) {
             setActiveSection(sectionId)
             break
           }
@@ -57,21 +57,21 @@ export const Navbar: React.FC = () => {
   ]
 
   return (
-    <div className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+    <div className="fixed top-3 left-0 right-0 z-50 flex justify-center px-2 sm:px-4 pointer-events-none">
       <motion.nav
-        initial={{ opacity: 0, y: -16, filter: "blur(8px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="pointer-events-auto mx-auto px-3.5 sm:px-4 py-1.5 rounded-full bg-[#121216]/92 backdrop-blur-2xl border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.85)] flex items-center gap-2 sm:gap-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="pointer-events-auto mx-auto px-2.5 sm:px-4 py-1.5 rounded-full bg-[#101015]/95 backdrop-blur-2xl border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.85)] flex items-center gap-1 sm:gap-2.5 max-w-[96vw]"
       >
-        {/* Mini Brand Dot */}
+        {/* Brand Dot */}
         <a
           href="#about"
-          className="flex items-center gap-1.5 text-xs font-heading font-bold text-white hover:text-zinc-300 transition-colors px-1 py-1"
+          className="flex items-center gap-1.5 text-xs font-heading font-bold text-white hover:text-zinc-300 transition-colors px-2 py-1.5"
           title="Pedro Reoli"
         >
-          <div className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
-          <span className="hidden xs:inline text-xs font-heading font-bold text-white">PedroReoli</span>
+          <div className="w-2.5 h-2.5 rounded-full bg-[#25d366] shadow-[0_0_8px_rgba(37,211,102,0.8)]" />
+          <span className="text-xs font-heading font-bold text-white">Pedro<span className="text-zinc-400">Reoli</span></span>
         </a>
 
         <div className="w-px h-4 bg-white/10 mx-0.5 shrink-0" />
@@ -85,15 +85,15 @@ export const Navbar: React.FC = () => {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 ${
+                className={`relative flex items-center justify-center w-9 h-9 sm:w-8.5 sm:h-8.5 rounded-full transition-all duration-200 ${
                   isActive
-                    ? "bg-white text-black font-bold shadow-md scale-105"
-                    : "text-[#a1a1aa] hover:text-white hover:bg-white/[0.08]"
+                    ? "bg-white text-[#09090b] font-bold shadow-md scale-105"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.08]"
                 }`}
                 title={item.label}
                 aria-label={item.label}
               >
-                <Icon className="text-xs" />
+                <Icon className="text-sm" />
               </a>
             )
           })}
@@ -101,13 +101,13 @@ export const Navbar: React.FC = () => {
 
         <div className="w-px h-4 bg-white/10 mx-0.5 shrink-0" />
 
-        {/* Compact Right Area: Identical Dimensions (w-8 h-8 / 32px) */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Right Area: Language Switcher + WhatsApp CTA */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Language Switch Button */}
           <button
             type="button"
             onClick={toggleLanguage}
-            className="w-8 h-8 rounded-full border border-white/15 bg-[#141419] hover:bg-white/15 text-[11px] font-mono font-bold text-white flex items-center justify-center transition-all shadow-sm hover:scale-105 active:scale-95"
+            className="w-9 h-9 sm:w-8.5 sm:h-8.5 rounded-full border border-white/15 bg-[#141419] hover:bg-white/15 text-[11px] font-mono font-bold text-white flex items-center justify-center transition-all shadow-sm active:scale-95"
             title={labels.switchLang}
             aria-label={labels.switchLang}
           >
@@ -119,11 +119,11 @@ export const Navbar: React.FC = () => {
             href={profile.phoneHref}
             target="_blank"
             rel="noreferrer"
-            className="w-8 h-8 rounded-full bg-[#141419] border border-[#25d366]/40 hover:border-[#25d366] text-[#25d366] flex items-center justify-center transition-all shadow-sm hover:scale-105 hover:bg-[#25d366]/15 active:scale-95"
+            className="w-9 h-9 sm:w-8.5 sm:h-8.5 rounded-full bg-[#141419] border border-[#25d366]/40 hover:border-[#25d366] text-[#25d366] flex items-center justify-center transition-all shadow-sm hover:scale-105 hover:bg-[#25d366]/15 active:scale-95"
             title={labels.contactCta}
             aria-label={labels.contactCta}
           >
-            <FaWhatsapp className="text-sm" />
+            <FaWhatsapp className="text-base" />
           </a>
         </div>
       </motion.nav>

@@ -12,3 +12,7 @@ temp_skills/
 /.claude
 /.playwright-mcp
 /output
+/.privado
+.privado/
+.claude/skills/
+.claude/skills

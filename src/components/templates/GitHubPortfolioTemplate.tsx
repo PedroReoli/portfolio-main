@@ -11,32 +11,32 @@ export const GitHubPortfolioTemplate: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#09090b] text-[#ffffff] font-sans antialiased selection:bg-white selection:text-black overflow-x-clip relative">
       
-      {/* Floating Side Index (Desktop) */}
+      {/* Floating Side Index (Desktop Only) */}
       <FloatingSectionNav />
 
-      {/* Floating Compact Navbar */}
+      {/* Responsive Navbar */}
       <Navbar />
 
       {/* Main Content */}
       <main className="w-full overflow-x-clip relative bg-[#09090b]">
         
         {/* Section 1: Hero Profile */}
-        <div id="about" className="relative z-10 scroll-mt-20">
+        <div id="about" className="relative z-10 scroll-mt-24">
           <GitHubProfileHeader />
         </div>
 
         {/* Section 2: Production Flagships & Projects */}
-        <div id="projects" className="relative z-20 scroll-mt-20">
+        <div className="relative z-20 scroll-mt-24">
           <GitHubProjectsSection />
         </div>
 
         {/* Section 3: Career & Experience */}
-        <div id="experience" className="relative z-20 scroll-mt-20">
+        <div className="relative z-20 scroll-mt-24">
           <GitHubExperienceSection />
         </div>
 
         {/* Section 4: Architecture, Cloud & Tech Stack */}
-        <div id="skills" className="relative z-20 scroll-mt-20">
+        <div className="relative z-20 scroll-mt-24">
           <SkillsSection />
         </div>
 

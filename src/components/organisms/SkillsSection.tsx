@@ -99,49 +99,49 @@ export const SkillsSection: React.FC = () => {
     ? {
         kicker: "Stack Técnica & Engenharia",
         title: "Tecnologias & Especialidades",
-        description: "Domínio prático de ferramentas, linguagens, bancos e frameworks utilizados em ecossistemas de alta escala.",
-        hoverHint: "Passe o cursor para ver a aplicação prática",
+        description: "Domínio prático de ferramentas, linguagens, bancos e frameworks utilizados em ecossistemas corporativos de alta escala.",
+        hoverHint: "Clique ou passe o cursor para ver a aplicação prática",
         contextLabel: "Aplicação Prática",
       }
     : {
         kicker: "Tech Stack & Engineering",
         title: "Technologies & Core Specialties",
-        description: "Hands-on mastery of frameworks, databases, and engineering tools applied across production ecosystems.",
-        hoverHint: "Hover to inspect practical usage",
+        description: "Hands-on mastery of frameworks, databases, and engineering tools applied across enterprise production ecosystems.",
+        hoverHint: "Click or hover to inspect practical usage",
         contextLabel: "Practical Application",
       }
 
   return (
-    <section id="skills" className="py-14 sm:py-20 bg-[#09090b] text-[#ffffff] border-b border-white/[0.08] relative">
+    <section id="skills" className="py-16 sm:py-24 bg-[#09090b] text-[#ffffff] border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         
         {/* Section Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-12"
         >
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-mono text-[#a1a1aa] uppercase tracking-wider font-semibold mb-2">
-              <FiCpu className="text-white" />
+              <FiCpu className="text-[#25d366]" />
               {labels.kicker}
             </div>
-            <h2 className="text-2xl sm:text-3xl font-heading font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-white tracking-tight">
               {labels.title}
             </h2>
-            <p className="text-xs sm:text-sm text-[#a1a1aa] max-w-2xl mt-1.5 font-body">
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl mt-1.5 font-body">
               {labels.description}
             </p>
           </div>
 
-          <div className="text-xs font-mono text-[#71717a] hidden sm:block">
+          <div className="text-xs font-mono text-zinc-400 hidden sm:block">
             {labels.hoverHint}
           </div>
         </motion.div>
 
-        {/* 4-Card Symmetric Grid with OVERFLOW VISIBLE and HIGH Z-INDEX */}
+        {/* 4-Card Symmetric Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 relative">
           {skills.map((group, groupIdx) => (
             <div
@@ -151,7 +151,7 @@ export const SkillsSection: React.FC = () => {
             >
               <div>
                 <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4 pb-2.5 border-b border-white/[0.08] flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#25d366]" />
                   <span>{group.category}</span>
                 </h3>
 
@@ -170,44 +170,43 @@ export const SkillsSection: React.FC = () => {
                           onMouseEnter={() => setActiveTooltip(tooltipKey)}
                           onMouseLeave={() => setActiveTooltip(null)}
                           onClick={() => setActiveTooltip(isHovered ? null : tooltipKey)}
-                          className={`flex items-center justify-between p-2 rounded-xl border transition-all cursor-pointer select-none ${
+                          className={`flex items-center justify-between p-2.5 rounded-xl border transition-all cursor-pointer select-none min-h-[44px] ${
                             isHovered
                               ? "bg-white/10 border-white/40 shadow-md"
                               : "bg-[#09090b] border-white/[0.06] hover:border-white/20"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2.5">
                             {renderIcon(item.icon)}
                             <span className="text-xs font-medium text-white font-body">
                               {item.name}
                             </span>
                           </div>
 
-                          <FiInfo className="text-xs text-[#71717a] hover:text-white" />
+                          <FiInfo className="text-xs text-zinc-400 hover:text-white shrink-0" />
                         </div>
 
-                        {/* High Z-Index Floating Tooltip (Never cut off or hidden) */}
+                        {/* Expandable Application Tooltip / Detail Panel */}
                         <AnimatePresence>
                           {isHovered && (
                             <motion.div
-                              initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                              initial={{ opacity: 0, y: 4, scale: 0.98 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                              exit={{ opacity: 0, y: 4, scale: 0.98 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute bottom-full left-0 right-0 mb-2 p-3 rounded-xl bg-[#1c1c24] border border-white/20 shadow-2xl z-[100] pointer-events-none"
+                              className="mt-1.5 p-3 rounded-xl bg-[#1c1c24] border border-white/20 shadow-2xl z-[100]"
                             >
                               <div className="flex items-center justify-between gap-2 mb-1">
                                 <span className="text-xs font-heading font-bold text-white">
                                   {item.name}
                                 </span>
-                                <span className="text-[10px] font-mono text-[#a1a1aa] font-medium">
+                                <span className="text-[10px] font-mono text-[#25d366] font-medium">
                                   {labels.contextLabel}
                                 </span>
                               </div>
-                              <p className="text-[11px] text-[#d4d4d8] leading-relaxed font-body">
+                              <p className="text-[11px] text-zinc-200 leading-relaxed font-body">
                                 {item.usage}
                               </p>
-                              <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-[#1c1c24] border-r border-b border-white/20 rotate-45" />
                             </motion.div>
                           )}
                         </AnimatePresence>
