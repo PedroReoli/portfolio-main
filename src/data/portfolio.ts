@@ -409,28 +409,6 @@ export const projects = [
     ],
   },
   {
-    id: "sivis-erp",
-    name: "SIVIS Gestão & Faturamento",
-    href: "https://github.com/PedroReoli",
-    domain: "sivis.com.br",
-    type: "erp",
-    category: "Fintech & ERP de Proteção Veicular",
-    image: "/sivis.png",
-    flagship: false,
-    shortDescription:
-      "Sistema ERP completo para gestão de frotas, proteção veicular, boletos recorrentes, sinistros e conciliação bancária.",
-    stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "Tailwind CSS"],
-    features: [
-      "Gestão operacional completa de veículos cadastrados, vistorias e controle de apólices ativas.",
-      "Motor financeiro automatizado para emissão de cobranças recorrentes, remessas e retornos bancários.",
-      "Fluxo automatizado de registro e liquidação de sinistros com aprovação em múltiplos níveis.",
-    ],
-    metrics: [
-      { label: "Segmento", value: "Fintech & Frotas" },
-      { label: "Financeiro", value: "Cobrança Recorrente" },
-    ],
-  },
-  {
     id: "propostas-ac3",
     name: "Autocom3 Gestão de Propostas",
     href: "https://www.autocom3.com.br",
@@ -519,13 +497,6 @@ export const parallaxProducts = [
     thumbnail: "/portal-admin.png",
     category: "Multi-Tenant Enterprise Security",
     id: "portal-admin",
-  },
-  {
-    title: "SIVIS Gestão & Faturamento",
-    link: "https://github.com/PedroReoli",
-    thumbnail: "/sivis.png",
-    category: "Fintech & Vehicle Protection ERP",
-    id: "sivis-erp",
   },
   {
     title: "Autocom3 Gestão de Propostas",

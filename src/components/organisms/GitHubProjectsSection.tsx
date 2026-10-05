@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { motion } from "framer-motion"
 import * as portfolioPT from "../../data/portfolio"
 import * as portfolioEN from "../../data/portfolio.en"
-import GitHubProjectCard from "../molecules/GitHubProjectCard"
 import GitHubProjectModal from "../molecules/GitHubProjectModal"
 import { 
   FiExternalLink, 
@@ -10,7 +9,8 @@ import {
   FiLayers, 
   FiCheckCircle, 
   FiMaximize2, 
-  FiGrid 
+  FiGrid,
+  FiArrowUpRight
 } from "react-icons/fi"
 import { useLanguage } from "../../i18n/useLanguage"
 import type { PortfolioProject } from "../../types/portfolio"
@@ -35,7 +35,7 @@ export const GitHubProjectsSection: React.FC = () => {
         clickToInspect: "Clique para inspecionar arquitetura",
         otherKicker: "Ecossistema Complementar",
         otherTitle: "Outros Sistemas Corporativos em Produção",
-        otherDescription: "Portais contábeis, gestão de faturamento e infraestrutura de microsserviços em nuvem.",
+        otherDescription: "Portais contábeis, gestão administrativa e infraestrutura de microsserviços em nuvem.",
         showing: "Exibindo",
         of: "de",
         systems: "sistemas corporativos",
@@ -51,7 +51,7 @@ export const GitHubProjectsSection: React.FC = () => {
         clickToInspect: "Click to inspect architecture",
         otherKicker: "Complementary Ecosystem",
         otherTitle: "Other Enterprise Systems in Production",
-        otherDescription: "Accounting portals, fleet & billing engines, and cloud microservices infrastructure.",
+        otherDescription: "Accounting portals, administrative consoles, and cloud microservices infrastructure.",
         showing: "Showing",
         of: "of",
         systems: "enterprise systems",
@@ -100,9 +100,9 @@ export const GitHubProjectsSection: React.FC = () => {
         </motion.div>
 
         {/* =========================================================================
-            SECTION 2: ALTERNATING Z-PATTERN MICRO-SECTIONS (THE 4 FLAGSHIPS)
+            SECTION 2: ALTERNATING Z-PATTERN WIDE HORIZONTAL FLAGSHIPS
             ========================================================================= */}
-        <div className="space-y-24 sm:space-y-32 mb-28">
+        <div className="space-y-20 sm:space-y-28 mb-28">
           {flagshipProjects.map((project, idx) => {
             // Alternating orientation: even index = photo left, odd index = photo right
             const isPhotoLeft = idx % 2 === 0
@@ -115,27 +115,27 @@ export const GitHubProjectsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative"
+                className="relative p-6 sm:p-8 lg:p-10 rounded-3xl border border-white/10 bg-[#0c0f16]/90 shadow-2xl shadow-black/80 hover:border-white/20 transition-all duration-300"
               >
                 <div
                   className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
                     isPhotoLeft ? "" : "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1"
                   }`}
                 >
-                  {/* Visual Frame Hub */}
+                  {/* Wide Horizontal Visual Mockup Frame */}
                   <div className="lg:col-span-6 w-full">
                     <div 
                       onClick={() => setSelectedProject(project)}
-                      className="group cursor-pointer rounded-2xl overflow-hidden border border-white/15 bg-[#0c0f16] shadow-2xl shadow-black/80 hover:border-white/30 transition-all duration-300 relative"
+                      className="group cursor-pointer rounded-2xl overflow-hidden border border-white/15 bg-[#090b10] shadow-2xl shadow-black/80 hover:border-white/30 transition-all duration-300 relative"
                       title={labels.clickToInspect}
                     >
                       {/* Window Header Chrome */}
-                      <div className="px-4 py-3 bg-[#11141f] border-b border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
+                      <div className="px-4 py-2.5 bg-[#11141f] border-b border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
                         <div className="flex items-center gap-2">
                           <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                           <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                          <span className="ml-2 text-[11px] text-zinc-300 truncate max-w-[200px] sm:max-w-xs">
+                          <span className="ml-2 text-[11px] text-zinc-300 truncate max-w-[180px] sm:max-w-xs">
                             {project.id === "achilles-cdp-agent" 
                               ? "achilles-cdp --mcp-server [ACTIVE]" 
                               : project.domain}
@@ -147,8 +147,8 @@ export const GitHubProjectsSection: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Mockup Canvas */}
-                      <div className="relative aspect-[16/10] overflow-hidden bg-[#090b10]">
+                      {/* Wide Aspect Ratio Mockup Canvas (Aspect 18/10 para visual mais horizontal) */}
+                      <div className="relative aspect-[18/10] overflow-hidden bg-[#06070a]">
                         <img
                           src={project.image}
                           alt={project.name}
@@ -160,7 +160,7 @@ export const GitHubProjectsSection: React.FC = () => {
 
                         {/* Floating Status Pill */}
                         <div className="absolute bottom-3 left-3 z-10">
-                          <span className="px-3 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/15 text-[11px] font-mono text-white font-semibold flex items-center gap-1.5 shadow-lg">
+                          <span className="px-3 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/15 text-[11px] font-mono text-white font-semibold flex items-center gap-1.5 shadow-lg">
                             <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
                             <span>{project.category}</span>
                           </span>
@@ -188,7 +188,7 @@ export const GitHubProjectsSection: React.FC = () => {
                     </p>
 
                     {/* Key Technical Highlights (STAR Points) */}
-                    <div className="space-y-2.5 mb-6">
+                    <div className="space-y-2 mb-6">
                       {project.features.slice(0, 3).map((feat, fIdx) => (
                         <div key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-200">
                           <FiCheckCircle className="text-[#10b981] w-4 h-4 shrink-0 mt-0.5" />
@@ -203,9 +203,9 @@ export const GitHubProjectsSection: React.FC = () => {
                         {project.metrics.map((metric, mIdx) => (
                           <div
                             key={mIdx}
-                            className="p-2.5 rounded-xl bg-[#0c0f16] border border-white/[0.08] flex flex-col justify-between"
+                            className="p-2.5 rounded-xl bg-[#11141f] border border-white/[0.08] flex flex-col justify-between"
                           >
-                            <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider leading-none mb-1">
+                            <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider leading-none mb-1">
                               {metric.label}
                             </span>
                             <span className="text-xs sm:text-sm font-heading font-bold text-white tracking-tight leading-tight">
@@ -221,25 +221,40 @@ export const GitHubProjectsSection: React.FC = () => {
                       {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-colors"
+                          className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-zinc-300"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    {/* Actions Row */}
+                    {/* Actions Row with Redesigned Iconic GitHub Button */}
                     <div className="flex flex-wrap items-center gap-3">
-                      {/* Direct Link to GitHub or Production */}
-                      <a
-                        href={project.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="motion-button-primary px-5 py-2.5 text-xs font-bold flex items-center gap-2 min-h-[42px] shadow-lg shadow-white/5"
-                      >
-                        {isGithub ? <FiGithub className="text-sm" /> : <FiExternalLink className="text-sm" />}
-                        <span>{isGithub ? labels.viewGithub : labels.visitSite}</span>
-                      </a>
+                      {/* Premium Redesigned GitHub / Production Button */}
+                      {isGithub ? (
+                        <a
+                          href={project.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group/btn relative px-5 py-2.5 rounded-xl bg-[#121520] hover:bg-[#1a1f30] border border-white/20 hover:border-white/40 text-white flex items-center gap-2.5 transition-all duration-200 shadow-lg hover:shadow-[0_0_24px_rgba(255,255,255,0.12)] hover:-translate-y-0.5 min-h-[42px]"
+                        >
+                          <FiGithub className="text-base text-white group-hover/btn:scale-110 transition-transform" />
+                          <span className="font-heading font-bold text-xs tracking-tight">{labels.viewGithub}</span>
+                          <span className="text-[10px] font-mono text-zinc-400 border-l border-white/15 pl-2 flex items-center gap-0.5">
+                            repo <FiArrowUpRight className="text-xs" />
+                          </span>
+                        </a>
+                      ) : (
+                        <a
+                          href={project.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="motion-button-primary px-5 py-2.5 text-xs font-bold flex items-center gap-2 min-h-[42px] shadow-lg shadow-white/5"
+                        >
+                          <FiExternalLink className="text-sm" />
+                          <span>{labels.visitSite}</span>
+                        </a>
+                      )}
 
                       {/* Modal Trigger for In-Depth Technical Specs */}
                       <button
@@ -259,7 +274,7 @@ export const GitHubProjectsSection: React.FC = () => {
         </div>
 
         {/* =========================================================================
-            SECONDARY SYSTEMS SHOWCASE (ECOSYSTEM GRID)
+            SECONDARY SYSTEMS SHOWCASE: WIDE HORIZONTAL ROW CARDS
             ========================================================================= */}
         {secondaryProjects.length > 0 && (
           <div className="pt-12 border-t border-white/[0.08]">
@@ -278,17 +293,106 @@ export const GitHubProjectsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Responsive Grid of Complementary Systems */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {secondaryProjects.map((project, idx) => (
-                <GitHubProjectCard
-                  key={project.id}
-                  project={project}
-                  cardIndex={idx}
-                  totalInPage={secondaryProjects.length}
-                  onOpenModal={setSelectedProject}
-                />
-              ))}
+            {/* Wide Horizontal Cards Grid (2 Colunas com Layout Horizontal) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {secondaryProjects.map((project) => {
+                const isGithub = project.href.includes("github.com")
+
+                return (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.4 }}
+                    className="p-5 rounded-2xl bg-[#0c0f16] border border-white/[0.08] hover:border-white/20 transition-all duration-300 shadow-xl flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between group"
+                  >
+                    {/* Horizontal Card Thumbnail on Left */}
+                    <div 
+                      onClick={() => setSelectedProject(project)}
+                      className="w-full sm:w-44 md:w-48 aspect-[16/10] shrink-0 rounded-xl overflow-hidden border border-white/10 bg-[#090b10] relative cursor-pointer"
+                    >
+                      <img
+                        src={project.image}
+                        alt={project.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top contrast-[1.03] group-hover:scale-105 transition-transform duration-500 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-black/40 group-hover:opacity-0 transition-opacity" />
+                    </div>
+
+                    {/* Horizontal Card Content on Right */}
+                    <div className="flex-1 flex flex-col justify-between w-full">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <span className="text-[10px] font-mono text-[#38bdf8] uppercase tracking-wider font-semibold">
+                            {project.category}
+                          </span>
+                          <span className="text-[10px] font-mono text-zinc-500">
+                            {project.domain}
+                          </span>
+                        </div>
+
+                        <h4 className="text-base font-heading font-extrabold text-white group-hover:text-[#38bdf8] transition-colors leading-tight mb-1.5">
+                          {project.name}
+                        </h4>
+
+                        <p className="text-xs text-zinc-300 leading-snug line-clamp-2 mb-3">
+                          {project.shortDescription}
+                        </p>
+
+                        {/* Metrics Pills */}
+                        {project.metrics && project.metrics.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {project.metrics.map((m, mIdx) => (
+                              <span
+                                key={mIdx}
+                                className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono text-zinc-300"
+                              >
+                                <strong className="text-white">{m.label}:</strong> {m.value}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-2 pt-2 border-t border-white/[0.06]">
+                        {isGithub ? (
+                          <a
+                            href={project.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="px-3 py-1.5 rounded-lg bg-[#121520] hover:bg-[#1a1f30] border border-white/20 hover:border-white/40 text-white flex items-center gap-1.5 text-xs font-mono font-bold transition-all shadow-md"
+                          >
+                            <FiGithub className="text-xs" />
+                            <span>GitHub</span>
+                            <FiArrowUpRight className="text-[10px]" />
+                          </a>
+                        ) : (
+                          <a
+                            href={project.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="motion-button-primary px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 rounded-lg"
+                          >
+                            <FiExternalLink className="text-xs" />
+                            <span>{labels.visitSite}</span>
+                          </a>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProject(project)}
+                          className="px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-zinc-300 hover:text-white transition-colors"
+                        >
+                          {labels.viewArch}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
         )}

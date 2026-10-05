@@ -409,28 +409,6 @@ export const projects = [
     ],
   },
   {
-    id: "sivis-erp",
-    name: "SIVIS Fleet & Billing Management",
-    href: "https://github.com/PedroReoli",
-    domain: "sivis.com.br",
-    type: "erp",
-    category: "Fintech & Fleet ERP",
-    image: "/sivis.png",
-    flagship: false,
-    shortDescription:
-      "Comprehensive ERP for fleet tracking, vehicle protection, recurring billing, claims processing, and bank reconciliation.",
-    stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "Tailwind CSS"],
-    features: [
-      "End-to-end fleet operational management, vehicle inspections, and policy tracking.",
-      "Automated financial engine for recurring billing, remittance files, and bank reconciliation.",
-      "Streamlined claims management workflow with multi-tiered approval chains."
-    ],
-    metrics: [
-      { label: "Segment", value: "Fintech & Fleet" },
-      { label: "Financial", value: "Recurring Billing" },
-    ],
-  },
-  {
     id: "propostas-ac3",
     name: "Autocom3 Commercial Proposal Engine",
     href: "https://www.autocom3.com.br",
@@ -519,13 +497,6 @@ export const parallaxProducts = [
     thumbnail: "/portal-admin.png",
     category: "Multi-Tenant Enterprise Security",
     id: "portal-admin",
-  },
-  {
-    title: "SIVIS Fleet & Billing Management",
-    link: "https://github.com/PedroReoli",
-    thumbnail: "/sivis.png",
-    category: "Fintech & Vehicle Protection ERP",
-    id: "sivis-erp",
   },
   {
     title: "Autocom3 Commercial Proposal Engine",

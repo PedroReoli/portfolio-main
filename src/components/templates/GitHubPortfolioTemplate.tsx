@@ -1,6 +1,6 @@
 import React from "react"
 import Navbar from "../organisms/Navbar"
-import GitHubProfileHeader from "../organisms/GitHubProfileHeader"
+import HeroParallaxStage from "../organisms/HeroParallaxStage"
 import GitHubProjectsSection from "../organisms/GitHubProjectsSection"
 import GitHubExperienceSection from "../organisms/GitHubExperienceSection"
 import SkillsSection from "../organisms/SkillsSection"
@@ -20,9 +20,9 @@ export const GitHubPortfolioTemplate: React.FC = () => {
       {/* Main Content */}
       <main className="w-full overflow-x-clip relative bg-[#07080b]">
         
-        {/* Section 1: Executive Profile Hero */}
+        {/* Section 1: Executive 3D Parallax Hero */}
         <div id="about" className="relative z-10 scroll-mt-24">
-          <GitHubProfileHeader />
+          <HeroParallaxStage />
         </div>
 
         {/* Section 2: Flagship Showcase (Alternating Z-Pattern) & Production Systems */}
