@@ -1,7 +1,11 @@
 export interface PortfolioProject {
   id: string
   name: string
-  href: string
+  href?: string
+  githubUrl?: string
+  liveUrl?: string
+  isProprietary?: boolean
+  accessBadge?: string
   domain: string
   type: string
   category: string

@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["about", "projects", "experience", "skills"]
+      const sections = ["about", "projects", "experience", "education", "skills"]
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId)
         if (el) {
