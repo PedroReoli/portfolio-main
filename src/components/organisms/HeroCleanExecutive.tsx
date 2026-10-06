@@ -26,7 +26,7 @@ import {
 } from "react-icons/si"
 import { FaWhatsapp } from "react-icons/fa"
 
-export const GitHubProfileHeader: React.FC = () => {
+export const HeroCleanExecutive: React.FC = () => {
   const { language } = useLanguage()
   const profile = language === "pt" ? portfolioPT.profile : portfolioEN.profile
   const containerRef = useRef<HTMLDivElement>(null)
@@ -337,4 +337,4 @@ export const GitHubProfileHeader: React.FC = () => {
   )
 }
 
-export default GitHubProfileHeader
+export default HeroCleanExecutive

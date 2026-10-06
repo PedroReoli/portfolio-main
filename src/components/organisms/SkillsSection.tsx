@@ -190,11 +190,11 @@ export const SkillsSection: React.FC = () => {
                         <AnimatePresence>
                           {isHovered && (
                             <motion.div
-                              initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                              initial={{ opacity: 0, y: 10, scale: 0.96 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                              exit={{ opacity: 0, y: 6, scale: 0.96 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute bottom-full left-0 right-0 mb-2 p-3 rounded-xl bg-[#1c1c24] border border-white/20 shadow-2xl z-[100] pointer-events-none"
+                              className="absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 p-3.5 rounded-2xl bg-[#0e131f]/95 backdrop-blur-xl border border-sky-500/30 shadow-[0_12px_36px_rgba(0,0,0,0.8)] z-[999] pointer-events-none w-64 sm:w-72"
                             >
                               <div className="flex items-center justify-between gap-2 mb-1">
                                 <span className="text-xs font-heading font-bold text-white">
@@ -207,7 +207,8 @@ export const SkillsSection: React.FC = () => {
                               <p className="text-[11px] text-[#d4d4d8] leading-relaxed font-body">
                                 {item.usage}
                               </p>
-                              <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-[#1c1c24] border-r border-b border-white/20 rotate-45" />
+                              {/* Centered indicator arrow */}
+                              <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#0e131f] border-r border-b border-sky-500/30 rotate-45" />
                             </motion.div>
                           )}
                         </AnimatePresence>

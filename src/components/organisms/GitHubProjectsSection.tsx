@@ -39,9 +39,13 @@ export const GitHubProjectsSection: React.FC = () => {
         next: "Next",
       }
 
-  const totalPages = Math.ceil(projects.length / ITEMS_PER_PAGE) || 1
+  // Separate flagships from secondary modules
+  const flagshipProjects = useMemo(() => projects.filter((p: any) => p.flagship), [projects])
+  const secondaryProjects = useMemo(() => projects.filter((p: any) => !p.flagship), [projects])
 
-  // Scroll synchronization for smooth page swapping while pinned
+  const totalPages = Math.ceil(secondaryProjects.length / ITEMS_PER_PAGE) || 1
+
+  // Scroll synchronization for smooth page swapping while pinned for secondary projects
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -65,9 +69,8 @@ export const GitHubProjectsSection: React.FC = () => {
 
   const paginatedProjects = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE
-    return projects.slice(start, start + ITEMS_PER_PAGE)
-  }, [projects, currentPage])
-
+    return secondaryProjects.slice(start, start + ITEMS_PER_PAGE)
+  }, [secondaryProjects, currentPage])
 
   // Dynamic grid layout class based on number of cards in current page
   const gridLayoutClass = useMemo(() => {
@@ -83,15 +86,14 @@ export const GitHubProjectsSection: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      style={{ minHeight: totalPages > 1 ? `${totalPages * 90 + 40}vh` : "100vh" }}
+      style={{ minHeight: secondaryProjects.length > 0 && totalPages > 1 ? `${totalPages * 90 + 40}vh` : "auto" }}
       className="relative w-full bg-[#09090b] text-[#ffffff] border-b border-white/[0.08]"
     >
-      {/* Pinned Sticky Stage Viewport */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-y-auto lg:overflow-hidden pt-20 sm:pt-24 pb-8 z-10 no-scrollbar">
+      <div className={`w-full flex flex-col justify-center pt-20 sm:pt-24 pb-16 z-10 ${secondaryProjects.length > 0 && totalPages > 1 ? "sticky top-0 h-screen overflow-y-auto lg:overflow-hidden no-scrollbar" : ""}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10 w-full my-auto">
           
-          {/* Section Header (Without category filters) */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-mono text-[#a1a1aa] uppercase tracking-wider font-semibold mb-2">
                 <FiLayers className="text-white" />
@@ -104,99 +106,117 @@ export const GitHubProjectsSection: React.FC = () => {
                 {labels.description}
               </p>
             </div>
+          </div>
 
-            {/* Pagination Controls in Header (Only when multiple pages) */}
-            {totalPages > 1 && (
-              <div className="flex items-center gap-3 self-start sm:self-end">
-                <span className="text-xs text-[#a1a1aa] font-mono">
-                  {labels.page} <span className="text-white font-bold">{currentPage}</span> / {totalPages}
-                </span>
+          {/* Render Flagship Projects first */}
+          {flagshipProjects.length > 0 && (
+            <div className="mb-12">
+              {flagshipProjects.map((project, idx) => (
+                <GitHubProjectCard
+                  key={project.id}
+                  project={project}
+                  cardIndex={idx}
+                  totalInPage={1}
+                />
+              ))}
+            </div>
+          )}
 
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all ${
-                      currentPage === 1
-                        ? "border-white/5 text-zinc-700 cursor-not-allowed bg-[#0f0f13]"
-                        : "border-white/10 text-white hover:border-white/30 hover:bg-white/[0.06] bg-[#141419]"
-                    }`}
-                    title={labels.prev}
-                    aria-label={labels.prev}
-                  >
-                    <FiChevronLeft className="text-base" />
-                  </button>
-
-                  <button
-                    type="button"
-                    disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                    className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all ${
-                      currentPage === totalPages
-                        ? "border-white/5 text-zinc-700 cursor-not-allowed bg-[#0f0f13]"
-                        : "border-white/10 text-white hover:border-white/30 hover:bg-white/[0.06] bg-[#141419]"
-                    }`}
-                    title={labels.next}
-                    aria-label={labels.next}
-                  >
-                    <FiChevronRight className="text-base" />
-                  </button>
+          {/* Render Secondary Projects with pagination */}
+          {secondaryProjects.length > 0 && (
+            <>
+              {/* Pagination Controls in Header (Only when multiple pages) */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-t border-white/[0.06] pt-6">
+                <div className="flex items-center text-xs font-mono text-[#71717a]">
+                  {labels.showing} <span className="text-white font-bold ml-1 mr-1">1–{secondaryProjects.length}</span> {labels.of}{" "}
+                  <span className="text-white font-bold mx-1">{secondaryProjects.length}</span> {labels.systems} (Secondary Modules)
                 </div>
+
+                {totalPages > 1 && (
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-[#a1a1aa] font-mono">
+                      {labels.page} <span className="text-white font-bold">{currentPage}</span> / {totalPages}
+                    </span>
+
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all ${
+                          currentPage === 1
+                            ? "border-white/5 text-zinc-700 cursor-not-allowed bg-[#0f0f13]"
+                            : "border-white/10 text-white hover:border-white/30 hover:bg-white/[0.06] bg-[#141419]"
+                        }`}
+                        title={labels.prev}
+                        aria-label={labels.prev}
+                      >
+                        <FiChevronLeft className="text-base" />
+                      </button>
+
+                      <button
+                        type="button"
+                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                        className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-all ${
+                          currentPage === totalPages
+                            ? "border-white/5 text-zinc-700 cursor-not-allowed bg-[#0f0f13]"
+                            : "border-white/10 text-white hover:border-white/30 hover:bg-white/[0.06] bg-[#141419]"
+                        }`}
+                        title={labels.next}
+                        aria-label={labels.next}
+                      >
+                        <FiChevronRight className="text-base" />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Counter Status Bar */}
-          <div className="flex items-center justify-between text-xs font-mono text-[#71717a] mb-6 pb-2.5 border-b border-white/[0.06]">
-            <div>
-              {labels.showing} <span className="text-white font-bold">1–{projects.length}</span> {labels.of}{" "}
-              <span className="text-white font-bold">{projects.length}</span> {labels.systems}
-            </div>
-          </div>
+              {/* Animated Cards Deck with Dynamic Centering Grid */}
+              <div className="min-h-[340px] flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`page-${currentPage}`}
+                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className={gridLayoutClass}
+                  >
+                    {paginatedProjects.map((project, idx) => (
+                      <GitHubProjectCard
+                        key={project.id}
+                        project={project}
+                        cardIndex={idx}
+                        totalInPage={paginatedProjects.length}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
-          {/* Animated Cards Deck with Dynamic Centering Grid */}
-          <div className="min-h-[340px] flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`page-${currentPage}`}
-                initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={gridLayoutClass}
-              >
-                {paginatedProjects.map((project, idx) => (
-                  <GitHubProjectCard
-                    key={project.id}
-                    project={project}
-                    cardIndex={idx}
-                    totalInPage={paginatedProjects.length}
-                  />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Bottom Pagination Dots */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {Array.from({ length: totalPages }).map((_, idx) => {
-                const pageNumber = idx + 1
-                const isActive = currentPage === pageNumber
-                return (
-                  <button
-                    key={pageNumber}
-                    type="button"
-                    onClick={() => setCurrentPage(pageNumber)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      isActive ? "w-7 bg-white" : "w-2 bg-white/20 hover:bg-white/40"
-                    }`}
-                    aria-label={`${labels.page} ${pageNumber}`}
-                  />
-                )
-              })}
-            </div>
+              {/* Bottom Pagination Dots */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-6">
+                  {Array.from({ length: totalPages }).map((_, idx) => {
+                    const pageNumber = idx + 1
+                    const isActive = currentPage === pageNumber
+                    return (
+                      <button
+                        key={pageNumber}
+                        type="button"
+                        onClick={() => setCurrentPage(pageNumber)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          isActive ? "w-7 bg-white" : "w-2 bg-white/20 hover:bg-white/40"
+                        }`}
+                        aria-label={`${labels.page} ${pageNumber}`}
+                      />
+                    )
+                  })}
+                </div>
+              )}
+            </>
           )}
 
         </div>

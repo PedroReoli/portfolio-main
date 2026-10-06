@@ -20,8 +20,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null)
   const isFlagship = (project as { flagship?: boolean }).flagship
 
-  // Determine expansion direction on desktop
-  // If it's the last card in a row (or 2nd card in a 2-card page), expand to the left to avoid screen overflow
   const isRightEdge = totalInPage === 2 ? cardIndex === 1 : cardIndex % 3 === 2
 
   const labels = language === "pt"
@@ -42,7 +40,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
         fullStackTitle: "Complete Stack",
       }
 
-  // Close when clicking outside
   useEffect(() => {
     if (!isExpanded) return
     const handleClickOutside = (e: MouseEvent) => {
@@ -61,52 +58,200 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
     }
   }, [isExpanded])
 
+  if (isFlagship) {
+    return (
+      <div className="w-full relative z-10 mb-8" ref={cardRef}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#0f0f14] border border-white/[0.08] rounded-2xl overflow-hidden hover:border-white/20 transition-all shadow-lg shadow-black/40">
+          {/* Left Column: Info */}
+          <div className="lg:col-span-5 p-6 flex flex-col justify-between h-full relative">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-mono font-bold tracking-wide">
+                  <FiStar className="text-xs fill-white text-white" />
+                  {labels.flagshipBadge}
+                </span>
+                <span className="text-[11px] font-mono text-[#71717a] whitespace-nowrap">
+                  {project.domain}
+                </span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-3 leading-snug">
+                {project.name}
+              </h3>
+              <p className="text-sm text-[#a1a1aa] mb-6 leading-relaxed font-body">
+                {project.shortDescription}
+              </p>
+
+              <div className="space-y-2.5 mb-6">
+                {project.features?.slice(0, 3).map((feat, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-zinc-300 font-body leading-relaxed">
+                    <FiCheckCircle className="text-sm text-[#25d366] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mb-6">
+                  {project.metrics.slice(0, 2).map((metric, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col gap-1 px-3 py-2 rounded-lg bg-[#09090c] text-white border border-white/10"
+                    >
+                      <span className="text-[10px] text-[#a1a1aa] font-mono uppercase truncate">{metric.label}</span>
+                      <span className="font-bold text-sm text-white shrink-0 truncate">{metric.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="pt-4 border-t border-white/[0.08]">
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                {project.stack.slice(0, 4).map((tech, i) => (
+                  <span key={i} className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-[#a1a1aa] font-medium">
+                    {tech}
+                  </span>
+                ))}
+                {project.stack.length > 4 && (
+                  <span className="px-2 py-0.5 rounded-md bg-transparent text-[11px] font-mono text-[#71717a]">
+                    +{project.stack.length - 4}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {project.href && (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 py-2 px-4 rounded-xl bg-white text-[#09090b] font-mono text-xs font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-md"
+                  >
+                    <span>{labels.visit}</span>
+                    <FiExternalLink className="text-xs" />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded((prev) => !prev)}
+                  className={`py-2 px-4 rounded-xl text-xs font-mono font-semibold flex items-center gap-1.5 transition-all shadow-sm ${
+                    isExpanded
+                      ? "bg-white/20 text-white border border-white/30"
+                      : "bg-white/[0.08] text-white hover:bg-white/[0.15] border border-white/15"
+                  }`}
+                  aria-expanded={isExpanded}
+                >
+                  <span>{labels.viewArch}</span>
+                  <FiChevronRight className={`text-xs transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Image Preview */}
+          <div className="lg:col-span-7 bg-[#09090b] relative min-h-[250px] lg:min-h-full flex items-center justify-center p-4 lg:p-6 border-l border-white/[0.08]">
+            {project.image ? (
+              <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/10 shadow-2xl relative bg-[#141419]">
+                <img src={project.image} alt={project.name} className="w-full h-full object-cover object-top" />
+              </div>
+            ) : (
+              <div className="w-full aspect-[16/10] rounded-xl border border-white/5 bg-[#141419] flex items-center justify-center">
+                 <span className="text-zinc-600 font-mono text-sm">Sem preview visual</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Floating Elevated Popout Flyout (High Z-Index, Centered Over Card) */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] w-[90%] max-w-lg bg-[#14141e]/95 backdrop-blur-2xl border border-white/25 rounded-2xl p-6 shadow-2xl shadow-black/90"
+            >
+              {/* Popout Header */}
+              <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#25d366] animate-pulse" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+                    {labels.featuresTitle}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded(false)}
+                  className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all"
+                  aria-label={labels.close}
+                >
+                  <FiX className="text-sm" />
+                </button>
+              </div>
+
+              {/* Engineering Highlights List */}
+              <div className="space-y-3 mb-6">
+                {project.features?.map((feat, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-sm text-zinc-200 font-body leading-relaxed">
+                    <FiCheckCircle className="text-base text-[#25d366] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Complete Stack Section */}
+              <div className="mb-2 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#a1a1aa] uppercase tracking-wider font-semibold mb-3">
+                  <FiCpu className="text-xs text-white" />
+                  <span>{labels.fullStackTitle}</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-md bg-white/[0.08] border border-white/15 text-[11px] font-mono text-white font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    )
+  }
+
+  // Secondary Modules Layout (flagship: false)
   return (
     <div
       ref={cardRef}
       className={`relative ${isExpanded ? "z-50" : "z-10"}`}
     >
-      {/* Base Card (Stays perfectly stable in the grid) */}
       <div
-        className={`card-dark p-5 flex flex-col justify-between h-full group transition-all duration-300 relative rounded-2xl ${
-          isFlagship
-            ? "border-white/20 bg-[#131319] hover:border-white/35 shadow-lg shadow-black/40"
-            : "border-white/[0.08] bg-[#0f0f14] hover:border-white/20"
-        } ${isExpanded ? "ring-1 ring-white/40 border-white/50 bg-[#161620]" : ""}`}
+        className={`card-dark p-5 flex flex-col justify-between h-full group transition-all duration-300 relative rounded-2xl border-white/[0.08] bg-[#0f0f14] hover:border-white/20 ${isExpanded ? "ring-1 ring-white/40 border-white/50 bg-[#161620]" : ""}`}
       >
         <div>
-          {/* Top Header: Badge & Domain */}
           <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2">
-              {isFlagship ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-mono font-bold tracking-wide">
-                  <FiStar className="text-xs fill-white text-white" />
-                  {labels.flagshipBadge}
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[#a1a1aa] text-[11px] font-mono font-medium">
-                  <FiLayers className="text-xs text-zinc-400" />
-                  {project.category}
-                </span>
-              )}
-            </div>
-
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[#a1a1aa] text-[11px] font-mono font-medium">
+              <FiLayers className="text-xs text-zinc-400" />
+              {project.category}
+            </span>
             <span className="text-[11px] font-mono text-[#71717a] group-hover:text-[#a1a1aa] transition-colors whitespace-nowrap">
               {project.domain}
             </span>
           </div>
 
-          {/* Project Title */}
           <h3 className="text-base sm:text-lg font-heading font-bold text-white mb-2 group-hover:text-zinc-100 transition-colors leading-snug">
             {project.name}
           </h3>
 
-          {/* Short Description */}
           <p className="text-xs text-[#a1a1aa] mb-4 leading-relaxed font-body">
             {project.shortDescription}
           </p>
 
-          {/* Key Metrics Chips (Exactly 2 clean full-width rows) */}
           {project.metrics && project.metrics.length > 0 && (
             <div className="grid grid-cols-1 gap-1.5 mb-4">
               {project.metrics.slice(0, 2).map((metric, i) => (
@@ -125,9 +270,7 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
           )}
         </div>
 
-        {/* Footer: Tech Stack Indicators & Expansion Button */}
         <div className="pt-3.5 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs mt-1">
-          {/* Tech Stack Pills (Clean first 2 badges without cut-off) */}
           <div className="flex items-center gap-2">
             {project.stack.slice(0, 2).map((tech, i) => (
               <div key={i} className="flex items-center gap-1.5 text-[11px] text-[#a1a1aa] font-mono shrink-0">
@@ -137,7 +280,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
             ))}
           </div>
 
-          {/* Action Trigger Button (No cut-off, clean and highlighted) */}
           <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
@@ -169,7 +311,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
         </div>
       </div>
 
-      {/* Floating Elevated Popout Flyout (High Z-Index, Pops Forward & to the Right / Left) */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -183,7 +324,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
                 : "lg:left-full lg:ml-4 left-0"
             }`}
           >
-            {/* Popout Header */}
             <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10 mb-4">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#25d366] animate-pulse" />
@@ -201,7 +341,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
               </button>
             </div>
 
-            {/* Engineering Highlights List */}
             <div className="space-y-2.5 mb-5">
               {project.features?.map((feat, idx) => (
                 <div key={idx} className="flex items-start gap-2.5 text-xs text-zinc-200 font-body leading-relaxed">
@@ -211,7 +350,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
               ))}
             </div>
 
-            {/* Complete Stack Section */}
             <div className="mb-5 pt-3 border-t border-white/10">
               <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#a1a1aa] uppercase tracking-wider font-semibold mb-2">
                 <FiCpu className="text-xs text-white" />
@@ -229,7 +367,6 @@ export const GitHubProjectCard: React.FC<GitHubProjectCardProps> = ({
               </div>
             </div>
 
-            {/* Action CTA inside the popout */}
             <div className="flex items-center gap-2 pt-2">
               {project.href && (
                 <a
